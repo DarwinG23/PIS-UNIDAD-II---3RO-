@@ -10,17 +10,17 @@ package tareas.modelo;
  */
 public class tarea {
     private tipoTarea id_tarea;
-    private String tipoTarea;
+    private String tituloTarea;
     private Integer Id;
     private String fechaInicio;
     private String fechaFinal;
     private String Descripcion;
-    private String nota;
+    private Float nota;
     private estadoTarea id_estado;
 
-    public tarea(tipoTarea id_tarea,String  nota, String Descripcion, String tipoTarea, Integer Id, String fechaInicio, String fechaFinal,estadoTarea id_estado) {
+    public tarea(tipoTarea id_tarea,Float nota, String Descripcion, String tipoTarea, Integer Id, String fechaInicio, String fechaFinal,estadoTarea id_estado) {
         this.id_tarea = id_tarea;
-        this.tipoTarea = tipoTarea;
+        this.tituloTarea = tipoTarea;
         this.Id = Id;
         this.Descripcion=Descripcion;
         this.fechaInicio = fechaInicio;
@@ -34,7 +34,7 @@ public class tarea {
         this.id_tarea =null;
         this.fechaFinal=null;
         this.fechaInicio=null;
-        this.tipoTarea = null;
+        this.tituloTarea = null;
         this.Id=null;
         this.Descripcion=null;
         this.nota=null;
@@ -73,11 +73,11 @@ public class tarea {
         this.fechaFinal = fechaFinal;
     }
 
-    public String getNota() {
+    public Float getNota() {
         return nota;
     }
 
-    public void setNota(String nota) {
+    public void setNota(Float nota) {
         this.nota = nota;
     }
     
@@ -90,14 +90,13 @@ public class tarea {
     public void setId_tarea(tipoTarea id_tarea) {
         this.id_tarea = id_tarea;
     }
- 
 
-    public String getTipoTarea() {
-        return tipoTarea;
+    public String getTituloTarea() {
+        return tituloTarea;
     }
 
-    public void setTipoTarea(String tipoTarea) {
-        this.tipoTarea = tipoTarea;
+    public void setTituloTarea(String tituloTarea) {
+        this.tituloTarea = tituloTarea;
     }
 
     public estadoTarea getId_estado() {
@@ -111,6 +110,6 @@ public class tarea {
 
     @Override
     public String toString() {
-        return "Control{" + "id_tarea="+ id_tarea+"id_estado"+id_estado+"nota"+nota+ "descripcion=" +Descripcion+ ", tipoTarea=" + tipoTarea + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + '}';
+        return "Control{" + "id_tarea="+ id_tarea+"id_estado"+id_estado+"nota"+nota+ "descripcion=" +Descripcion+ ", tipoTarea=" + tituloTarea + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + '}';
     }
 }
