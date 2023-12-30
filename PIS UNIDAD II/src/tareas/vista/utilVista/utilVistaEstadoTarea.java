@@ -4,10 +4,24 @@
  */
 package tareas.vista.utilVista;
 
+import javax.swing.JComboBox;
+import tareas.controlador.estadoTareaControl;
+import tareas.modelo.estadoTarea;
+
 /**
  *
  * @author ALEJANDRO
  */
 public class utilVistaEstadoTarea {
+    public static void CargarComboRolesL(JComboBox cbx)throws Exception{
+         estadoTareaControl rc= new estadoTareaControl();
+        cbx.removeAllItems();
+         for (int i = 0; i < rc.getEstado().getLength(); i++) {
+            cbx.addItem(rc.getEstado().getInfo(i));
+        }
+    }
     
+    public static estadoTarea ObtenerEstadoTarea(JComboBox cbx){
+        return (estadoTarea)cbx.getSelectedItem();
+    }
 }
