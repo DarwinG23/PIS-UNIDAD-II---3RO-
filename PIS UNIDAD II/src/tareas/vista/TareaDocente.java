@@ -4,17 +4,96 @@
  */
 package tareas.vista;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import tareas.controlador.controladorTarea.administrarTarea1;
+import tareas.vista.modeloTabla.modeloTablaTarea;
+import tareas.vista.utilVista.utilVistaEstadoTarea;
+import tareas.vista.utilVista.utilVistaTipoTarea;
+
 /**
  *
  * @author ALEJANDRO
  */
 public class TareaDocente extends javax.swing.JFrame {
-
+    private administrarTarea1 tareaControl = new administrarTarea1();
+    private modeloTablaTarea mtp = new modeloTablaTarea();
+    
     /**
      * Creates new form TareaDocente
      */
     public TareaDocente() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        Limpiar();
+    }
+    private void CargarTabla() {
+        mtp.setTarea(tareaControl.getTareas());
+        cbxTipo.setSelectedIndex(0);
+        cbxEstado.setSelectedIndex(-1);
+        cbxTipo.setSelectedIndex(0);
+        tblMostrar.setModel((TableModel) mtp);
+        tblMostrar.updateUI();
+    }
+    private void Limpiar() {
+        try {
+            utilVistaEstadoTarea.CargarComboRolesL(cbxEstado);
+            utilVistaTipoTarea.CargarComboRolesL(cbxTipo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        txtDescripcion.setEnabled(true);
+        txtNota.setText(" ");
+        txtDescripcion.setText(" ");
+        txtTitulo.setText(" ");
+        tblMostrar.clearSelection();
+        CargarTabla();
+        cbxEstado.setSelectedIndex(-1);//limpia combobo
+        cbxTipo.setSelectedIndex(-1);//limpia combobo
+        cbxTipo.setSelectedIndex(-1);
+        tareaControl.setTarea1(null);
+    }
+    private Boolean Validar() {
+        return (!txtDescripcion.getText().trim().isEmpty()
+                && !txtNota.getText().trim().isEmpty()
+                && !txtTitulo.getText().trim().isEmpty());
+    }
+    private void Guardar() {
+        if (Validar()) {
+            tareaControl.getTarea1().setDescripcion(txtDescripcion.getText());
+            tareaControl.getTarea1().setId_tarea(utilVistaTipoTarea.ObtenerTipoTarea(cbxTipo));
+            tareaControl.getTarea1().setId_estado(utilVistaEstadoTarea.ObtenerEstadoTarea(cbxEstado));
+            tareaControl.getTarea1().setNota(Float.parseFloat(txtNota.getText()));
+            tareaControl.getTarea1().setTituloTarea(txtTitulo.getText());
+            if (tareaControl.persist()) {
+                JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+                tareaControl.setTarea1(null);
+                CargarTabla();
+                Limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos  ");
+
+        }
+    }
+    private void cargarVista() {
+        int fila = tblMostrar.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Escoja un registtro de la tabla");
+        } else {
+            try {
+                tareaControl.setTarea1(mtp.getTarea().getInfo(fila));
+                txtDescripcion.setText(tareaControl.getTarea1().getDescripcion());
+                txtNota.setText(String.valueOf(tareaControl.getTarea1().getNota()));
+                txtTitulo.setText(tareaControl.getTarea1().getTituloTarea());
+                cbxEstado.setSelectedItem(tareaControl.getTarea1().getId_tarea());
+
+            } catch (Exception e) {
+            }
+
+        }
     }
 
     /**
@@ -33,7 +112,7 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxEstado = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtNota = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -87,9 +166,9 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel5.setText("ESTADO TAREA:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(204, 204, 255));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 342, -1));
+        cbxEstado.setBackground(new java.awt.Color(204, 204, 255));
+        cbxEstado.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 342, -1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 0, 153));
@@ -122,6 +201,11 @@ public class TareaDocente extends javax.swing.JFrame {
         btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setForeground(new java.awt.Color(255, 153, 153));
         btnGuardar.setText("GUARDAR DATOS");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(827, 74, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
@@ -132,11 +216,21 @@ public class TareaDocente extends javax.swing.JFrame {
         btnSeleccionar.setBackground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setForeground(new java.awt.Color(255, 153, 204));
         btnSeleccionar.setText("SELECCIONAR DATO");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 416, -1, -1));
 
         btnModificar.setBackground(new java.awt.Color(255, 255, 255));
         btnModificar.setForeground(new java.awt.Color(255, 153, 204));
         btnModificar.setText("GUARDAR DATOS MDIFICADOS");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(794, 416, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,6 +246,35 @@ public class TareaDocente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        cargarVista();
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        Guardar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if (Validar()) {
+            tareaControl.getTarea1().setDescripcion(txtDescripcion.getText());
+            tareaControl.getTarea1().setId_tarea(utilVistaTipoTarea.ObtenerTipoTarea(cbxTipo));
+            tareaControl.getTarea1().setId_estado(utilVistaEstadoTarea.ObtenerEstadoTarea(cbxEstado));
+            tareaControl.getTarea1().setNota(Float.parseFloat(txtNota.getText()));
+            tareaControl.getTarea1().setTituloTarea(txtTitulo.getText());
+            if (tareaControl.marge(tareaControl.getTarea1(), tblMostrar.getSelectedRow())) {
+                JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+                tareaControl.setTarea1(null);
+                CargarTabla();
+                Limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos  ");
+
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,8 +316,8 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JComboBox<String> cbxTipo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

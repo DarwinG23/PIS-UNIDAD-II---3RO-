@@ -1,0 +1,1 @@
+{"lista.DynamicList":{"header":{"info":{"@class":"tareas.modelo.tarea","id_tarea":{"nombre":"ACD","Id":1},"tituloTarea":" Ensayo","Id":1,"Descripcion":"Matematica ","nota":8.1,"id_estado":{"estado":"Retrasada","Id":3}}},"last":{"@reference":"..\/header"},"length":1}}

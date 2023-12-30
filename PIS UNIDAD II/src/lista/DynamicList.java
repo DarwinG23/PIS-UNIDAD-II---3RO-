@@ -93,7 +93,7 @@ public class DynamicList<E> {
 
     }
 
-    private Node<E> getNode(Integer index) throws EmptyException, IndexOutOfBoundsException {
+    public Node<E> getNode(Integer index) throws EmptyException, IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new EmptyException("Error, Lista vacia");
         } else if (index.intValue() < 0 || index.intValue() == length) {
