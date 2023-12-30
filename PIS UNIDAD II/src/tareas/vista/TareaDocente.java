@@ -48,6 +48,8 @@ public class TareaDocente extends javax.swing.JFrame {
         txtNota.setText(" ");
         txtDescripcion.setText(" ");
         txtTitulo.setText(" ");
+        txtFechaInicio.setText(" ");
+        txtFechaFInal.setText(" ");
         tblMostrar.clearSelection();
         CargarTabla();
         cbxEstado.setSelectedIndex(-1);//limpia combobo
