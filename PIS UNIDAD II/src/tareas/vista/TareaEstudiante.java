@@ -24,15 +24,25 @@ public class TareaEstudiante extends javax.swing.JFrame {
     TablaPdf_Vo tpdf = new  TablaPdf_Vo();
     String ruta_archivo = "";
     int id = -1;
+    private String dato,dato1;
+    private javax.swing.JFrame parent;
     /**
      * Creates new form TareaEstudiante
      */
+    public void setDato(String dato, String dato1){
+        this.dato = dato;
+        txtTitulo.setText(dato);
+        txtDescripcion.setText(dato1);
+    }
+   
     
      public TareaEstudiante() {
         initComponents();
         tpdf.visualizar_PdfVO(tblMostrar);
         activa_boton(false, false, false);
         txtNombre.setEnabled(false);
+        txtTitulo.setEnabled(false);
+        txtDescripcion.setEnabled(false);
     }
       public void activa_boton(boolean a, boolean b, boolean c) {
         btnGuardar.setEnabled(a);
@@ -129,6 +139,9 @@ public class TareaEstudiante extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         btnSeleccionar = new javax.swing.JButton();
+        txtTitulo = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -243,6 +256,16 @@ public class TareaEstudiante extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 390, -1));
+        jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 420, -1));
+        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 420, -1));
+
+        btnRegresar.setText("<<<");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -343,6 +366,13 @@ public class TareaEstudiante extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblMostrarMouseClicked
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        TareaDocente td=new TareaDocente();
+        td.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -384,6 +414,7 @@ public class TareaEstudiante extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -396,6 +427,11 @@ public class TareaEstudiante extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTable tblMostrarDatos;
+    public static javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
+    public static javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
+void setParent(javax.swing.JFrame parent) {
+        this.parent = parent;
+    }
 }

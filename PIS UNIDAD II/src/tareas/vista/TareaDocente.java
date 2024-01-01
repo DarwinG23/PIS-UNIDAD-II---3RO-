@@ -28,6 +28,7 @@ public class TareaDocente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Limpiar();
+
     }
     private void CargarTabla() {
         mtp.setTarea(tareaControl.getTareas());
@@ -137,6 +138,7 @@ public class TareaDocente extends javax.swing.JFrame {
         jCalendar2 = new com.toedter.calendar.JCalendar();
         jLabel10 = new javax.swing.JLabel();
         cbxEstudiante = new javax.swing.JComboBox<>();
+        btnPasar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -278,6 +280,14 @@ public class TareaDocente extends javax.swing.JFrame {
 
         jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, 300, -1));
 
+        btnPasar.setText("Presentar Dato en Vista estudiante");
+        btnPasar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -340,6 +350,14 @@ public class TareaDocente extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jCalendar1PropertyChange
 
+    private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
+        TareaEstudiante mForm2 = new TareaEstudiante();
+       mForm2.setDato(txtTitulo.getText(),txtDescripcion.getText());
+        mForm2.setParent(this);
+       this.setVisible(false); // ocultar el formulario actual.
+       mForm2.setVisible(true);
+    }//GEN-LAST:event_btnPasarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -378,6 +396,7 @@ public class TareaDocente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JComboBox<String> cbxEstudiante;
@@ -397,10 +416,10 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMostrar;
-    private javax.swing.JTextField txtDescripcion;
+    public static javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtFechaFInal;
     private javax.swing.JTextField txtFechaInicio;
     private javax.swing.JTextField txtNota;
-    private javax.swing.JTextField txtTitulo;
+    public static javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
