@@ -18,6 +18,7 @@ public class tarea {
     private Float nota;
     private estadoTarea id_estado;
     private String estudiante;
+    private String docente;
 
     public tarea(tipoTarea id_tarea,Float nota, String Descripcion, String tipoTarea, Integer Id, String fechaInicio, String fechaFinal,estadoTarea id_estado) {
         this.id_tarea = id_tarea;
