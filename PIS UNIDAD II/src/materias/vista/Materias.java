@@ -15,7 +15,117 @@ import materias.vista.Tabla.ModeloTablaMateria;
  */
 public class Materias extends javax.swing.JFrame {
 
-    
+    private MateriaControl1 materiaControl = new MateriaControl1();
+    private ModeloTablaMateria mta = new ModeloTablaMateria();
+
+    /**
+     * Creates new form Materia
+     */
+    public Materias() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        Limpiar();
+    }
+
+    private void ordenar() {
+        String criterio = cbxCriterio.getSelectedItem().toString();
+        Integer tipo = 0;
+        if (btnOrden.isSelected()) {
+            tipo = 1;
+        }
+        try {
+            mta.setMaterias(materiaControl.ordenar(materiaControl.all(), tipo, criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+//    
+
+    private void buscar() {
+        String texto = txt_buscar.getText();
+        String criterio = cbxCriterio1.getSelectedItem().toString();
+        String tipoBusqueda = cbx_busqueda.getSelectedItem().toString();
+
+        try {
+            if (tipoBusqueda.equalsIgnoreCase("lineal")) {
+                mta.setMaterias(materiaControl.buscarPorCriterioLineal(texto, materiaControl.getMaterias(), criterio));
+            } else if (tipoBusqueda.equalsIgnoreCase("binaria")) {
+                mta.setMaterias(materiaControl.buscarPorCriterioBinario(texto, materiaControl.getMaterias(), criterio));
+            }
+
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void CargarTabla() {
+        mta.setMaterias(materiaControl.getMaterias());
+        tblMostrar.setModel((TableModel) mta);
+        tblMostrar.updateUI();
+    }
+
+    private void Limpiar() {
+
+        txtParalelo.setEnabled(true);
+        tblMostrar.clearSelection();
+        txtNombre.setText(" ");
+        txtCiclo.setText(" ");
+        CargarTabla();
+        materiaControl.setMateria(null);
+
+    }
+
+    private Boolean Validar() {
+        return (!txtParalelo.getText().trim().isEmpty()
+                && !txtId_Materia.getText().trim().isEmpty()
+                && !txtNombre.getText().trim().isEmpty()
+                && !txtCiclo.getText().trim().isEmpty());
+    }
+
+    private void Guardar() {
+        if (Validar()) {
+
+            materiaControl.getMateria().setNombre(txtNombre.getText());
+            materiaControl.getMateria().setParalelo(txtParalelo.getText());
+            materiaControl.getMateria().setCiclo(txtCiclo.getText());
+            materiaControl.getMateria().setId_Materia(txtId_Materia.getText());
+
+            if (materiaControl.persit()) {
+                JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+                materiaControl.setMateria(null);
+                CargarTabla();
+                Limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos ");
+
+        }
+        //}
+    }
+
+    private void cargarVista() {
+        int fila = tblMostrar.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla");
+        } else {
+            try {
+                materiaControl.setMateria(mta.getMaterias().getInfo(fila));
+                txtParalelo.setText(materiaControl.getMateria().getParalelo());
+                txtCiclo.setText(materiaControl.getMateria().getCiclo());
+                txtId_Materia.setEnabled(false);
+
+            } catch (Exception e) {
+            }
+
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
