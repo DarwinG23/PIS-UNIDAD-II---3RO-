@@ -11,21 +11,21 @@ import usuarios.modelo.Docente;
  *
  * @author USUARIO
  */
-public class DocenteControl {
-    private DynamicList<Docente> docenteList;
-    private Docente docente;
-
-    public DocenteControl() {
-    }
-
-    public DocenteControl(Integer tamano) {
-        this.docenteList = new DynamicList<>();
-    }
-
-//    public Boolean Guardar() {
-//        Integer pos = VerificarPosicion();
-//        if (pos > -1) {
-//            DocenteControl.setEstudiantes(pos + 1);
+//public class DocenteControl {
+//    private DynamicList<Docente> docenteList;
+//    private Docente docente;
+//
+//    public DocenteControl() {
+//    }
+//
+//    public DocenteControl(Integer tamano) {
+//        this.docenteList = new DynamicList<>();
+//    }
+//
+////    public Boolean Guardar() {
+////        Integer pos = VerificarPosicion();
+////        if (pos > -1) {
+////            DocenteControl.setEstudiantes(pos + 1);
 //            ListaPasajeros.getCabeza();
 //            return true;
 //        } else {
