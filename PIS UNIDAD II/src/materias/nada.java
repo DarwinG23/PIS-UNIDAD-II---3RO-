@@ -8,6 +8,6 @@ package materias;
  *
  * @author elias
  */
-public class Materia {
+public class nada {
     
 }
