@@ -83,7 +83,7 @@ public class Materia {
                     return nombre.compareTo(p.getNombre()) > 0;
                 } else if(field.equalsIgnoreCase("paralelo")){
                     return paralelo.compareTo(p.getParalelo()) > 0;
-                }else if(field.equalsIgnoreCase("edad")){
+                }else if(field.equalsIgnoreCase("ciclo")){
                     return ciclo.compareTo(p.getCiclo()) > 0;
                 }else if(field.equalsIgnoreCase("id_Materia")){
                     return id_Materia.compareTo(p.getId_Materia()) > 0;

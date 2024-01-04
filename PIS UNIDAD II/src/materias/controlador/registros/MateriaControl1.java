@@ -49,67 +49,67 @@ import materias.modelo.Materia;
 
         return persist(materia);
     }
-     public DynamicList<Materia> quicksort(DynamicList<Materia> lista, Integer tipo, String field) throws EmptyException, Exception {
-        Materia[] materias = lista.toArray();
-        quicksort(materias, 0, materias.length - 1, tipo, field);
-        return lista.toList(materias);
-    }
-
-    public static void quicksort(Materia[] materias, int izq, int der, Integer tipo, String field) {
-        int i = izq;
-        int j = der;
-        Materia pivote = materias[izq];
-
-        while (i <= j) {
-            while (compare(materias[i], pivote, tipo, field) < 0) {
-                i++;
-            }
-            while (compare(materias[j], pivote, tipo, field) > 0) {
-                j--;
-            }
-            if (i <= j) {
-                Materia temp = materias[i];
-                materias[i] = materias[j];
-                materias[j] = temp;
-                i++;
-                j--;
-            }
-        }
-
-        if (izq < j) {
-            quicksort(materias, izq, j, tipo, field);
-        }
-        if (i < der) {
-            quicksort(materias, i, der, tipo, field);
-        }
-    }
-    public static int compare(Materia p1, Materia p2, Integer tipo, String field) {
-        int resultado = 0;
-
-        switch (field) {
-            case "Nombre":
-                resultado = p1.getNombre().compareTo(p2.getNombre());
-                break;
-            case "Paralelo":
-                resultado = p1.getParalelo().compareTo(p2.getParalelo());
-                break;
-            case "Ciclo":
-                resultado = p1.getCiclo().compareTo(p2.getCiclo());
-                break;
-                case "id_Materia":
-                resultado = p1.getId_Materia().compareTo(p2.getId_Materia());
-                break;
-            default:
-                throw new IllegalArgumentException("Campo de comparación no válido: " + field);
-        }
-
-        if (resultado == 0) {
-
-            return 0;
-        }
-
-        return resultado * tipo;
-    }
+//     public DynamicList<Materia> quicksort(DynamicList<Materia> lista, Integer tipo, String field) throws EmptyException, Exception {
+//        Materia[] materias = lista.toArray();
+//        quicksort(materias, 0, materias.length - 1, tipo, field);
+//        return lista.toList(materias);
+//    }
+//
+//    public static void quicksort(Materia[] materias, int izq, int der, Integer tipo, String field) {
+//        int i = izq;
+//        int j = der;
+//        Materia pivote = materias[izq];
+//
+//        while (i <= j) {
+//            while (compare(materias[i], pivote, tipo, field) < 0) {
+//                i++;
+//            }
+//            while (compare(materias[j], pivote, tipo, field) > 0) {
+//                j--;
+//            }
+//            if (i <= j) {
+//                Materia temp = materias[i];
+//                materias[i] = materias[j];
+//                materias[j] = temp;
+//                i++;
+//                j--;
+//            }
+//        }
+//
+//        if (izq < j) {
+//            quicksort(materias, izq, j, tipo, field);
+//        }
+//        if (i < der) {
+//            quicksort(materias, i, der, tipo, field);
+//        }
+//    }
+//    public static int compare(Materia p1, Materia p2, Integer tipo, String field) {
+//        int resultado = 0;
+//
+//        switch (field) {
+//            case "Nombre":
+//                resultado = p1.getNombre().compareTo(p2.getNombre());
+//                break;
+//            case "Paralelo":
+//                resultado = p1.getParalelo().compareTo(p2.getParalelo());
+//                break;
+//            case "Ciclo":
+//                resultado = p1.getCiclo().compareTo(p2.getCiclo());
+//                break;
+//                case "id_Materia":
+//                resultado = p1.getId_Materia().compareTo(p2.getId_Materia());
+//                break;
+//            default:
+//                throw new IllegalArgumentException("Campo de comparación no válido: " + field);
+//        }
+//
+//        if (resultado == 0) {
+//
+//            return 0;
+//        }
+//
+//        return resultado * tipo;
+//    }
 
     public DynamicList<Materia> ordenar(DynamicList<Materia> lista, Integer tipo, String field) throws Exception, Exception {
         Field attribute = utiles.getField(Materia.class, field);
