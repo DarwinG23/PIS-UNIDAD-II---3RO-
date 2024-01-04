@@ -1,25 +1,30 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dao;
+
 import com.thoughtworks.xstream.XStream;
+import lista.DynamicList;
+import exeption.EmptyException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import lista.DynamicList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author darwi
- * @param <T>
  */
-public class DaoImplement <T> implements DaoInterface<T> {
-    
+public class DaoImplement <T> implements DaoInterface<T>{
     private Class <T> clazz;
-    private XStream conection;
+    private XStream connection;
     private String URL;
     
     public DaoImplement(Class<T> clazz){
         this.clazz = clazz;
-        conection = Bridge.getConnection();
-        URL = Bridge.URL + clazz.getSimpleName() + ".json";
+        connection = Bridge.getConnection();
+        URL = Bridge.URL+clazz.getSimpleName() + ".json";
     }
 
     @Override
@@ -28,7 +33,7 @@ public class DaoImplement <T> implements DaoInterface<T> {
         DynamicList<T> ld = all();
         ld.add(data);
         try {
-            conection.toXML(ld, new FileWriter(URL));
+            connection.toXML(ld, new FileWriter(URL));
             return true;
         } catch (Exception e) {
             return false;
@@ -37,18 +42,27 @@ public class DaoImplement <T> implements DaoInterface<T> {
 
     @Override
     //Actualizar lista
-    public Boolean marge(T data, Integer index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Boolean marge(T data, Integer id) {
+        DynamicList<T> ld = all();
+        try {
+            ld.obtenerNodo(id).setInfo(data);
+        } catch (EmptyException ex) {
+            Logger.getLogger(DaoImplement.class.getName()).log(Level.SEVERE,  "No se pudo actualizar", ex);
+        }
+        try {
+            connection.toXML(ld, new FileWriter(URL));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
-
 
     @Override
     public DynamicList<T> all() {
        DynamicList<T> dl = new DynamicList<>();
         try {
-            dl = (DynamicList<T>)conection.fromXML(new FileReader(URL));
+            dl = (DynamicList<T>)connection.fromXML(new FileReader(URL));
         } catch (Exception e) {
-            System.out.println("Error");
         }
         return dl;
     }
@@ -57,5 +71,6 @@ public class DaoImplement <T> implements DaoInterface<T> {
     public T get(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
     
 }
