@@ -11,7 +11,7 @@ import java.util.List;
  * @author Alexander
  */
 public class Curso {
-    private Integer idEstudiante;
+     private Integer idEstudiante;
     private String detalles;
     private String Estado;
     private List<Curso> cursosImpartidos;
@@ -67,7 +67,6 @@ public class Curso {
     public List<Curso> obtenerCursosImpartidos() {
         return cursosImpartidos;
     }
-    
-    
+  
     
 }
