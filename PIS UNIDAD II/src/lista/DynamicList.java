@@ -237,5 +237,10 @@ public class DynamicList<E> {
             return info;
         }
     }
+    
+    //Obtener nodo
+    public Node<E> obtenerNodo(Integer id) throws EmptyException {
+        return getNode(id);
+    }
 
 }
