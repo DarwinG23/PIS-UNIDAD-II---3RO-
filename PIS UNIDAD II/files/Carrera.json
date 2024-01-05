@@ -1,0 +1,1 @@
+{"lista.DynamicList":{"header":{"info":{"@class":"matricula.modelo.Carrera","nombre":"Computacion","descripcion":"jaja","duracionAnios":5,"id":1,"numCiclos":9},"next":{"info":{"@class":"matricula.modelo.Carrera","nombre":"Minas","descripcion":"xd","duracionAnios":6,"id":2,"numCiclos":10}}},"last":{"@reference":"..\/header\/next"},"length":2}}

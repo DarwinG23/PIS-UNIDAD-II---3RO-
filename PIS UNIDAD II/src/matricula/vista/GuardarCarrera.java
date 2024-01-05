@@ -20,22 +20,21 @@ import matricula.vista.tabla.ModeloTablaCarrera;
 public class GuardarCarrera extends javax.swing.JFrame {
     private ModeloTablaCarrera mtc = new ModeloTablaCarrera();
     private CarreraControl carreraControl = new CarreraControl();
-    
-    public void cargarFacultades(DynamicList carreras){
+
+    public void cargarFacultades(DynamicList carreras) {
         mtc.setCarreras(carreras);
         initComponents();
     }
-    
-    public Boolean verificar(){
-        return (!txtDescripcion.getText().trim().isEmpty() 
+
+    public Boolean verificar() {
+        return (!txtDescripcion.getText().trim().isEmpty()
                 && !txtNombre.getText().trim().isEmpty()
                 && !txtDescripcion.getText().trim().isEmpty()
                 && !txtAnios.getText().trim().isEmpty()
-                && !txtCiclos.getText().trim().isEmpty()
-                );
+                && !txtCiclos.getText().trim().isEmpty());
     }
     
-     private void cargarTabla(){
+    private void cargarTabla(){
         mtc.setCarreras(carreraControl.getListCarrera());
         tbCarrera.setModel(mtc);
         tbCarrera.updateUI();
@@ -104,7 +103,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 119));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 255));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
