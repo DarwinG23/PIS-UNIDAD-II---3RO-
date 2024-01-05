@@ -176,24 +176,24 @@ public class TareaDocente extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, 50));
 
         txtDescripcion.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 410, 70));
+        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 410, 40));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 0, 153));
         jLabel5.setText("ESTADO TAREA:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
         cbxEstado.setBackground(new java.awt.Color(204, 204, 255));
         cbxEstado.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 220, 40));
+        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 220, 40));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 0, 153));
         jLabel6.setText("NOTA DE LA TAREA:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
         txtNota.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 220, -1));
+        jPanel1.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 220, -1));
 
         tblMostrar.setBackground(new java.awt.Color(204, 255, 204));
         tblMostrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -218,12 +218,12 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 0, 51));
         jLabel7.setText("¿DESEA CAMBIAR ALGUN DATO?");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
 
         btnSeleccionar.setBackground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setForeground(new java.awt.Color(255, 153, 204));
@@ -276,17 +276,18 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 0, 153));
         jLabel10.setText("Estudiante:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
-        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, 300, -1));
+        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 300, -1));
 
+        btnPasar.setForeground(new java.awt.Color(255, 153, 153));
         btnPasar.setText("Presentar Dato en Vista estudiante");
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, -1, -1));
+        jPanel1.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
