@@ -133,6 +133,47 @@ import materias.modelo.Materia;
         }
         return lista.toList(materias);
     }
+    public DynamicList<Materia> ordenarQuickSort(DynamicList<Materia> lista, Integer tipo, String field) throws Exception {
+        Field attribute = utiles.getField(Materia.class, field);
+        Integer n = lista.getLength();
+        Materia[] materias = lista.toArray();
+        if (attribute != null) {
+            quickSort(materias, tipo, field, 0, materias.length - 1);
+        } else {
+            throw new Exception("No existe el atributo: " + field);
+
+        }
+
+        return lista.toList(materias);
+    }
+    private void quickSort(Materia[] materias, Integer tipo, String field, int izq, int der) {
+        if (izq < der) {
+            int i = izq;
+            int j = der;
+            Materia pivote = materias[(izq + der) / 2];
+
+            while (i <= j) {
+                while (materias[i].compare(pivote, field, tipo) ) {
+                    i++;
+                }
+
+                while (materias[j].compare(pivote, field, tipo) ) {
+                    j--;
+                }
+
+                if (i <= j) {
+                    Materia temp = materias[i];
+                    materias[i] = materias[j];
+                    materias[j] = temp;
+                    i++;
+                    j--;
+                }
+            }
+
+            quickSort(materias, tipo, field, izq, j);
+            quickSort(materias, tipo, field, i, der);
+        }
+    }
     public DynamicList<Materia> buscarPorCriterio(String texto, DynamicList<Materia> materia, String criterio, boolean usarBusquedaBinaria) {
         if (usarBusquedaBinaria) {
             return buscarPorCriterioBinario(texto, materia, criterio);

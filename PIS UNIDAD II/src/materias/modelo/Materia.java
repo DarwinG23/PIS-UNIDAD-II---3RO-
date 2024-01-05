@@ -4,6 +4,8 @@
  */
 package materias.modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author elias
@@ -14,13 +16,15 @@ public class Materia {
     private String ciclo;
     private String id_Materia;
     private Integer id;
+    private String fecha;
 
-    public Materia(String nombre, String paralelo, String ciclo, String id_Materia, Integer id) {
+    public Materia(String nombre, String paralelo, String ciclo, String id_Materia, Integer id,String fecha) {
         this.nombre = null;
         this.paralelo = null;
         this.ciclo = null;
         this.id_Materia = null;
         this.id = null;
+        this.fecha=null;
     }
 
     public Materia() {
@@ -65,6 +69,15 @@ public class Materia {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
     
     public Boolean compare( Materia p, String field, Integer type){
         switch (type) {
@@ -75,6 +88,8 @@ public class Materia {
                     return paralelo.compareTo(p.getParalelo()) < 0;
                 }else if(field.equalsIgnoreCase("ciclo")){
                     return ciclo.compareTo(p.getCiclo()) < 0;
+                 }else if(field.equalsIgnoreCase("fecha")){
+                    return fecha.compareTo(p.getFecha()) < 0;
                 }else if(field.equalsIgnoreCase("id_Materia")){
                     return id_Materia.compareTo(p.getId_Materia()) < 0;
                 }
@@ -85,6 +100,8 @@ public class Materia {
                     return paralelo.compareTo(p.getParalelo()) > 0;
                 }else if(field.equalsIgnoreCase("ciclo")){
                     return ciclo.compareTo(p.getCiclo()) > 0;
+                }else if(field.equalsIgnoreCase("fecha")){
+                    return fecha.compareTo(p.getFecha()) > 0;
                 }else if(field.equalsIgnoreCase("id_Materia")){
                     return id_Materia.compareTo(p.getId_Materia()) > 0;
                 }
