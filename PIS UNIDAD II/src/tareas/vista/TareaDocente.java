@@ -158,6 +158,7 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
         cbxOrden = new javax.swing.JCheckBox();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -315,27 +316,32 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnOrdenarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, -1, -1));
+        jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 153));
-        jLabel11.setText("ORDENAR DATOS:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, -1, -1));
+        jLabel11.setText("BUSCAR DATOS:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
 
         cbxCriterio.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "tituloTarea", "fechaInicio", "fechaFinal", "id_tarea", "Descripcion", "nota", "id_estado", " " }));
-        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
+        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 470, -1, -1));
 
         cbxOrden.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         cbxOrden.setForeground(new java.awt.Color(255, 102, 102));
         cbxOrden.setText("Descendente");
-        jPanel1.add(cbxOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 500, -1, -1));
+        jPanel1.add(cbxOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 470, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(153, 0, 153));
+        jLabel12.setText("ORDENAR DATOS:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,6 +461,7 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
