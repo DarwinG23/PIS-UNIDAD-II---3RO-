@@ -45,6 +45,8 @@ public class CicloControl extends DaoImplement<Ciclo> {
         ciclo.setId(all().getLength()+1);
         return persist(ciclo);
     }
-    
+    public static void main(String[] args) {
+        CicloControl cc = new CicloControl();
+    }
     
 }

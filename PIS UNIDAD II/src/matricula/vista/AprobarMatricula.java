@@ -8,12 +8,12 @@ package matricula.vista;
  *
  * @author darwi
  */
-public class GuardarPeriodoAcademico extends javax.swing.JFrame {
+public class AprobarMatricula extends javax.swing.JFrame {
 
     /**
-     * Creates new form GuardarPeriodoAcademico
+     * Creates new form AprobarMatricula
      */
-    public GuardarPeriodoAcademico() {
+    public AprobarMatricula() {
         initComponents();
     }
 
@@ -29,27 +29,27 @@ public class GuardarPeriodoAcademico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("PERIOD ACADÉMICO");
+        jLabel4.setText("MATRICULA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(387, Short.MAX_VALUE)
+                .addContainerGap(378, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(307, 307, 307))
+                .addGap(227, 227, 227))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel4)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addContainerGap(404, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -85,20 +85,20 @@ public class GuardarPeriodoAcademico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuardarPeriodoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuardarPeriodoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuardarPeriodoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuardarPeriodoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuardarPeriodoAcademico().setVisible(true);
+                new AprobarMatricula().setVisible(true);
             }
         });
     }

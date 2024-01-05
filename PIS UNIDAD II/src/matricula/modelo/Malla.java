@@ -9,6 +9,7 @@ package matricula.modelo;
  * @author darwin
  */
 public class Malla {
+
     private String nombre;
     private Integer id;
     private Integer id_Carrera;
@@ -24,10 +25,6 @@ public class Malla {
         this.id = null;
         this.id_Carrera = null;
     }
-    
-    
-    
-    
 
     public String getNombre() {
         return nombre;
@@ -57,11 +54,43 @@ public class Malla {
     public String toString() {
         return nombre;
     }
-    
-    
-    
-    
-    
-    
-    
+
+    public Boolean compare(Malla a, String field, Integer type) {
+        // 0 menor  1 mayor 2 igual
+        switch (type) {
+            case 0:
+                if (field.equalsIgnoreCase("id")) {
+                    return id.intValue() < a.getId().intValue();
+                }
+            case 1:
+                if (field.equalsIgnoreCase("id")) {
+                    return id.intValue() > a.getId().intValue();
+                }
+            case 2:
+                if (field.equalsIgnoreCase("id")) {
+                    return id.intValue() == a.getId().intValue();
+                }
+            default:
+                return null;
+        }
+    }
+
+    public Boolean buscar(String texto, String field, Integer tipo) {
+        // 0 igual  1 menor
+        switch (tipo) {
+            case 0:
+                if (field.equalsIgnoreCase("id")) {
+                    String idAuto = Integer.toString(id);
+                    return idAuto.toLowerCase().equalsIgnoreCase(texto.toLowerCase());
+                }
+            case 1:
+                if (field.equalsIgnoreCase("id")) {
+                    String idAuto = Integer.toString(id);
+                    return (idAuto.toLowerCase().compareTo(texto.toLowerCase())) > 0;
+                }  
+            default:
+                return null;
+        }
+    }
+
 }

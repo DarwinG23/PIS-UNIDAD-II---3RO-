@@ -63,6 +63,7 @@ public class DaoImplement <T> implements DaoInterface<T>{
         try {
             dl = (DynamicList<T>)connection.fromXML(new FileReader(URL));
         } catch (Exception e) {
+            e.getMessage().toString();
         }
         return dl;
     }

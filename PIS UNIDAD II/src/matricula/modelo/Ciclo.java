@@ -5,6 +5,8 @@
 package matricula.modelo;
 
 import java.util.Date;
+import materias.modelo.Materia;
+import lista.DynamicList;
 
 /**
  *
@@ -15,19 +17,27 @@ public class Ciclo {
     private Date fechaInicio;
     private Date fechaFin;
     private Integer id;
+    private Integer id_Malla;
+    private DynamicList<Materia> materias;
 
-    public Ciclo(Integer numCiclo, Date fechaInicio, Date fechaFin, Integer id) {
+    public Ciclo(Integer numCiclo, Date fechaInicio, Date fechaFin, Integer id, Integer id_Malla, DynamicList<Materia> materias) {
         this.numCiclo = numCiclo;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.id = id;
+        this.id_Malla = id_Malla;
+        this.materias = materias;
     }
+
+    
 
     public Ciclo() {
         this.fechaFin = null;
         this.fechaInicio = null;
         this.numCiclo = null;
         this.id = null;
+        this.id_Malla = null;
+        this.materias = null;
     }
     
     
@@ -63,6 +73,23 @@ public class Ciclo {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Integer getId_Malla() {
+        return id_Malla;
+    }
+
+    public void setId_Malla(Integer id_Malla) {
+        this.id_Malla = id_Malla;
+    }
+
+    public DynamicList<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(DynamicList<Materia> materias) {
+        this.materias = materias;
+    }
+    
 
     @Override
     public String toString() {

@@ -6,6 +6,7 @@ package materias.vista.util;
 
 import javax.swing.JComboBox;
 import materias.controlador.registros.MateriaControl1;
+import materias.modelo.Materia;
 
 /**
  *
@@ -22,6 +23,10 @@ public class UtilVista1 {
  
     public static String  obtenerRolControl(JComboBox cbx) {
         return (String) cbx.getSelectedItem();
+    }
+    
+    public static Materia  obtenerMateria(JComboBox cbx) {
+        return (Materia) cbx.getSelectedItem();
     }
 }
   
