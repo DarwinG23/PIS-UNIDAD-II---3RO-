@@ -166,7 +166,6 @@ public class materia extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cbxMetodo = new javax.swing.JComboBox<>();
         btnOrden = new javax.swing.JCheckBox();
-        txtOrden = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         cbxCriterio1 = new javax.swing.JComboBox<>();
@@ -297,7 +296,6 @@ public class materia extends javax.swing.JFrame {
 
         btnOrden.setText("Descendente");
         jPanel1.add(btnOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, -1, -1));
-        jPanel1.add(txtOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 100, -1));
 
         jButton1.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jButton1.setText("ORDENAR");
@@ -306,7 +304,7 @@ public class materia extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 90, 20));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 153, 153));
@@ -327,7 +325,7 @@ public class materia extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 370, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -461,7 +459,6 @@ public class materia extends javax.swing.JFrame {
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIdMa;
     private javax.swing.JTextField txtNameMateria;
-    private javax.swing.JTextField txtOrden;
     private javax.swing.JTextField txtParalelo;
     // End of variables declaration//GEN-END:variables
 }
