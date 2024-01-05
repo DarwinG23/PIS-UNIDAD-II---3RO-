@@ -47,9 +47,7 @@ public class Imparte {
     public String toString() {
         return "Imparte{" + "id=" + id + ", id_materia=" + id_materia + ", id_docente=" + id_docente + '}';
     }
-    
-    
-    
+ 
     
     
 }

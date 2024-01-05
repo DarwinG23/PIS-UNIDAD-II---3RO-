@@ -21,6 +21,13 @@ public class Docente extends Usuario{
         this.aniosExperiencia = aniosExperiencia;
     }
 
+    /**
+     *
+     */
+    public Docente() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public String getTituloProfesional() {
         return tituloProfesional;
     }
