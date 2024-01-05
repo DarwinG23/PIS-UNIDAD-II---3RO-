@@ -121,6 +121,24 @@ public class administrarTarea1 extends DaoImplement<tarea> {
 
     return lista;
     }
+    public DynamicList<tarea> busquedaLineal(String texto, DynamicList<tarea> tarea, String criterio) {
+        DynamicList<tarea> lista = new DynamicList<>();
+
+        try {
+            tarea[] aux = ordenarQuickSort(tarea, 0, criterio).toArray();
+
+            for (tarea p : aux) {
+                String valor = obtenerValorCriterio(p, criterio).toLowerCase();
+                if (valor.contains(texto.toLowerCase())) {
+                    lista.add(p);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error en buscar" + e.getMessage());
+        }
+
+        return lista;
+    }
 
 
     private String obtenerValorCriterio(tarea tarea, String criterio) {
