@@ -32,9 +32,9 @@ public class materia extends javax.swing.JFrame {
             tipo = 1;
         }
         try {
-            mtp.setPersonas(control.ordenarQuickSort(control.all(), tipo, criterio));
-             tblPresentar.setModel(mtp);
-        tblPresentar.updateUI();
+            mta.setMaterias(materiaControl.ordenarQuickSort(materiaControl.all(), tipo, criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -49,33 +49,33 @@ public class materia extends javax.swing.JFrame {
 
     private void Limpiar() {
 
-        txtParalelo.setEnabled(true);
+        txtIdMa.setEnabled(true);
         tblMostrar.clearSelection();
         txtNameMateria.setText(" ");
-        txtCiclo.setText(" ");
-        txtFecha.setText(" ");
         txtParalelo.setText(" ");
+        txtFecha.setText(" ");
         txtIdMa.setText(" ");
+        txtCiclo.setText(" ");
         CargarTabla();
         materiaControl.setMateria(null);
 
     }
 
     private Boolean Validar() {
-        return (!txtParalelo.getText().trim().isEmpty()
-                && !txtIdMa.getText().trim().isEmpty()
+        return (!txtIdMa.getText().trim().isEmpty()
+                && !txtCiclo.getText().trim().isEmpty()
                 && !txtNameMateria.getText().trim().isEmpty()
                 && !txtFecha.getText().trim().isEmpty()
-                && !txtCiclo.getText().trim().isEmpty());
+                && !txtParalelo.getText().trim().isEmpty());
     }
 
     private void Guardar() {
         if (Validar()) {
 
             materiaControl.getMateria().setNombre(txtNameMateria.getText());
-            materiaControl.getMateria().setParalelo(txtParalelo.getText());
-            materiaControl.getMateria().setCiclo(txtCiclo.getText());
             materiaControl.getMateria().setId_Materia(txtIdMa.getText());
+             materiaControl.getMateria().setCiclo(txtCiclo.getText());
+            materiaControl.getMateria().setParalelo(txtParalelo.getText());
             materiaControl.getMateria().setFecha(txtFecha.getText());
             if (materiaControl.persit()) {
                 JOptionPane.showMessageDialog(null, "Datos guardados con exito");
@@ -99,10 +99,10 @@ public class materia extends javax.swing.JFrame {
         } else {
             try {
                 materiaControl.setMateria(mta.getMaterias().getInfo(fila));
-                txtParalelo.setText(materiaControl.getMateria().getParalelo());
-                txtCiclo.setText(materiaControl.getMateria().getCiclo());
                 txtNameMateria.setText(materiaControl.getMateria().getNombre());
+                 txtCiclo.setText(materiaControl.getMateria().getCiclo());
                 txtIdMa.setText(materiaControl.getMateria().getId_Materia());
+                txtParalelo.setText(materiaControl.getMateria().getParalelo());
                 txtFecha.setText(materiaControl.getMateria().getFecha());
             } catch (Exception e) {
             }
@@ -125,11 +125,11 @@ public class materia extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNameMateria = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtParalelo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         txtIdMa = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         txtCiclo = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtParalelo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMostrar = new javax.swing.JTable();
         jCalendar1 = new com.toedter.calendar.JCalendar();
@@ -189,24 +189,24 @@ public class materia extends javax.swing.JFrame {
         jLabel3.setText("NOMBRE DE LA MATERIA:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        txtParalelo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtIdMa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtParaleloKeyTyped(evt);
+                txtIdMaKeyTyped(evt);
             }
         });
-        jPanel1.add(txtParalelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 270, -1));
+        jPanel1.add(txtIdMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 270, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
         jLabel4.setText("INGRESAR FECHA DE CREACIÓN");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
-        jPanel1.add(txtIdMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 270, -1));
+        jPanel1.add(txtCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 270, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 153, 153));
         jLabel5.setText("ID MATERIA:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
-        jPanel1.add(txtCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 270, -1));
+        jPanel1.add(txtParalelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 270, -1));
 
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -271,6 +271,11 @@ public class materia extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jButton1.setText("ORDENAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,14 +303,14 @@ public class materia extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jCalendar1PropertyChange
 
-    private void txtParaleloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtParaleloKeyTyped
-        String textoActual = txtParalelo.getText();
+    private void txtIdMaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdMaKeyTyped
+        String textoActual = txtIdMa.getText();
         char caracterIngresado = evt.getKeyChar();
         if (Character.isLowerCase(caracterIngresado)) {
-            txtParalelo.setText(textoActual.toUpperCase() + caracterIngresado);
+            txtIdMa.setText(textoActual.toUpperCase() + caracterIngresado);
             evt.consume();
         }
-    }//GEN-LAST:event_txtParaleloKeyTyped
+    }//GEN-LAST:event_txtIdMaKeyTyped
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         cargarVista();
@@ -313,11 +318,10 @@ public class materia extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (Validar()) {
-
             materiaControl.getMateria().setNombre(txtNameMateria.getText());
-            materiaControl.getMateria().setParalelo(txtParalelo.getText());
-            materiaControl.getMateria().setCiclo(txtCiclo.getText());
             materiaControl.getMateria().setId_Materia(txtIdMa.getText());
+             materiaControl.getMateria().setCiclo(txtCiclo.getText());
+            materiaControl.getMateria().setParalelo(txtParalelo.getText());
             materiaControl.getMateria().setFecha(txtFecha.getText());
             if (materiaControl.marge(materiaControl.getMateria(), tblMostrar.getSelectedRow())) {
                 JOptionPane.showMessageDialog(null, "Datos guardados con exito");
@@ -332,6 +336,10 @@ public class materia extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ordenar();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
