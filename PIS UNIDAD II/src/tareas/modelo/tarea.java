@@ -150,8 +150,10 @@ public class tarea {
 
     @Override
     public String toString() {
-        return "tarea{" + "id_tarea=" + id_tarea + '}';
+        return "id_estado=" + id_estado ;
     }
+
+    
     
 
     

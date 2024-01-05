@@ -97,15 +97,15 @@ public class administrarTarea1 extends DaoImplement<tarea> {
         return iteraciones;
     }
     
+    
       public static void main(String[] args) {
             try {
             administrarTarea1 pc = new  administrarTarea1 ();      
             System.out.println("Lista Original:");
             System.out.println(pc.all().toString());
             System.out.println("-----------");
-            System.out.println(pc.ordenarQuickSort(pc.all(),0,"id_tarea").toString());
-            System.out.println("-----------");
-             System.out.println(pc.ordenarQuickSort(pc.all(),1,"id_tarea").toString());
+            System.out.println(pc.ordenarQuickSort(pc.all(),0,"id_estado").toString());
+           
         } catch (Exception e) {
                 System.out.println("Error");
         }
