@@ -122,6 +122,8 @@ public class tarea {
                     return Descripcion.compareTo(p.getDescripcion());
                 } else if (field.equalsIgnoreCase("id_tarea")) {
                     return this.id_tarea.compareTo(p.getId_tarea(),"nombre");
+                 } else if (field.equalsIgnoreCase("id_estado")) {
+                    return this.id_estado.compareTo(p.getId_estado(),"estado");
                 } else if (field.equalsIgnoreCase("Id")) {
                     return Id.compareTo(p.getId());
                 }
