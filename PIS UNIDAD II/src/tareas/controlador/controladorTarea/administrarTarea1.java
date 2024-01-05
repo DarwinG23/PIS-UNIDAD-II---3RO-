@@ -8,6 +8,7 @@ import dao.DaoImplement;
 import java.lang.reflect.Field;
 import lista.DynamicList;
 import tareas.modelo.tarea;
+import tareas.utiles.utiles;
 
 /**
  *
@@ -46,54 +47,67 @@ public class administrarTarea1 extends DaoImplement<tarea> {
         return persist(tarea1);
     }
     
-    public DynamicList<Vendedor> ordenarQuickSort(DynamicList<Vendedor> lista, Integer tipo, String field) throws Exception {
-        Field attribute = Utiles.getField(Vendedor.class, field);
+    public DynamicList<tarea> ordenarQuickSort(DynamicList<tarea> lista, Integer tipo, String field) throws Exception {
+        Field attribute = utiles.getField(tarea.class, field);
         Integer n = lista.getLength();
-        Vendedor[] vendedores = lista.toArray();
+        tarea[] tareas = lista.toArray();
 
         if (attribute != null) {
-            int iteraciones = quickSort(vendedores, tipo, field, 0, vendedores.length - 1);
+            int iteraciones = quickSort(tareas, tipo, field, 0, tareas.length - 1);
             System.out.println("Iteraciones realizadas: " + iteraciones);
         } else {
             throw new Exception("No existe el atributo: " + field);
         }
 
-        return lista.toList(vendedores);
+        return lista.toList(tareas);
     }
 
-    private int quickSort(Vendedor[] vendedores, Integer tipo, String field, int izq, int der) {
+    private int quickSort(tarea[] tareas, Integer tipo, String field, int izq, int der) {
         int iteraciones = 0; // Contador de iteraciones
 
         if (izq < der) {
             int i = izq;
             int j = der;
-            Vendedor pivote = vendedores[(izq + der) / 2];
+            tarea pivote = tareas[(izq + der) / 2];
 
             while (i <= j) {
-                while (vendedores[i].compare(pivote, field, tipo) < 0) {
+                while (tareas[i].compare(pivote, field, tipo) < 0) {
                     i++;
                     iteraciones++;
                 }
 
-                while (vendedores[j].compare(pivote, field, tipo) > 0) {
+                while (tareas[j].compare(pivote, field, tipo) > 0) {
                     j--;
                     iteraciones++;
                 }
 
                 if (i <= j) {
-                    Vendedor temp = vendedores[i];
-                    vendedores[i] = vendedores[j];
-                    vendedores[j] = temp;
+                    tarea temp = tareas[i];
+                    tareas[i] = tareas[j];
+                    tareas[j] = temp;
                     i++;
                     j--;
                 }
             }
 
-            iteraciones += quickSort(vendedores, tipo, field, izq, j);
-            iteraciones += quickSort(vendedores, tipo, field, i, der);
+            iteraciones += quickSort(tareas, tipo, field, izq, j);
+            iteraciones += quickSort(tareas, tipo, field, i, der);
         }
 
         return iteraciones;
     }
-
+    
+      public static void main(String[] args) {
+            try {
+            administrarTarea1 pc = new  administrarTarea1 ();      
+            System.out.println("Lista Original:");
+            System.out.println(pc.all().toString());
+            System.out.println("-----------");
+            System.out.println(pc.ordenarQuickSort(pc.all(),0,"id_tarea").toString());
+            System.out.println("-----------");
+             System.out.println(pc.ordenarQuickSort(pc.all(),1,"id_tarea").toString());
+        } catch (Exception e) {
+                System.out.println("Error");
+        }
+    }
 }
