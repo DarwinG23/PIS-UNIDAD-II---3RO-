@@ -96,6 +96,56 @@ public class administrarTarea1 extends DaoImplement<tarea> {
 
         return iteraciones;
     }
+    public DynamicList<tarea> busquedaBinaria(String texto, DynamicList<tarea> tipos, String criterio) {
+    DynamicList<tarea> lista = new DynamicList<>();
+    try {
+        tarea [] aux = ordenarQuickSort(tipos, 0, criterio).toArray();
+        int inicio = 0;
+        int fin = aux.length - 1;
+        while (inicio <= fin) {
+            int medio = (inicio + fin) / 2;
+            tarea  p = aux[medio];
+            String valorCriterio = obtenerValorCriterio(p, criterio).toLowerCase();
+            if (valorCriterio.contains(texto.toLowerCase())) {
+                lista.add(p);
+            }
+            if (valorCriterio.compareTo(texto.toLowerCase()) < 0) {
+                inicio = medio + 1; // El elemento está en la mitad derecha
+            } else {
+                fin = medio - 1; // El elemento está en la mitad izquierda
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("No existe el valor a comparar");
+    }
+
+    return lista;
+    }
+
+
+    private String obtenerValorCriterio(tarea tarea, String criterio) {
+        String nota= String.valueOf(tarea.getNota());
+        String id_tarea=String.valueOf(tarea.getId_tarea());
+        String id_estado=String.valueOf(tarea.getId_estado());
+        switch (criterio.toLowerCase()) {
+            case "tituloTarea":
+                return tarea.getTituloTarea();
+            case "fechaInicio":
+                return tarea.getFechaInicio();
+            case "fechaFinal":
+                return tarea.getFechaFinal();
+            case "id_tarea":
+                return id_tarea;
+            case "Descripcion":
+                return tarea.getDescripcion();
+            case "nota":
+                return nota;
+            case "id_estado":
+                return id_estado;
+            default:
+                throw new IllegalArgumentException("Criterio no válido");
+        }
+    }
     
     
       public static void main(String[] args) {
