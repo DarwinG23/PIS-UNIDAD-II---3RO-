@@ -26,7 +26,7 @@ public class materia extends javax.swing.JFrame {
         Limpiar();
     }
     private void ordenar(){
-        String criterio = cbxCriterio.getSelectedItem().toString();
+        String criterio = cbxCriterio1.getSelectedItem().toString();
         Integer tipo = 0;
         if (btnOrden.isSelected()) {
             tipo = 1;
@@ -39,6 +39,31 @@ public class materia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
        
+    }
+    private void buscar(){
+        String texto = txtBuscar.getText();
+        String criterio= cbxCriterio2.getSelectedItem().toString();
+        if(cbxMetodo.getSelectedItem().toString()=="Busqueda Binario"){
+        try {
+            System.out.println("Busqueda_Binario");
+            mta.setMaterias(materiaControl.all());
+            mta.setMaterias(materiaControl.busquedaBinaria(texto, mta.getMaterias(), criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        } else if(cbxMetodo.getSelectedItem().toString()=="Busqueda Lineal"){
+           try {
+            System.out.println("Busqueda_Lineal");
+            mta.setMaterias(materiaControl.all());
+            mta.setMaterias(materiaControl.buscarPorCriterioLineal(texto, mta.getMaterias(), criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }     
+        }
     }
 
     private void CargarTabla() {
@@ -139,10 +164,15 @@ public class materia extends javax.swing.JFrame {
         btnSelect = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        cbxCriterio = new javax.swing.JComboBox<>();
+        cbxMetodo = new javax.swing.JComboBox<>();
         btnOrden = new javax.swing.JCheckBox();
         txtOrden = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cbxCriterio1 = new javax.swing.JComboBox<>();
+        cbxCriterio2 = new javax.swing.JComboBox<>();
+        txtBuscar = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,7 +201,7 @@ public class materia extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
@@ -221,7 +251,7 @@ public class materia extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblMostrar);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 500, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 500, 150));
 
         jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -232,8 +262,8 @@ public class materia extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel6.setText("ORDENAR:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, -1, -1));
+        jLabel6.setText("BUSCAR:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, -1, -1));
         jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, 270, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
@@ -262,8 +292,8 @@ public class materia extends javax.swing.JFrame {
         jLabel8.setText("PARALELO:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "paralelo", "ciclo", "id_materia", "fecha" }));
-        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
+        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda Binario", "Busqueda Lineal" }));
+        jPanel1.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, -1, -1));
 
         btnOrden.setText("Descendente");
         jPanel1.add(btnOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, -1, -1));
@@ -276,7 +306,28 @@ public class materia extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel9.setText("ORDENAR:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, -1, -1));
+
+        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "paralelo", "ciclo", "id_materia", "fecha" }));
+        jPanel1.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
+
+        cbxCriterio2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "paralelo", "ciclo", "id_materia", "fecha" }));
+        jPanel1.add(cbxCriterio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 70, -1));
+
+        jButton2.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jButton2.setText("BUSCAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 370, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -341,6 +392,10 @@ public class materia extends javax.swing.JFrame {
         ordenar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        buscar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -381,8 +436,11 @@ public class materia extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox btnOrden;
     private javax.swing.JButton btnSelect;
-    private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxCriterio1;
+    private javax.swing.JComboBox<String> cbxCriterio2;
+    private javax.swing.JComboBox<String> cbxMetodo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -392,11 +450,13 @@ public class materia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblMostrar;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCiclo;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIdMa;

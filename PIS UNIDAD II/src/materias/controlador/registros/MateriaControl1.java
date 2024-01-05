@@ -174,29 +174,7 @@ import materias.modelo.Materia;
             quickSort(materias, tipo, field, i, der);
         }
     }
-    public DynamicList<Materia> buscarPorCriterio(String texto, DynamicList<Materia> materia, String criterio, boolean usarBusquedaBinaria) {
-        if (usarBusquedaBinaria) {
-            return buscarPorCriterioBinario(texto, materia, criterio);
-        } else {
-            return buscarPorCriterioLineal(texto, materia, criterio);
-        }
-    }
-
-    private String obtenerValorPorCriterio(Materia materia, String criterio) {
-        switch (criterio.toLowerCase()) {
-            case "nombre":
-                return materia.getNombre().toLowerCase();
-            case "paralelo":
-                return materia.getParalelo().toLowerCase();
-            case "ciclo":
-                return materia.getCiclo().toLowerCase();
-            case "id_Materia":
-                return String.valueOf(materia.getId_Materia());
-            
-            default:
-                throw new IllegalArgumentException("Criterio no válido");
-        }
-    }
+    
 
     public DynamicList<Materia> buscarPorCriterioLineal(String texto, DynamicList<Materia> materia, String criterio) {
         DynamicList<Materia> lista = new DynamicList<>();
@@ -205,7 +183,7 @@ import materias.modelo.Materia;
             Materia[] aux = ordenar(materia, 0, criterio).toArray();
 
             for (Materia p : aux) {
-                String valor = obtenerValorPorCriterio(p, criterio).toLowerCase();
+                String valor = obtenerValorCriterio(p, criterio).toLowerCase();
                 if (valor.contains(texto.toLowerCase())) {
                     lista.add(p);
                 }
@@ -217,62 +195,48 @@ import materias.modelo.Materia;
         return lista;
     }
 
-    public DynamicList<Materia> buscarPorCriterioBinario(String texto, DynamicList<Materia> materia, String criterio) {
-        DynamicList<Materia> lista = new DynamicList<>();
-
-        try {
-            Materia[] aux = ordenar(materia, 0, criterio).toArray();
-
-            int index = busquedaBinaria(aux, texto, criterio);
-
-           
-            if (index >= 0) {
-                
-                for (int i = index - 1; i >= 0; i--) {
-                    if (obtenerValorPorCriterio(aux[i], criterio).toLowerCase().contains(texto.toLowerCase())) {
-                        lista.add(aux[i]);
-                    } else {
-                        break;  
-                    }
-                }
-
-                
-                lista.add(aux[index]);
-
-               
-                for (int i = index + 1; i < aux.length; i++) {
-                    if (obtenerValorPorCriterio(aux[i], criterio).toLowerCase().contains(texto.toLowerCase())) {
-                        lista.add(aux[i]);
-                    } else {
-                        break; 
-                    }
-                }
+    public DynamicList<Materia> busquedaBinaria(String texto, DynamicList<Materia> materias, String criterio) {
+    DynamicList<Materia> lista = new DynamicList<>();
+    try {
+        Materia[] aux = ordenar(materias, 0, criterio).toArray();
+        int inicio = 0;
+        int fin = aux.length - 1;
+        while (inicio <= fin) {
+            int medio = (inicio + fin) / 2;
+            Materia p = aux[medio];
+            String valorCriterio = obtenerValorCriterio(p, criterio).toLowerCase();
+            if (valorCriterio.contains(texto.toLowerCase())) {
+                lista.add(p);
             }
-        } catch (Exception e) {
-            System.err.println("Error en buscar" + e.getMessage());
+            if (valorCriterio.compareTo(texto.toLowerCase()) < 0) {
+                inicio = medio + 1; // El elemento está en la mitad derecha
+            } else {
+                fin = medio - 1; // El elemento está en la mitad izquierda
+            }
         }
-
-        return lista;
+    } catch (Exception e) {
+        System.out.println("No existe el valor a comparar");
     }
 
-    private int busquedaBinaria(Materia[] array, String texto, String criterio) {
-        int left = 0;
-        int right = array.length - 1;
+    return lista;
+    }
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            String midValue = obtenerValorPorCriterio(array[mid], criterio).toLowerCase();
 
-            if (midValue.compareTo(texto.toLowerCase()) == 0) {
-                return mid;  
-            } else if (midValue.compareTo(texto.toLowerCase()) < 0) {
-                left = mid + 1;  
-            } else {
-                right = mid - 1;  
-            }
+    private String obtenerValorCriterio(Materia materia, String criterio) {
+        switch (criterio.toLowerCase()) {
+            case "nombre":
+                return materia.getNombre();
+            case "id_materia":
+                return materia.getId_Materia();
+            case "ciclo":
+                return materia.getCiclo();
+            case "paralelo":
+                return materia.getParalelo();
+            case "fecha":
+                return materia.getFecha();
+            default:
+                throw new IllegalArgumentException("Criterio no válido");
         }
-
-        return -1;  
     }
 
     
