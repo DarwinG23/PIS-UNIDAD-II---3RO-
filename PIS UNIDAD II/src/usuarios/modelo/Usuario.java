@@ -82,6 +82,10 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", id=" + id + ", cedula=" + cedula + ", correo=" + correo + '}';
     }
+
+    public Object getUsuario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

@@ -12,19 +12,20 @@ import usuarios.modelo.Estudiante;
  * @author Alexander
  */
 public class EstudianteControl {
+
     private Estudiante estudiante;
     private DynamicList<Estudiante> estudiantes;
-     public EstudianteControl() {
+
+    public EstudianteControl() {
         estudiante = new Estudiante();
         this.estudiantes = new DynamicList<>();
     }
 
-
     public Estudiante getEstudiante() {
-        if(estudiante==null){
-            estudiante=new Estudiante();
+        if (estudiante == null) {
+            estudiante = new Estudiante();
         }
-            
+
         return estudiante;
     }
 
@@ -40,19 +41,20 @@ public class EstudianteControl {
         this.estudiantes = estudiantes;
     }
 
-    
     //Mwtodo guardar
-    public Boolean guardar(){
+    public Boolean guardar() {
         estudiante.setId(generarId());
         estudiantes.add(estudiante);
         return true;
     }
-    private Integer generarId(){
-        return estudiantes.getLength()+1;
-  }
-    
-     public void imprimir(){
+
+    private Integer generarId() {
+        return estudiantes.getLength() + 1;
+
+    }
+
+    public void imprimir() {
         System.out.println(estudiantes.toString());
     }
-    
+
 }

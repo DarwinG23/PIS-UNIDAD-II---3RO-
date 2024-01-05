@@ -38,7 +38,7 @@ public class DocenteControl {
         return docentes;
     }
 
-    public void setDocentes(DynamicList<Docente> censadores) {
+    public void setDocentes(DynamicList<Docente> docentes) {
         this.docentes = docentes;
     }
 

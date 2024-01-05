@@ -9,25 +9,22 @@ package usuarios.modelo;
  * @author Alexander
  */
 public class Docente extends Usuario{
-    public Docente(String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
-        super(nombre, apellido, edad, id, cedula, correo);
-    }
+    
     private String tituloProfesional;
     private String aniosExperiencia;
 
-    public Docente(String tituloProfesional, String aniosExperiencia, String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
-        super(nombre, apellido, edad, id, cedula, correo);
+
+
+    public Docente(String tituloProfesional, String aniosExperiencia) {
         this.tituloProfesional = tituloProfesional;
         this.aniosExperiencia = aniosExperiencia;
     }
-
-    /**
-     *
-     */
     public Docente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.tituloProfesional = null;
+        this.aniosExperiencia = null;
     }
-
+    
+   
     public String getTituloProfesional() {
         return tituloProfesional;
     }
