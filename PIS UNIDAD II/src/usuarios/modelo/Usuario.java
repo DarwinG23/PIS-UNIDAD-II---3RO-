@@ -10,11 +10,11 @@ package usuarios.modelo;
  */
 public class Usuario {
     
-    private String nombre;
-    private String apellido;
-    private String edad;
+    String nombre;
+    String apellido;
+    String edad;
     private Integer id;
-    private String cedula;
+    String cedula;
     private String correo;
 
     public Usuario(String nombre, String apellido, String edad, Integer id, String cedula, String correo) {

@@ -13,8 +13,6 @@ public class Docente extends Usuario{
     private String tituloProfesional;
     private String aniosExperiencia;
 
-
-
     public Docente(String tituloProfesional, String aniosExperiencia) {
         this.tituloProfesional = tituloProfesional;
         this.aniosExperiencia = aniosExperiencia;
