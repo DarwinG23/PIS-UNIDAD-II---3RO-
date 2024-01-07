@@ -100,10 +100,10 @@ public class DocenteControl1 extends DaoImplement<Docente> {
             int medio = (inicio + fin) / 2;
             Docente p = aux[medio];
             String valorCriterio = obtenerValorCriterio(p, criterio);
-            if (valorCriterio.contains(texto)) {
+            if (valorCriterio.contains(texto.toLowerCase())) {
                 lista.add(p);
             }
-            if (valorCriterio.compareTo(texto) < 0) {
+            if (valorCriterio.compareTo(texto.toLowerCase()) < 0) {
                 inicio = medio + 1; // El elemento está en la mitad derecha
             } else {
                 fin = medio - 1; // El elemento está en la mitad izquierda
@@ -123,7 +123,7 @@ public class DocenteControl1 extends DaoImplement<Docente> {
 
             for (Docente p : aux) {
                 String valor = obtenerValorCriterio(p, criterio);
-                if (valor.contains(texto)) {
+                if (valor.contains(texto.toLowerCase())) {
                     lista.add(p);
                 }
             }

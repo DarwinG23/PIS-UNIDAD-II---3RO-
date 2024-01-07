@@ -31,33 +31,41 @@ public class Estudiante extends Usuario {
     public void setPromedioAcademico(String promedioAcademico) {
         this.promedioAcademico = promedioAcademico;
     }
-    public Boolean comparar(Estudiante p, String campo, Integer tipo) {
-        switch (tipo) {
+    public Integer compare(Estudiante p, String field, Integer type) {
+        // 0 menor, 1 mayor
+        switch (type) {
             case 0:
-                return compararCampo(p, campo) < 0;
+                if (field.equalsIgnoreCase("apellido")) {
+                    return apellido.compareTo(p.getApellido());
+                } else if (field.equalsIgnoreCase("nombre")) {
+                    return nombre.compareTo(p.getNombre());
+                } else if (field.equalsIgnoreCase("cedula")) {
+                    return cedula.compareTo(p.getCedula());
+                } else if (field.equalsIgnoreCase("correo")) {
+                    return correo.compareTo(p.getCorreo());
+                } else if (field.equalsIgnoreCase("edad")) {
+                    return edad.compareTo(p.getEdad());
+                }else if (field.equalsIgnoreCase("promedioAcademico")) {
+                    return promedioAcademico.compareTo(p.getPromedioAcademico());
+                }
             case 1:
-                return compararCampo(p, campo) > 0;
+                if (field.equalsIgnoreCase("apellido")) {
+                    return p.getApellido().compareTo(apellido);
+                } else if (field.equalsIgnoreCase("nombre")) {
+                    return p.getNombre().compareTo(nombre);
+                } else if (field.equalsIgnoreCase("cedula")) {
+                    return p.getCedula().compareTo(cedula);
+                } else if (field.equalsIgnoreCase("correo")) {
+                    return p.getCorreo().compareTo(correo);
+                } else if (field.equalsIgnoreCase("edad")) {
+                    return p.getEdad().compareTo(edad);
+                }else if (field.equalsIgnoreCase("promedioAcademico")) {
+                    return p.getPromedioAcademico().compareTo(promedioAcademico);
+                } 
             default:
-                throw new IllegalArgumentException("Tipo no válido");
+                throw new AssertionError();
         }
-    }
-    public int compararCampo(Estudiante p, String campo) {
-        switch (campo.toLowerCase()) {
-            
-            case "nombre":
-                return nombre.compareTo(p.getNombre());
-            case "apellido":
-                return apellido.compareTo(p.getApellido());
-            case "edad":
-                return edad.compareTo(p.getEdad());
-            case "cedula":
-                return cedula.compareTo(p.getCedula());
-            case "correo":
-                return correo.compareTo(p.getCorreo());
-            default:
-                throw new IllegalArgumentException("Campo no válido");
-        }
-    }
+     }
     
     @Override
     public String toString() {
