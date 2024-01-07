@@ -17,7 +17,7 @@ public class UtilVista1 {
         MateriaControl1 rc= new MateriaControl1();
         cbx.removeAllItems();
          for (int i = 0; i < rc.getMaterias().getLength(); i++) {
-            cbx.addItem(rc.getMaterias().getInfo(i).getNombre());
+            cbx.addItem(rc.getMaterias().getInfo(i));
         }
     }
  

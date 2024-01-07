@@ -18,7 +18,7 @@ public class UtilVistaMateria {
         MateriaControl mt = new MateriaControl();
         cbx.removeAllItems();
         if(mt.getMaterias().isEmpty()){
-            throw new EmptyException("No hay carreras que mostrar");
+            throw new EmptyException("No hay materias que mostrar");
         }
         else{
            for (int i = 0; i < mt.getMaterias().getLength(); i++) {

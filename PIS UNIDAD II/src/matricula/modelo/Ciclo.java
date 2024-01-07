@@ -83,6 +83,9 @@ public class Ciclo {
     }
 
     public DynamicList<Materia> getMaterias() {
+        if (materias == null) {
+            materias = new DynamicList();
+        }
         return materias;
     }
 

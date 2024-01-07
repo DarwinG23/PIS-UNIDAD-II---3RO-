@@ -31,7 +31,7 @@ public class ModeloTablaCiclo extends AbstractTableModel {
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 4;
+        return 6;
     }
 
     @Override

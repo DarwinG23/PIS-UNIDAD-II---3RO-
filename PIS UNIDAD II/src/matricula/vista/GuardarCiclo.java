@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
+import materias.vista.Tabla.ModeloTablaMateria;
 import materias.vista.util.UtilVista1;
 import matricula.controlador.CicloControl;
 import matricula.vista.tabla.ModeloTablaCiclo;
@@ -19,25 +20,29 @@ import matricula.vista.util.UtilVistaMalla;
  * @author darwi
  */
 public class GuardarCiclo extends javax.swing.JFrame {
+
     private ModeloTablaCiclo mtc = new ModeloTablaCiclo();
+    private ModeloTablaMateria mtm = new ModeloTablaMateria();
     private CicloControl cicloControl = new CicloControl();
-    
-    public void cargarFacultades(DynamicList carreras){
+
+    public void cargarFacultades(DynamicList carreras) {
         mtc.setCiclos(carreras);
         initComponents();
     }
-    
-    public Boolean verificar(){
+
+    public Boolean verificar() {
         return true;
     }
-    
-     private void cargarTabla(){
+
+    private void cargarTabla() {
         mtc.setCiclos(cicloControl.getListCiclo());
-        sdssd.setModel(mtc);
-        sdssd.updateUI();
+        tbMateria.setModel(mtm);
+        tbCiclo.setModel(mtc);
+        tbMateria.updateUI();
+        tbCiclo.updateUI();
     }
-     
-     private void guardar() throws EmptyException{
+
+    private void guardar() throws EmptyException {
         if (verificar()) {
             cicloControl.getCiclo().setFechaInicio(cldInicio.getDate());
             cicloControl.getCiclo().setFechaFin(cldFin.getDate());
@@ -49,19 +54,19 @@ public class GuardarCiclo extends javax.swing.JFrame {
                 cargarTabla();
                 limpiar();
                 cicloControl.setCiclo(null);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         cargarTabla();
         cicloControl.setCiclo(null);
     }
-   
+
     public GuardarCiclo() throws EmptyException, Exception {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -79,11 +84,8 @@ public class GuardarCiclo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         cldInicio = new com.toedter.calendar.JCalendar();
         cldFin = new com.toedter.calendar.JCalendar();
-        jLabel3 = new javax.swing.JLabel();
         txtNumeroCiclo = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -93,7 +95,16 @@ public class GuardarCiclo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        sdssd = new javax.swing.JTable();
+        tbCiclo = new javax.swing.JTable();
+        btnAgregarMateria = new javax.swing.JButton();
+        btnCargarMateria = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbMateria = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        btnActualizar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -105,19 +116,10 @@ public class GuardarCiclo extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("CICLO");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 6, -1, -1));
-
-        jLabel1.setText("Fecha de Inicio:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 74, -1, -1));
-
-        jLabel2.setText("Fecha en que termina:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 314, -1, -1));
-        jPanel1.add(cldInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
-        jPanel1.add(cldFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, -1, -1));
-
-        jLabel3.setText("Número de ciclo:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 78, -1, -1));
-        jPanel1.add(txtNumeroCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 74, 249, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
+        jPanel1.add(cldInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 380, 230));
+        jPanel1.add(cldFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 380, 200));
+        jPanel1.add(txtNumeroCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, 249, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,35 +127,35 @@ public class GuardarCiclo extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 541, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Malla:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 127, -1, -1));
+        jLabel5.setText("Termina");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, 30));
 
         cbxMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 123, 249, -1));
+        jPanel1.add(cbxMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 249, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Materia:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 177, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 190, -1, -1));
 
         cbxMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 173, 249, -1));
+        jPanel1.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 180, 249, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tabla de ciclos");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 228, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 270, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Materias del ciclo:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 373, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 430, -1, -1));
 
-        sdssd.setModel(new javax.swing.table.DefaultTableModel(
+        tbCiclo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -164,32 +166,104 @@ public class GuardarCiclo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(sdssd);
+        jScrollPane2.setViewportView(tbCiclo);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, -1, 91));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 620, 91));
 
-        jButton1.setText("Agregar Materia");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarMateria.setText("Agregar Materia");
+        btnAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarMateriaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 541, -1, -1));
+        jPanel1.add(btnAgregarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 530, -1, -1));
 
-        jButton2.setText("Cargar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 540, -1, -1));
+        btnCargarMateria.setText("Cargar Materias");
+        btnCargarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarMateriaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCargarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Número:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 80, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Inicia:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        tbMateria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tbMateria);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 450, 620, 91));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Malla:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, -1, -1));
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 530, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton1.setText("Inicio");
+
+        jButton2.setText("Salir");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(489, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
         );
 
         pack();
@@ -203,9 +277,42 @@ public class GuardarCiclo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAgregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMateriaActionPerformed
+        int filaSeleccionada = tbCiclo.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                new AgregarMateria(filaSeleccionada).setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btnAgregarMateriaActionPerformed
+    }
+    private void btnCargarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarMateriaActionPerformed
+        int filaSeleccionada = tbCiclo.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                mtm.setMaterias(cicloControl.getListCiclo().getInfo(filaSeleccionada).getMaterias());
+                tbMateria.setModel(mtm);
+                tbMateria.updateUI();
+            } catch (EmptyException ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("hola");
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btnCargarMateriaActionPerformed
+    }
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        this.dispose();
+        try {
+            new GuardarCiclo().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +353,9 @@ public class GuardarCiclo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAgregarMateria;
+    private javax.swing.JButton btnCargarMateria;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbxMalla;
     private javax.swing.JComboBox<String> cbxMateria;
@@ -253,17 +363,20 @@ public class GuardarCiclo extends javax.swing.JFrame {
     private com.toedter.calendar.JCalendar cldInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable sdssd;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tbCiclo;
+    private javax.swing.JTable tbMateria;
     private javax.swing.JTextField txtNumeroCiclo;
     // End of variables declaration//GEN-END:variables
 }
