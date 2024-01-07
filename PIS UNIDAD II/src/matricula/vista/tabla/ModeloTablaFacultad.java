@@ -48,8 +48,10 @@ public class ModeloTablaFacultad extends AbstractTableModel {
             case 2:
                 return (f != null) ? f.getNumBloques(): " ";
             case 3:
-                return (f != null) ? f.getDescripcion(): " ";
+                return (f != null) ? f.getCarreras().getLength(): " ";
             case 4:
+                return (f != null) ? f.getDescripcion(): " ";
+            case 5:
                 return (f != null) ? f.getUbicacion(): " ";
             default:
                 return null;
@@ -71,9 +73,11 @@ public class ModeloTablaFacultad extends AbstractTableModel {
             case 2:
                 return "NÚMERO DE BLOQUES";
             case 3:
-                return "DESCRIPCIÓN";
+                return "CARRERAS";
             case 4:
                 return "UBICACIÓN";
+            case 5:
+                return "DESCRIPCIÓN";
             default:
                 return null;
         }

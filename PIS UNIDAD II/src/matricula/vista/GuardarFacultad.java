@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.FacultadControl;
+import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaFacultad;
+import matricula.vista.util.UtilVistaCarrera;
 
 /**
  *
@@ -19,6 +21,7 @@ import matricula.vista.tabla.ModeloTablaFacultad;
 public class GuardarFacultad extends javax.swing.JFrame {
 
     private ModeloTablaFacultad mtc = new ModeloTablaFacultad();
+    private ModeloTablaCarrera mtf = new ModeloTablaCarrera();
     private FacultadControl facultadControl = new FacultadControl();
 
     public void cargarFacultades(DynamicList carreras) {
@@ -45,6 +48,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
             facultadControl.getFacultad().setDescripcion(txtDescripcion.getText());
             facultadControl.getFacultad().setNombre(txtNombre.getText());
             facultadControl.getFacultad().setNumBloques(Integer.parseInt(txtNumBloques.getText()));
+            facultadControl.getFacultad().getCarreras().add(UtilVistaCarrera.obtenerCarrera(cbxCarrera));
             facultadControl.getFacultad().setUbicacion(txtUbicacion.getText());
             if (facultadControl.persist()) {
                 JOptionPane.showMessageDialog(null, "Datos guardados");
@@ -68,9 +72,10 @@ public class GuardarFacultad extends javax.swing.JFrame {
         facultadControl.setFacultad(null);
     }
 
-    public GuardarFacultad() {
+    public GuardarFacultad() throws EmptyException {
         initComponents();
         this.setLocationRelativeTo(null);
+        UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
         cargarTabla();
     }
 
@@ -96,6 +101,31 @@ public class GuardarFacultad extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tbFacultad = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbCarrera = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbxCarrera = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        btnMostrarCarrera = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        AgregarCarrera = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,37 +139,37 @@ public class GuardarFacultad extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 70, -1, -1));
+        jLabel1.setText("Carrera:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descripción:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 173, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Número de bloques:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 120, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Ubicación:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 298, -1, -1));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 67, 223, -1));
-        jPanel1.add(txtNumBloques, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 117, 223, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 230, -1));
+        jPanel1.add(txtNumBloques, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 230, -1));
 
         txtUbicacion.setColumns(20);
         txtUbicacion.setRows(5);
         jScrollPane1.setViewportView(txtUbicacion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 298, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, -1, -1));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 173, -1, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, -1, -1));
 
         tbFacultad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,7 +184,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tbFacultad);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(452, 67, -1, 92));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 530, 92));
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -162,14 +192,126 @@ public class GuardarFacultad extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 446, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, -1, -1));
+
+        tbCarrera.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tbCarrera);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, 530, 92));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton6.setText("Salir");
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 135, -1));
+
+        jButton7.setText("Inicio");
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 135, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/matricula/vista/img/logo_unl.png"))); // NOI18N
+        jLabel13.setText("jLabel9");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 120));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 480));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Tabla de carreras:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, -1, -1));
+
+        cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 230, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Nombre:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Criterio:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, -1, -1));
+
+        btnMostrarCarrera.setText("Mostrar Carreras");
+        btnMostrarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarCarreraActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMostrarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 450, -1, -1));
+
+        AgregarCarrera.setText("Agregar Carrera");
+        AgregarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarCarreraActionPerformed(evt);
+            }
+        });
+        jPanel1.add(AgregarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 450, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Tabla de facultades:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Texto:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 250, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 150, -1));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 150, -1));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Criterio:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Texto:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, -1, -1));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 90, 130, -1));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 250, 130, -1));
+
+        jButton2.setText("Ordenar");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 90, -1, -1));
+
+        jButton3.setText("Ordenar");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 250, -1, -1));
+
+        jButton4.setText("Buscar");
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 90, -1, -1));
+
+        jButton5.setText("Buscar");
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 250, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -188,6 +330,42 @@ public class GuardarFacultad extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        this.dispose();
+        try {
+            new GuardarFacultad().setVisible(true);
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnMostrarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarCarreraActionPerformed
+        int filaSeleccionada = tbFacultad.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                mtf.setCarreras(facultadControl.getListFacultades().getInfo(filaSeleccionada).getCarreras());
+                tbCarrera.setModel(mtf);
+                tbCarrera.updateUI();
+            } catch (EmptyException ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btnMostrarCarreraActionPerformed
+    }
+    private void AgregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCarreraActionPerformed
+        int filaSeleccionada = tbFacultad.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                new AgregarCarrera(filaSeleccionada).setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_AgregarCarreraActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -218,22 +396,51 @@ public class GuardarFacultad extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuardarFacultad().setVisible(true);
+                try {
+                    new GuardarFacultad().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarCarrera;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnMostrarCarrera;
+    private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tbCarrera;
     private javax.swing.JTable tbFacultad;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;

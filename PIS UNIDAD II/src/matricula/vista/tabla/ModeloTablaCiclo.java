@@ -69,20 +69,6 @@ public class ModeloTablaCiclo extends AbstractTableModel {
 
     }
 
-//    public String obtenerNombreMalla(Integer id) throws EmptyException {
-//        MallaControl mallaControl = new MallaControl();
-//        int i = 0;
-//
-//        while (i <= mallaControl.getListMalla().getLength()) {
-//            Malla mallaActual = mallaControl.getListMalla().getInfo(i);
-//            if(mallaActual.getId() == id ){
-//                return mallaActual.getNombre();
-//            }     
-//        }
-//
-//        return null;
-//    }
-
     @Override
     public String getColumnName(int column) {
         switch (column) {

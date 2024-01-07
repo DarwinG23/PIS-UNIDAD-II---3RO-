@@ -7,7 +7,6 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.activation.FileDataSource;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
 import materias.modelo.Materia;
