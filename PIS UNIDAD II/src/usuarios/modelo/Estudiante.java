@@ -19,10 +19,12 @@ public class Estudiante extends Usuario {
         super(nombre, apellido, edad, id, cedula, correo);
         this.promedioAcademico = promedioAcademico;
     }
-
     public Estudiante() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        this.promedioAcademico = null;
     }
+
+    
 
     public String getPromedioAcademico() {
         return promedioAcademico;

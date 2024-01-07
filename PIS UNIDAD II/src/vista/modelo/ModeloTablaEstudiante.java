@@ -35,7 +35,7 @@ import usuarios.modelo.Estudiante;
 
     @Override
     public int getColumnCount() {
-        return 12;
+        return 5;
     }
 
     @Override

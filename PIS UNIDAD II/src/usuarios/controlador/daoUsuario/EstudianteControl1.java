@@ -44,4 +44,26 @@ public class EstudianteControl1 extends DaoImplement<Estudiante> {
         estudiante1.setId(all().getLength()+ 1);
         return persist(estudiante1);
     }
+         public DynamicList<Estudiante> ordenar(DynamicList<Estudiante> lista, Integer tipo, String field) throws Exception {
+
+        Integer n = lista.getLength();
+        Estudiante[] estudiantes = lista.toArray();
+
+        for (int i = 0; i < n; i++) {
+            int k = i;
+            Estudiante t = estudiantes[i];
+            for (int j = i + 1; j < n; j++) {
+//                    if (personas[j].getApellidos().compareTo(t.getApellidos()) < 0) {
+                if (estudiantes[j].comparar(t, field, tipo)) {
+                    t = estudiantes[j];
+                    k = j;
+                }
+            }
+            estudiantes[k] = estudiantes[i];
+            estudiantes[i] = t;
+        }
+
+        return lista.toList(estudiantes);
+    }
+
 }

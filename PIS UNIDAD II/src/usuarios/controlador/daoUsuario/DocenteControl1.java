@@ -43,4 +43,5 @@ public class DocenteControl1 extends DaoImplement<Docente> {
         docente1.setId(all().getLength()+ 1);
         return persist(docente1);
     }
+    
 }

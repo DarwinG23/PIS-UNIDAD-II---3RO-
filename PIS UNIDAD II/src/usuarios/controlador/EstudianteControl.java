@@ -56,38 +56,8 @@ public class EstudianteControl {
     public void imprimir() {
         System.out.println(estudiantes.toString());
     }
-     public DynamicList<Estudiante> ordenar(DynamicList<Estudiante> lista, Integer tipo, String field) throws Exception {
 
-        Integer n = lista.getLength();
-        Estudiante[] estudiantes = lista.toArray();
+   
 
-        for (int i = 0; i < n; i++) {
-            int k = i;
-            Estudiante t = estudiantes[i];
-            for (int j = i + 1; j < n; j++) {
-//                    if (personas[j].getApellidos().compareTo(t.getApellidos()) < 0) {
-                if (estudiantes[j].comparar(t, field, tipo)) {
-                    t = estudiantes[j];
-                    k = j;
-                }
-            }
-            estudiantes[k] = estudiantes[i];
-            estudiantes[i] = t;
-        }
-
-        return lista.toList(estudiantes);
-    }
-
-    public static void main(String[] args) throws Exception {
-        EstudianteControl uc = new EstudianteControl();
-        DynamicList<Estudiante> lista = uc.all();
-        System.out.println(lista.toString());
-        EstudianteControl us = new EstudianteControl();
-        System.out.println(us.ordenar(lista, 0, "boletoFechaC").toString());
-    }
-
-    private DynamicList<Estudiante> all() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }

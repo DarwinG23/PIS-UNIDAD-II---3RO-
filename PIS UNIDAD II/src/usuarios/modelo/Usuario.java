@@ -27,7 +27,12 @@ public class Usuario {
     }
 
     public Usuario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.nombre = null;
+        this.apellido = null;
+        this.edad = null;
+        this.id = null;
+        this.cedula = null;
+        this.correo = null;
     }
 
     public String getNombre() {
