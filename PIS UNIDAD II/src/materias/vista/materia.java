@@ -204,8 +204,8 @@ public class materia extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setText("REGISTRO DE MATRICULAS DE MATERIAS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+        jLabel1.setText("REGISTRO DE MATERIAS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 153, 153));
