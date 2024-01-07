@@ -85,18 +85,5 @@ import usuarios.modelo.Estudiante;
         }
     }
     
-    public double calcularTotalVentas(int columna) {
-        double Total = 0.0;
-        for (int fila = 0; fila < getRowCount(); fila++) {
-            try {
-                Object valor = getValueAt(fila, columna);
-                if (valor instanceof Number) {
-                    Total += ((Number) valor).doubleValue();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return Total;
-    }
+    
 }

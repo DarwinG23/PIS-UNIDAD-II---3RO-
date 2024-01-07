@@ -207,7 +207,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblMostrar);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 630, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 630, 150));
 
         btnGuardar.setText("GUARDAR DATOS");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
