@@ -127,6 +127,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         tblMostrar = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,7 +207,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblMostrar);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 630, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 630, 150));
 
         btnGuardar.setText("GUARDAR DATOS");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +223,15 @@ public class GestionEstudiante extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, -1, -1));
+        jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
+
+        btnModificar.setText("MODIFICAR DATOS");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 730, 655));
 
@@ -236,6 +245,28 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         cargarVista();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if (Validar()) {
+            estudianteControl.getEstudiante1().setCedula(txtCedula.getText());
+            estudianteControl.getEstudiante1().setNombre(txtNombre.getText());
+            estudianteControl.getEstudiante1().setApellido(txtApellido.getText());
+             estudianteControl.getEstudiante1().setEdad(txtEdad.getText());
+              estudianteControl.getEstudiante1().setCorreo(txtCorreo.getText());
+            estudianteControl.getEstudiante1().setPromedioAcademico(txtPeriodo.getText());     
+        if (estudianteControl.marge(estudianteControl.getEstudiante1(), tblMostrar.getSelectedRow())) {
+                JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+                estudianteControl.setEstudiante(null);
+                CargarTabla();
+                Limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos ");
+
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,6 +305,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
