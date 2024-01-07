@@ -8,57 +8,48 @@ import exeption.EmptyException;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import lista.DynamicList;
-import matricula.modelo.Estado;
-import matricula.modelo.Matricula;
+import matricula.modelo.Cursa;
 
 /**
  *
  * @author darwi
  */
-public class ModeloTablaMatricula extends AbstractTableModel {
-
-    private DynamicList<Matricula> matriculas;
+public class ModeloTablaCursaMateria extends AbstractTableModel {
+    private DynamicList<Cursa> cursas;
 
     @Override
     public int getRowCount() {
-        if (matriculas == null) {
-            matriculas = new DynamicList<>();
+        if (cursas == null) {
+            cursas = new DynamicList<>();
         }
-        return matriculas.getLength();
+        return cursas.getLength();
     }
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 5;
+        return 2;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        Matricula c;
+        Cursa c;
         try {
 
-            c = (Matricula) matriculas.getInfo(rowIndex);
-
+            c = (Cursa) cursas.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (c != null) ? c.getId() : " ";
+                    return (c != null) ? c.getId(): " ";
                 case 1:
-                    return (c != null) ? c.getEstado() : " ";
-                case 2:
-                    return (c != null) ? c.getCursas().getLength() : " ";
-                case 3:
-                    return (c != null) ? c.getFechaEmision() : " ";
-                case 4:
-                    return (c != null) ? c.getModalidad() : " ";
+                    return (c != null) ? c.getId_materia() : " ";
                 default:
                     return null;
             }
-
         } catch (EmptyException e) {
             JOptionPane.showMessageDialog(null, "Ocurrió un error al obtener la información. Por favor, inténtelo de nuevo o contacte al soporte.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+
     }
 
     @Override
@@ -67,13 +58,7 @@ public class ModeloTablaMatricula extends AbstractTableModel {
             case 0:
                 return "ID";
             case 1:
-                return "ESTADO";
-            case 2:
-                return "NRO CURSA";
-            case 3:
-                return "EMITIDO";
-            case 4:
-                return "MODALIDAD";
+                return "MATERIA";
             default:
                 return null;
         }
@@ -82,15 +67,15 @@ public class ModeloTablaMatricula extends AbstractTableModel {
     /**
      * @return the personas
      */
-    public DynamicList getMatriculas() {
-        return matriculas;
+    public DynamicList getCursas() {
+        return cursas;
     }
 
     /**
      * @param cursas
      */
-    public void setMatriculas(DynamicList cursas) {
-        this.matriculas = cursas;
+    public void setCursas(DynamicList cursas) {
+        this.cursas = cursas;
     }
-
+    
 }

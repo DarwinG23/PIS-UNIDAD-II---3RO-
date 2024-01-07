@@ -4,17 +4,54 @@
  */
 package matricula.vista;
 
+import exeption.EmptyException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import lista.DynamicList;
+import matricula.controlador.CursaControl;
+import matricula.controlador.MatriculaControl;
+import matricula.modelo.Estado;
+import matricula.modelo.Matricula;
+import matricula.vista.tabla.ModeloTablaMatricula;
+
+
 /**
  *
  * @author darwi
  */
 public class EstudianteMatricula extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EstudianteMatricula
-     */
-    public EstudianteMatricula() {
+    ModeloTablaMatricula mtm = new ModeloTablaMatricula();
+    MatriculaControl matriculaControl = new MatriculaControl();
+    CursaControl cursaControl = new CursaControl();
+
+    public void cargarFacultades(DynamicList carreras) {
+        mtm.setMatriculas(carreras);
         initComponents();
+    }
+
+    public Boolean verificar() {
+        return true;
+    }
+
+    private void cargarTabla() throws EmptyException { 
+        DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
+        
+        for (int i = 0; i < matriculaControl.getListMatricula().getLength(); i++) {
+            Matricula matriculaActual = matriculaControl.getListMatricula().getInfo(i);
+     
+            if (matriculaActual.getEstado() == Estado.DISPONIBLE) {
+                matriculasFiltradas.add(matriculaActual);
+            }
+        }
+        mtm.setMatriculas(matriculasFiltradas);
+        tbMatricula.setModel(mtm);
+        tbMatricula.updateUI();
+    }
+    
+    public EstudianteMatricula() throws EmptyException {
+        initComponents();
+        cargarTabla();
     }
 
     /**
@@ -28,7 +65,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbMatricula = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -36,7 +73,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnMatricularse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +89,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbMatricula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -63,7 +100,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbMatricula);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 600, 110));
 
@@ -92,8 +129,13 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 170, -1));
 
-        jButton3.setText("Matricularse");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 140, 60));
+        btnMatricularse.setText("Matricularse");
+        btnMatricularse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatricularseActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMatricularse, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 140, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +153,10 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnMatricularseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatricularseActionPerformed
+       
+    }//GEN-LAST:event_btnMatricularseActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -141,15 +187,19 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EstudianteMatricula().setVisible(true);
+                try {
+                    new EstudianteMatricula().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(EstudianteMatricula.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMatricularse;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
@@ -158,7 +208,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbMatricula;
     // End of variables declaration//GEN-END:variables
 }

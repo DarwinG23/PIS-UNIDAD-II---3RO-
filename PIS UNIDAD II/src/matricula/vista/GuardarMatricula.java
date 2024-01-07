@@ -4,16 +4,81 @@
  */
 package matricula.vista;
 
+import exeption.EmptyException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import lista.DynamicList;
+import materias.vista.util.UtilVista1;
+import matricula.controlador.CursaControl;
+import matricula.controlador.MatriculaControl;
+import matricula.modelo.Cursa;
+import matricula.modelo.Estado;
+import matricula.vista.tabla.ModeloTablaCursaMateria;
+import matricula.vista.tabla.ModeloTablaMatricula;
+import matricula.vista.util.UtilVistaCarrera;
+import matricula.vista.util.UtilVistaModalidad;
+import matricula.vista.util.UtilVistaPeriodoAcademico;
+
 /**
  *
  * @author darwi
  */
 public class GuardarMatricula extends javax.swing.JFrame {
-
+    ModeloTablaMatricula mtm = new ModeloTablaMatricula();
+    MatriculaControl matriculaControl = new MatriculaControl();
+    CursaControl cursaControl = new CursaControl();
+    ModeloTablaCursaMateria mtcm = new  ModeloTablaCursaMateria();
     
-    public GuardarMatricula() {
+    
+    public void cargarFacultades(DynamicList carreras){
+        mtm.setMatriculas(carreras);
         initComponents();
+    }
+    
+    public Boolean verificar(){
+        return true;
+    }
+    
+     private void cargarTabla(){
+        mtm.setMatriculas(matriculaControl.getListMatricula());
+        tbMatricula.setModel(mtm);
+        tbMatricula.updateUI();
+    }
+    
+    private void guardar() throws EmptyException{
+        if (verificar()) {
+            matriculaControl.getMatricula().setFechaEmision(java.sql.Date.valueOf(LocalDate.now()));
+            matriculaControl.getMatricula().setEstado(Estado.DISPONIBLE);
+            matriculaControl.getMatricula().setModalidad(UtilVistaModalidad.obtenerModalidadSeleccionada(cbxModalidad));
+            matriculaControl.getMatricula().setId_Carrera(UtilVistaCarrera.obtenerCarrera(cbxCarrera).getId());
+            cursaControl.getCursa().setId_materia(UtilVista1.obtenerMateria(cbxMateria).getId());
+            matriculaControl.getMatricula().getCursas().add(cursaControl.getCursa());
+            if (matriculaControl.persist()) {
+                cursaControl.getCursa().setId_matricula(matriculaControl.getMatricula().getId());
+                cursaControl.persist();
+                cursaControl.setCursa(null);
+                JOptionPane.showMessageDialog(null, "Datos guardados");
+                cargarTabla();
+                matriculaControl.setMatricula(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public GuardarMatricula() throws EmptyException, Exception {
+        initComponents();
+        cargarTabla();
         this.setLocationRelativeTo(null);
+        UtilVista1.cargarcomboRolesL(cbxMateria);
+        UtilVistaModalidad.cargarComboModalidad(cbxModalidad);
+        UtilVistaPeriodoAcademico.cargarcomboPerido(cbxPeriodo);
+        UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
+               
     }
 
     /**
@@ -28,36 +93,30 @@ public class GuardarMatricula extends javax.swing.JFrame {
         cbxCarrera = new javax.swing.JComboBox<>();
         cbxModalidad = new javax.swing.JComboBox<>();
         cbxEstado = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMatricula = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        cbxEstudiante = new javax.swing.JComboBox<>();
-        cbxPerido = new javax.swing.JComboBox<>();
+        cbxPeriodo = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbCursa = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        cbxMateria = new javax.swing.JComboBox<>();
+        jButton8 = new javax.swing.JButton();
+        btnAgregarMateria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,7 +126,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("MATRICULA");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 20, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
         cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 261, -1));
@@ -75,22 +134,19 @@ public class GuardarMatricula extends javax.swing.JFrame {
         cbxModalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cbxModalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 261, -1));
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISPONIBLE" }));
         jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 261, -1));
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 420, -1, -1));
 
         jButton2.setText("Modficar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, -1, -1));
-
-        jButton3.setText("Cargar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, -1, -1));
 
         tbMatricula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,11 +163,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 140, 530, 116));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Texto:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 310, -1, -1));
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Carrera:");
@@ -126,30 +177,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Modalidad:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Estado:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Estudiante:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Cursa");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 280, -1, -1));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 310, 140, -1));
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Criterio:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 310, 130, -1));
 
         jButton4.setText("Ordenar");
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 310, -1, -1));
@@ -174,38 +201,19 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addGap(0, 399, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 500));
 
-        cbxEstudiante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 260, -1));
-
-        cbxPerido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxPerido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 260, -1));
+        cbxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 260, -1));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Matriculas");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, -1, -1));
-
-        tbCursa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tbCursa);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 530, 116));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,6 +235,25 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jButton7.setText("Buscar");
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 100, -1, -1));
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Materia:");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("Estado:");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
+
+        cbxMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 260, -1));
+
+        jButton8.setText("Aprobar Matriculas");
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
+
+        btnAgregarMateria.setText("Agregar Materia");
+        jPanel1.add(btnAgregarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,10 +268,14 @@ public class GuardarMatricula extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        try {
+            guardar();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+ 
     /**
      * @param args the command line arguments
      */
@@ -275,46 +306,46 @@ public class GuardarMatricula extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuardarMatricula().setVisible(true);
+                try {
+                    new GuardarMatricula().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(GuardarMatricula.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(GuardarMatricula.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarMateria;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JComboBox<String> cbxEstado;
-    private javax.swing.JComboBox<String> cbxEstudiante;
+    private javax.swing.JComboBox<String> cbxMateria;
     private javax.swing.JComboBox<String> cbxModalidad;
-    private javax.swing.JComboBox<String> cbxPerido;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> cbxPeriodo;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTable tbCursa;
     private javax.swing.JTable tbMatricula;
     // End of variables declaration//GEN-END:variables
 }

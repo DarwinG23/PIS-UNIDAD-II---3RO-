@@ -14,7 +14,8 @@ import matricula.modelo.Cursa;
  *
  * @author darwi
  */
-public class ModeloTablaCursa extends AbstractTableModel{
+public class ModeloTablaCursa extends AbstractTableModel {
+
     private DynamicList<Cursa> cursas;
 
     @Override
@@ -43,7 +44,7 @@ public class ModeloTablaCursa extends AbstractTableModel{
                 case 1:
                     return (c != null) ? c.getId_matricula() : " ";
                 case 2:
-                    return (c != null) ? c.getId_estudiante(): " ";
+                    return (c != null) ? c.getId_estudiante() : " ";
                 case 3:
                     return (c != null) ? c.getId_materia() : " ";
                 case 4:
@@ -93,5 +94,5 @@ public class ModeloTablaCursa extends AbstractTableModel{
     public void setCursas(DynamicList cursas) {
         this.cursas = cursas;
     }
-    
+
 }

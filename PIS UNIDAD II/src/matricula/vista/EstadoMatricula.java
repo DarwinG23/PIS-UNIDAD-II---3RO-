@@ -4,17 +4,63 @@
  */
 package matricula.vista;
 
+import exeption.EmptyException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import lista.DynamicList;
+import matricula.controlador.MatriculaControl;
+import matricula.vista.tabla.ModeloTablaMatricula;
+import matricula.vista.util.UtilVistaEstado;
+
 /**
  *
  * @author darwi
  */
-public class AprobarMatricula extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AprobarMatricula
-     */
-    public AprobarMatricula() {
+public class EstadoMatricula extends javax.swing.JFrame {
+    ModeloTablaMatricula mtm = new ModeloTablaMatricula();
+    MatriculaControl matriculaControl = new MatriculaControl();
+    
+    
+    public void cargarFacultades(DynamicList carreras){
+        mtm.setMatriculas(carreras);
         initComponents();
+    }
+    
+    public Boolean verificar(){
+        return true;
+    }
+    
+    private void cargarTabla() {
+        mtm.setMatriculas(matriculaControl.getListMatricula());
+        tbMatricula.setModel(mtm);
+        tbMatricula.updateUI();
+    }
+    
+    private void guardar(Integer filaSeleccionada) throws EmptyException{
+        if (verificar()) {
+            matriculaControl.getMatricula().setId(matriculaControl.getListMatricula().getInfo(filaSeleccionada).getId());
+            matriculaControl.getMatricula().setFechaEmision(matriculaControl.getListMatricula().getInfo(filaSeleccionada).getFechaEmision());
+            matriculaControl.getMatricula().setCursas(matriculaControl.getListMatricula().getInfo(filaSeleccionada).getCursas());
+            matriculaControl.getMatricula().setId_Carrera(matriculaControl.getListMatricula().getInfo(filaSeleccionada).getId_Carrera());
+            matriculaControl.getMatricula().setEstado(UtilVistaEstado.obtenerEstadoSeleccionado(cbxEstado));
+            matriculaControl.getMatricula().setModalidad(matriculaControl.getListMatricula().getInfo(filaSeleccionada).getModalidad());
+            if (matriculaControl.marge(matriculaControl.getMatricula(), filaSeleccionada)) {
+                JOptionPane.showMessageDialog(null, "Datos guardados");
+                cargarTabla();
+                matriculaControl.setMatricula(null);
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public EstadoMatricula() {
+        initComponents();
+        cargarTabla();
+        UtilVistaEstado.cargarComboEstado(cbxEstado);
     }
 
     /**
@@ -26,39 +72,110 @@ public class AprobarMatricula extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbMatricula = new javax.swing.JTable();
+        btnAceptar = new javax.swing.JButton();
+        cbxEstado = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        cbxCriterio = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("MATRICULA");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(378, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(227, 227, 227))
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/matricula/vista/img/logo_unl.png"))); // NOI18N
+        jLabel13.setText("jLabel9");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(404, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 447));
+
+        tbMatricula.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbMatricula);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 580, 90));
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, -1, -1));
+
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 250, -1));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Texto:");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Estado:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Criterio:");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 170, -1));
+
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 160, -1));
+
+        jButton2.setText("Ordenar");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 220, -1, -1));
+
+        jButton3.setText("Buscar");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,6 +185,19 @@ public class AprobarMatricula extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        int filaSeleccionada = tbMatricula.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                guardar(filaSeleccionada);
+            } catch (Exception ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btnAceptarActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -85,26 +215,40 @@ public class AprobarMatricula extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EstadoMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EstadoMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EstadoMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AprobarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EstadoMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AprobarMatricula().setVisible(true);
+                new EstadoMatricula().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxEstado;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbMatricula;
     // End of variables declaration//GEN-END:variables
 }
