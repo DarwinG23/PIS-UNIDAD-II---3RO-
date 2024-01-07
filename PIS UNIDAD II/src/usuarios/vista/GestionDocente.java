@@ -109,13 +109,38 @@ public class GestionDocente extends javax.swing.JFrame {
         } 
         try {
             System.out.println("QuickSort");
-            mta.setDocente(docenteControl.ordenar(docenteControl.all(), tipo, criterio));
+            mta.setDocente(docenteControl.ordenarQuickSort(docenteControl.all(), tipo, criterio));
              tblMostrar.setModel(mta);
             tblMostrar.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
      }
+    private void buscar(){
+        String texto = txtBuscar.getText();
+        String criterio= cbxCriterio1.getSelectedItem().toString();
+        if(cbxMetodo.getSelectedItem().toString()=="Busqueda_Binaria"){
+        try {
+            System.out.println("Busqueda_Binaria");
+            mta.setDocente(docenteControl.all());
+            mta.setDocente(docenteControl.busquedaBinaria(texto, mta.getDocente(), criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        } else if(cbxMetodo.getSelectedItem().toString()=="Busqueda_Lineal"){
+           try {
+            System.out.println("Busqueda Lineal");
+            mta.setDocente(docenteControl.all());
+            mta.setDocente(docenteControl.buscarPorCriterioLineal(texto, mta.getDocente(), criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }     
+        }
+    }
     
 
                  
@@ -264,9 +289,14 @@ public class GestionDocente extends javax.swing.JFrame {
             }
         });
 
-        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda Lineal", "Busqueda Binaria", " " }));
+        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria", " " }));
 
         btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -461,6 +491,10 @@ public class GestionDocente extends javax.swing.JFrame {
     private void cbxCriterio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCriterio1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxCriterio1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

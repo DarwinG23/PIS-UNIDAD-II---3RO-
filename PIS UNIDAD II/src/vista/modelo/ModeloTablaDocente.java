@@ -14,15 +14,8 @@ import usuarios.modelo.Docente;
  */
 public class ModeloTablaDocente extends AbstractTableModel  {
 
-    public static DynamicList<Docente> getDocentesTabla() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
     private DynamicList<Docente> docente;
-    private DynamicList<Docente> docentesTabla;
-    
-    public DynamicList<Docente> getDocenteTabla(){
-        return docentesTabla;
-    }
 
     public DynamicList<Docente> getDocente() {
         return docente;
@@ -31,10 +24,7 @@ public class ModeloTablaDocente extends AbstractTableModel  {
     public void setDocente(DynamicList<Docente> docente) {
         this.docente = docente;
     }
-
-
-    
-
+   
     @Override
     public int getRowCount() {
         return docente.getLength();
