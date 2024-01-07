@@ -189,8 +189,12 @@ public class TareaDocente extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         cbxMetodo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -304,7 +308,11 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(153, 0, 153));
         jLabel9.setText("FECHA FINAL:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, -1));
+
+        txtFechaInicio.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 200, -1));
+
+        txtFechaFInal.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.add(txtFechaFInal, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 200, -1));
 
         jCalendar1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -330,15 +338,17 @@ public class TareaDocente extends javax.swing.JFrame {
 
         jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 300, -1));
 
+        btnPasar.setBackground(new java.awt.Color(255, 255, 255));
         btnPasar.setForeground(new java.awt.Color(255, 153, 153));
-        btnPasar.setText("Presentar Dato en Vista estudiante");
+        btnPasar.setText("PRESENTAR DATOS EN VISTA ESTUDIANTES");
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
+        jPanel1.add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, -1, -1));
 
+        btnOrdenar.setBackground(new java.awt.Color(255, 255, 255));
         btnOrdenar.setForeground(new java.awt.Color(255, 153, 153));
         btnOrdenar.setText("ORDENAR");
         btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
@@ -370,12 +380,16 @@ public class TareaDocente extends javax.swing.JFrame {
         cbxCriterio1.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "tituloTarea", "fechaInicio", "fechaFinal", "id_tarea", "Descripcion", "nota", "id_estado", " " }));
         jPanel1.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 470, -1, -1));
+
+        txtBuscar.setBackground(new java.awt.Color(204, 204, 255));
+        txtBuscar.setForeground(new java.awt.Color(153, 153, 255));
         jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 90, -1));
 
         cbxMetodo.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda Binaria", "Busqueda Lineal" }));
         jPanel1.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, 80, -1));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(255, 153, 153));
         jButton1.setText("BUSCAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -385,18 +399,25 @@ public class TareaDocente extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 0, 878, 699));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 153, 153));
+        jButton2.setText("INICIO");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 110, -1));
+
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 153, 153));
+        jButton3.setText("SALIR");
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 100, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 699));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -511,6 +532,8 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbxOrden;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
     private javax.swing.JLabel jLabel1;
@@ -526,6 +549,7 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTextField txtBuscar;
