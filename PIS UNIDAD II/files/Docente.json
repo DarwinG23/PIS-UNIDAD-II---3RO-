@@ -1,0 +1,1 @@
+{"lista.DynamicList":{"header":{"info":{"@class":"usuarios.modelo.Docente","nombre":" Alexander","apellido":" Sanchez","edad":" 35","id":1,"cedula":" 1100986986","correo":" alexander.sachez@unl.edu.ec","tituloProfesional":" Master","aniosExperiencia":" 7"}},"last":{"@reference":"..\/header"},"length":1}}
