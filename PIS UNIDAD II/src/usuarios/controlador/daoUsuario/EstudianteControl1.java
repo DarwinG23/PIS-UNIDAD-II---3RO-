@@ -44,7 +44,7 @@ public class EstudianteControl1 extends DaoImplement<Estudiante> {
         estudiante1.setId(all().getLength()+ 1);
         return persist(estudiante1);
     }
-         public DynamicList<Estudiante> ordenar(DynamicList<Estudiante> lista, Integer tipo, String field) throws Exception {
+    public DynamicList<Estudiante> ordenar(DynamicList<Estudiante> lista, Integer tipo, String field) throws Exception {
 
         Integer n = lista.getLength();
         Estudiante[] estudiantes = lista.toArray();
