@@ -145,7 +145,7 @@ public class administrarTarea1 extends DaoImplement<tarea> {
         String nota= String.valueOf(tarea.getNota());
         String id_tarea=String.valueOf(tarea.getId_tarea());
         String id_estado=String.valueOf(tarea.getId_estado());
-        switch (criterio.toLowerCase()) {
+        switch (criterio) {
             case "tituloTarea":
                 return tarea.getTituloTarea();
             case "fechaInicio":
