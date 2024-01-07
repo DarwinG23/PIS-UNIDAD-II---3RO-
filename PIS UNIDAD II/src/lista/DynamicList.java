@@ -237,5 +237,28 @@ public class DynamicList<E> {
             return info;
         }
     }
+    public void ModificarInfo(E dato, Integer pos) throws IndexOutOfBoundsException {
+        if (isEmpty()) {
+            Agregar(dato);
+        } else if (pos >= 0 && pos < length) {
+            if (pos == 0) {
+                header.setInfo(dato);
+            } else {
+                Node<E> aux = header;
+
+                for (int i = 0; i < pos; i++) {
+                    aux = aux.getNext();
+                }
+
+                aux.setInfo(dato);
+            }
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    private void Agregar(E dato) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

@@ -13,7 +13,16 @@ import usuarios.modelo.Docente;
  * @author Alexander
  */
 public class ModeloTablaDocente extends AbstractTableModel  {
+
+    public static DynamicList<Docente> getDocentesTabla() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     private DynamicList<Docente> docente;
+    private DynamicList<Docente> docentesTabla;
+    
+    public DynamicList<Docente> getDocenteTabla(){
+        return docentesTabla;
+    }
 
     public DynamicList<Docente> getDocente() {
         return docente;
