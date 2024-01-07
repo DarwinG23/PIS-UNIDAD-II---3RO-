@@ -4,6 +4,8 @@
  */
 package matricula.modelo;
 
+import lista.DynamicList;
+
 /**
  *
  * @author darwin
@@ -14,14 +16,18 @@ public class Carrera {
     private Integer duracionAnios;
     private Integer id;
     private Integer numCiclos;
+    private DynamicList<Malla> mallas;
 
-    public Carrera(String nombre, String descripcion, Integer duracionAnios, Integer id, Integer numCiclos) {
+    public Carrera(String nombre, String descripcion, Integer duracionAnios, Integer id, Integer numCiclos, DynamicList<Malla> listaMallas) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracionAnios = duracionAnios;
         this.id = id;
         this.numCiclos = numCiclos;
+        this.mallas = listaMallas;
     }
+
+    
 
     public Carrera() {
         this.nombre = null;
@@ -29,6 +35,7 @@ public class Carrera {
         this.descripcion = null;
         this.id = null;
         this.numCiclos = null;
+        this.mallas = null;
     }
 
     public Integer getNumCiclos() {
@@ -74,6 +81,19 @@ public class Carrera {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public DynamicList<Malla> getMallas() {
+        if (mallas == null){
+            mallas = new DynamicList<Malla>();
+        }
+        return mallas;
+    }
+
+    public void setMallas(DynamicList<Malla> listaMallas) {
+        this.mallas = listaMallas;
+    }
+    
+    
 
     @Override
     public String toString() {

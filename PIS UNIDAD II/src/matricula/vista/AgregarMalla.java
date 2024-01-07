@@ -7,50 +7,47 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.activation.FileDataSource;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
-import materias.modelo.Materia;
-import materias.vista.util.UtilVista1;
-import matricula.controlador.CicloControl;
+import matricula.controlador.CarreraControl;
+import matricula.modelo.Malla;
+import matricula.vista.util.UtilVistaMalla;
 
 /**
  *
  * @author darwi
  */
-public class AgregarMateria extends javax.swing.JFrame {
+public class AgregarMalla extends javax.swing.JFrame {
 
-    private CicloControl cicloControl = new CicloControl();
+    private CarreraControl carreraControl = new CarreraControl();
     private Integer fila;
 
     public void agregar() throws EmptyException {
-        DynamicList<Materia> materias = cicloControl.getListCiclo().getInfo(fila).getMaterias();
-        materias.add(UtilVista1.obtenerMateria(cbxMateria));
-        cicloControl.getCiclo().setMaterias(cicloControl.getListCiclo().getInfo(fila).getMaterias());
-        cicloControl.getCiclo().setFechaInicio(cicloControl.getListCiclo().getInfo(fila).getFechaInicio());
-        cicloControl.getCiclo().setFechaFin(cicloControl.getListCiclo().getInfo(fila).getFechaFin());
-        cicloControl.getCiclo().setNumCiclo(cicloControl.getListCiclo().getInfo(fila).getNumCiclo());
-        cicloControl.getCiclo().setId_Malla(cicloControl.getListCiclo().getInfo(fila).getId_Malla());
-        cicloControl.getCiclo().setMaterias(materias);
-        cicloControl.getCiclo().setId(cicloControl.getListCiclo().getInfo(fila).getId());
-        if (cicloControl.marge(cicloControl.getCiclo(), fila)) {
-            JOptionPane.showMessageDialog(null, "Materia Aregada");
-            cicloControl.setCiclo(null);
+        DynamicList<Malla> mallas = carreraControl.getListCarrera().getInfo(fila).getMallas();
+        mallas.add(UtilVistaMalla.obtenerCarrera(cbxMalla));
+        carreraControl.getCarrera().setDescripcion(carreraControl.getListCarrera().getInfo(fila).getDescripcion());
+        carreraControl.getCarrera().setNombre(carreraControl.getListCarrera().getInfo(fila).getNombre());
+        carreraControl.getCarrera().setDuracionAnios(carreraControl.getListCarrera().getInfo(fila).getDuracionAnios());
+        carreraControl.getCarrera().setNumCiclos(carreraControl.getListCarrera().getInfo(fila).getNumCiclos());
+        carreraControl.getCarrera().setMallas(mallas);
+        carreraControl.getCarrera().setId(carreraControl.getListCarrera().getInfo(fila).getId());
+        if (carreraControl.marge(carreraControl.getCarrera(), fila)) {
+            JOptionPane.showMessageDialog(null, "Malla Aregada");
+            carreraControl.setCarrera(null);
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+            JOptionPane.showMessageDialog(null, "No se pudo agregar, hubo un error");
         }
     }
 
-    public AgregarMateria (Integer filaSeleccionada) throws EmptyException, Exception {
+    public AgregarMalla() {
         initComponents();
-        UtilVista1.cargarcomboRolesL(cbxMateria);
-        fila = filaSeleccionada;
-        this.setLocationRelativeTo(null);
     }
 
-    public AgregarMateria() throws EmptyException, Exception {
-        initComponents();
-        UtilVista1.cargarcomboRolesL(cbxMateria);
+    public AgregarMalla(Integer filaSeleccionada) throws EmptyException, Exception {
+        initComponents();        
+        fila = filaSeleccionada;
+        UtilVistaMalla.cargarcomboMallaFiltro(cbxMalla,fila);
+        System.out.println(fila);
         this.setLocationRelativeTo(null);
     }
 
@@ -63,19 +60,19 @@ public class AgregarMateria extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cbxMateria = new javax.swing.JComboBox<>();
+        cbxMalla = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Seleccione la materia que desea agregar al ciclo");
+        jLabel1.setText("Seleccione la malla que desea agregar a la carrera");
 
-        cbxMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,10 +81,10 @@ public class AgregarMateria extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Salir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -96,28 +93,28 @@ public class AgregarMateria extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxMalla, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(btnAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar)
-                    .addComponent(jButton2))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(btnSalir))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,10 +131,6 @@ public class AgregarMateria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
             agregar();
@@ -146,6 +139,10 @@ public class AgregarMateria extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,34 +161,28 @@ public class AgregarMateria extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarMateria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarMalla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarMateria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarMalla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarMateria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarMalla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarMateria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarMalla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new AgregarMateria().setVisible(true);
-                } catch (EmptyException ex) {
-                    Logger.getLogger(AgregarMateria.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(AgregarMateria.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new AgregarMalla().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JComboBox<String> cbxMateria;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cbxMalla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
