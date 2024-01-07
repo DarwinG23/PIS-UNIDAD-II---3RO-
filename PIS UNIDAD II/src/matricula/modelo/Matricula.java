@@ -10,47 +10,28 @@ import java.util.Date;
  *
  * @author darwi
  */
-public class Matricula {
-    private String nombreEstudiante; 
-    private Carrera carrera;
+public class Matricula { 
     private Date fechaEmision;
-    private Date fechaVencimiento;
+    private Estado estado;
     private Integer id;
+    private Integer numCursas;
 
-    public Matricula(String nombreEstudiante, Carrera carrera, Date fechaEmision, Date fechaVencimiento, Integer id) {
-        this.nombreEstudiante = nombreEstudiante;
-        this.carrera = carrera;
+    public Matricula(Date fechaEmision, Estado estado, Integer id, Integer numCursas) {
         this.fechaEmision = fechaEmision;
-        this.fechaVencimiento = fechaVencimiento;
+        this.estado = estado;
         this.id = id;
+        this.numCursas = numCursas;
     }
+    
+    
+
+    
 
     public Matricula() {
-        this.nombreEstudiante = null;
-        this.carrera = null;
         this.fechaEmision = null;
-        this.fechaVencimiento = null;
+        this.estado = null;
         this.id = null;
-    }
-    
-    
-    
-    
-
-    public String getNombreEstudiante() {
-        return nombreEstudiante;
-    }
-
-    public void setNombreEstudiante(String nombreEstudiante) {
-        this.nombreEstudiante = nombreEstudiante;
-    }
-
-    public Carrera getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(Carrera carrera) {
-        this.carrera = carrera;
+        this.numCursas =  null;
     }
 
     public Date getFechaEmision() {
@@ -61,12 +42,12 @@ public class Matricula {
         this.fechaEmision = fechaEmision;
     }
 
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -77,9 +58,22 @@ public class Matricula {
         this.id = id;
     }
 
+    public Integer getNumCursas() {
+        return numCursas;
+    }
+
+    public void setNumCursas(Integer numCursas) {
+        this.numCursas = numCursas;
+    }
+    
+    
+    
+    
+
+
     @Override
     public String toString() {
-        return "Matricula" + id + "Estudiante" + nombreEstudiante;
+        return  id + "";
     }
     
     

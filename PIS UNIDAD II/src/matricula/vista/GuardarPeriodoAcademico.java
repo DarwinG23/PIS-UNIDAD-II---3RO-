@@ -105,7 +105,7 @@ public class GuardarPeriodoAcademico extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("PERIDO ACADÉMICO");
+        jLabel4.setText("PERIODO ACADÉMICO");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 14, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
