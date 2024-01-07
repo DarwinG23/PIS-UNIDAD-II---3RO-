@@ -85,25 +85,34 @@ public class TareaEstudiante extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtMostrar = new javax.swing.JTextArea();
         btnGuardar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 153));
         jLabel1.setText("Título  Tarea:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 0, 153));
         jLabel2.setText("NOMBRE MATERIA:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 0, 153));
         jLabel3.setText("Descripción:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
+        tblMostrarDatos.setBackground(new java.awt.Color(255, 255, 255));
+        tblMostrarDatos.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         tblMostrarDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -119,19 +128,28 @@ public class TareaEstudiante extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 480, 110));
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 51));
         jLabel4.setText("Enviar Tarea");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 0, 153));
         jLabel5.setText("Nombre Archivo:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 0, 153));
         jLabel6.setText("Seleccionar Archivo:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 160, 20));
+
+        txtNombre.setBackground(new java.awt.Color(255, 255, 204));
+        txtNombre.setForeground(new java.awt.Color(255, 255, 204));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 390, -1));
 
+        btnAbrir.setBackground(new java.awt.Color(255, 255, 204));
+        btnAbrir.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        btnAbrir.setForeground(new java.awt.Color(255, 153, 153));
         btnAbrir.setText("SELECCIONAR");
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,9 +157,15 @@ public class TareaEstudiante extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 240, -1));
+
+        txtTitulo.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 420, -1));
+
+        txtDescripcion.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 420, -1));
 
+        btnRegresar.setBackground(new java.awt.Color(0, 102, 102));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("<<<");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,12 +174,18 @@ public class TareaEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
+        txtMostrar.setBackground(new java.awt.Color(255, 255, 204));
         txtMostrar.setColumns(20);
+        txtMostrar.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        txtMostrar.setForeground(new java.awt.Color(255, 255, 204));
         txtMostrar.setRows(5);
         jScrollPane2.setViewportView(txtMostrar);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 570, 160));
 
+        btnGuardar.setBackground(new java.awt.Color(255, 255, 204));
+        btnGuardar.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 153, 153));
         btnGuardar.setText("GUARDAR ARCHIVO");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,16 +194,24 @@ public class TareaEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 0, 621, 535));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(204, 0, 204));
+        jButton1.setText("INICIO");
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 134, -1));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 0, 204));
+        jButton2.setText("SALIR");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 235, 134, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,6 +294,8 @@ public class TareaEstudiante extends javax.swing.JFrame {
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -263,6 +303,7 @@ public class TareaEstudiante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblMostrarDatos;
