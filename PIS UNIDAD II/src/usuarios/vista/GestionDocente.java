@@ -101,29 +101,22 @@ public class GestionDocente extends javax.swing.JFrame {
              
          }
      }
-    public  Integer Orden1(){
-        String OrdenO = cbxOrden.getSelectedItem().toString();
-        
-        if ("Ascendente".equals(OrdenO)) {
-            return 1;
+    private void ordenar(){
+        String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
+        Integer tipo=0;
+        if (btnOrden.isSelected()) {
+            tipo = 1;
+        } 
+        try {
+            System.out.println("QuickSort");
+            mta.setDocente(docenteControl.ordenar(docenteControl.all(), tipo, criterio));
+             tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        if("Descendente".equals(OrdenO)){
-            return 0;
-        }
-        return null;
-    }
+     }
     
-    public  Integer Orden2(){
-        String OrdenO = cbxOrden.getSelectedItem().toString();
-        
-        if ("Ascendente".equals(OrdenO)) {
-            return 0;
-        }
-        if("Descendente".equals(OrdenO)){
-            return 1;
-        }
-        return null;
-    }
 
                  
     
@@ -157,9 +150,13 @@ public class GestionDocente extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
-        cbxMetodo = new javax.swing.JComboBox<>();
-        cbxOrden = new javax.swing.JComboBox<>();
         btnOrdenar = new javax.swing.JButton();
+        btnOrden = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        cbxCriterio1 = new javax.swing.JComboBox<>();
+        cbxMetodo = new javax.swing.JComboBox<>();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -239,13 +236,14 @@ public class GestionDocente extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel9.setText("Criterio de Ordenación");
+        jLabel9.setText("Criterio de Ordenación:");
 
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido", "Edad", "Cedula" }));
-
-        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Shell", "Quick" }));
-
-        cbxOrden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascendente", "Descendente" }));
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "edad", "cedula", "correo", "aniosExperiencia", "tituloProfesional", " " }));
+        cbxCriterio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCriterioActionPerformed(evt);
+            }
+        });
 
         btnOrdenar.setText("ORDENAR");
         btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +251,22 @@ public class GestionDocente extends javax.swing.JFrame {
                 btnOrdenarActionPerformed(evt);
             }
         });
+
+        btnOrden.setText("DESCENDENTE");
+
+        jLabel10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel10.setText("Criterio Busqueda:");
+
+        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "edad", "cedula", "correo", "aniosExperiencia", "tituloProfesional", " " }));
+        cbxCriterio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCriterio1ActionPerformed(evt);
+            }
+        });
+
+        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda Lineal", "Busqueda Binaria", " " }));
+
+        btnBuscar.setText("BUSCAR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,17 +322,26 @@ public class GestionDocente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cbxCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(cbxMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbxOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnOrden))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cbxCriterio1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbxMetodo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnOrdenar, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(txtBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -364,14 +387,19 @@ public class GestionDocente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbxCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOrden)
+                    .addComponent(btnOrdenar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(cbxCriterio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOrdenar))
-                .addContainerGap(243, Short.MAX_VALUE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -421,49 +449,18 @@ public class GestionDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
-        try {
-            String Campo = cbxCriterio.getSelectedItem().toString();
-            String Metodo = cbxMetodo.getSelectedItem().toString();
+        ordenar();
 
-            switch (Metodo) {
-                case "Shell":
-                    long tiempoInicio = System.currentTimeMillis();
-                    
-                    Utiles.ShellSort(docenteControl.all(), Orden2(), Campo);
-                    
-                    System.out.println(Utiles.ShellSort(docenteControl.all(), Orden2(), Campo));
-                    
-                    long tiempoFin = System.currentTimeMillis();
-                    long tiempoEjecucion = tiempoFin - tiempoInicio;
-                    
-                    Utiles.ShellSort(ModeloTablaDocente.getDocentesTabla(), Orden2(), Campo);
-//                    ModeloTablaDocente.fireTableDataChanged();
-                    
-                    JOptionPane.showMessageDialog(null, "Tiempo de metodo shell: " + tiempoEjecucion + " ms");
-                    break;
-                    
-                case "Quick":
-                    long tiempoInicioQ = System.currentTimeMillis();
-                    
-                    Utiles.MetodoQuickSort(docenteControl.all(), Orden1(), Campo);
-                                        
-                    long tiempoFinQ = System.currentTimeMillis();
-                    long tiempoEjecucionQ = tiempoFinQ - tiempoInicioQ;
-                    
-                    Utiles.MetodoQuickSort(ModeloTablaDocente.getDocentesTabla(), Orden1(), Campo);
-//                    ModeloTablaDocente.fireTableDataChanged();
-                    
-                    JOptionPane.showMessageDialog(null, "Tiempo de metodo Quick: " + tiempoEjecucionQ + " ms");
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "No válido");
-            }
-        }
-        catch (Exception e) {
-
-        }
 
     }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void cbxCriterioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCriterioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCriterioActionPerformed
+
+    private void cbxCriterio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCriterio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCriterio1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -501,14 +498,17 @@ public class GestionDocente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JCheckBox btnOrden;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxCriterio1;
     private javax.swing.JComboBox<String> cbxMetodo;
-    private javax.swing.JComboBox<String> cbxOrden;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -522,6 +522,7 @@ public class GestionDocente extends javax.swing.JFrame {
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTextField txtAniosExperiencia;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtEdad;

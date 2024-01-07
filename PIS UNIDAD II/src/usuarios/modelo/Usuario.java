@@ -87,6 +87,38 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", id=" + id + ", cedula=" + cedula + ", correo=" + correo + '}';
     }
+    public Boolean compararUsuario(Usuario p, String campo, Integer tipo) {
+
+        switch (tipo) {
+            case 0:
+                return compararCampo(p, campo) < 0;
+            case 1:
+                return compararCampo(p, campo) > 0;
+            default:
+                throw new IllegalArgumentException("Tipo no válido");
+        }
+    }
+    public int compararCampo(Usuario p, String campo) {
+
+        switch (campo) {
+            
+            case "nombre":
+                return nombre.compareTo(p.getNombre());
+            case "apellido":
+                return apellido.compareTo(p.getApellido());
+            case "edad":
+                return edad.compareTo(p.getEdad());
+            case "cedula":
+                return cedula.compareTo(p.getCedula());
+            case "correo":
+                return correo.compareTo(p.getCorreo());
+ 
+            default:
+                throw new IllegalArgumentException("Campo no válido");
+        }
+    }
+    
+    
 
     public Object getUsuario() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

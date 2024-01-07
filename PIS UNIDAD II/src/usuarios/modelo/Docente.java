@@ -9,14 +9,26 @@ package usuarios.modelo;
  * @author Alexander
  */
 public class Docente extends Usuario{
-    
+    public Docente(String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
+        super(nombre, apellido, edad, id, cedula, correo);
+    }
     private String tituloProfesional;
     private String aniosExperiencia;
+
+
+    public Docente(String tituloProfesional, String aniosExperiencia, String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
+        super(nombre, apellido, edad, id, cedula, correo);
+        this.tituloProfesional = tituloProfesional;
+        this.aniosExperiencia = aniosExperiencia;
+    }
 
     public Docente(String tituloProfesional, String aniosExperiencia) {
         this.tituloProfesional = tituloProfesional;
         this.aniosExperiencia = aniosExperiencia;
     }
+    
+
+    
     public Docente() {
         this.tituloProfesional = null;
         this.aniosExperiencia = null;
@@ -31,6 +43,7 @@ public class Docente extends Usuario{
         this.tituloProfesional = tituloProfesional;
     }
 
+
     public String getAniosExperiencia() {
         return aniosExperiencia;
     }
@@ -38,8 +51,9 @@ public class Docente extends Usuario{
     public void setAniosExperiencia(String aniosExperiencia) {
         this.aniosExperiencia = aniosExperiencia;
     }
-     public Boolean comparar(Estudiante p, String campo, Integer tipo) {
-        switch (tipo) {
+      public Boolean compararDocente(Docente p, String campo, Integer tipo) {
+
+          switch (tipo) {
             case 0:
                 return compararCampo(p, campo) < 0;
             case 1:
@@ -48,49 +62,31 @@ public class Docente extends Usuario{
                 throw new IllegalArgumentException("Tipo no válido");
         }
     }
-    public int compararCampo(Estudiante p, String campo) {
-        switch (campo.toLowerCase()) {
-            
+     public int compararCampo(Docente p, String campo) {
+        System.out.println("Prueba");
+        switch (campo) {
             case "nombre":
-                return nombre.compareTo(p.getNombre());
+                    return nombre.compareTo(p.getNombre());
             case "apellido":
-                return apellido.compareTo(p.getApellido());
-            case "edad":
-                return edad.compareTo(p.getEdad());
+                    return apellido.compareTo(p.getApellido());
             case "cedula":
-                return cedula.compareTo(p.getCedula());
+                    return cedula.compareTo(p.getCedula());
             case "correo":
-                return correo.compareTo(p.getCorreo());
-            case "anios de experiencia":
-                return cedula.compareTo(p.getCedula());
-            case "titulo":
-                return correo.compareTo(p.getCorreo());
+                    return correo.compareTo(p.getCorreo());
+            case "edad":
+                    return edad.compareTo(p.getEdad());        
+            case "aniosExperiencia":
+                return aniosExperiencia.compareTo(p.getAniosExperiencia());
+            case "tituloProfesional":
+                return tituloProfesional.compareTo(p.getTituloProfesional());
             default:
                 throw new IllegalArgumentException("Campo no válido");
         }
     }
-    
 
     @Override
     public String toString() {
         return "Docente{" + "tituloProfesional=" + tituloProfesional + ", aniosExperiencia=" + aniosExperiencia + '}';
     }
 
-    public boolean comparar(Docente t, String field, Integer tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public int getLength() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object getInfo(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-   
 }

@@ -15,6 +15,7 @@ import usuarios.modelo.Docente;
 public class DocenteControl1 extends DaoImplement<Docente> {
       private DynamicList<Docente> docente;
     private Docente docente1;
+    
      public DocenteControl1() {
          super(Docente.class);
     }
@@ -42,7 +43,9 @@ public class DocenteControl1 extends DaoImplement<Docente> {
     public Boolean persist(){
         docente1.setId(all().getLength()+ 1);
         return persist(docente1);
+        
     }
+    
     public DynamicList<Docente> ordenar(DynamicList<Docente> lista, Integer tipo, String field) throws Exception {
 
         Integer n = lista.getLength();
@@ -53,7 +56,7 @@ public class DocenteControl1 extends DaoImplement<Docente> {
             Docente t = docentes[i];
             for (int j = i + 1; j < n; j++) {
 //                    if (personas[j].getApellidos().compareTo(t.getApellidos()) < 0) {
-                if (docentes[j].comparar(t, field, tipo)) {
+                if (docentes[j].compararDocente(t, field, tipo)|| docentes[j].compararUsuario(t, field, tipo)    ) {
                     t = docentes[j];
                     k = j;
                 }
@@ -64,5 +67,63 @@ public class DocenteControl1 extends DaoImplement<Docente> {
 
         return lista.toList(docentes);
     }
+    public DynamicList<Docente> busquedaBinaria(String texto, DynamicList<Docente> docentes, String criterio) {
+    DynamicList<Docente> lista = new DynamicList<>();
+    try {
+        Docente [] aux = ordenar(docentes, 0, criterio).toArray();
+        int inicio = 0;
+        int fin = aux.length - 1;
+        while (inicio <= fin) {
+            int medio = (inicio + fin) / 2;
+            Docente p = aux[medio];
+            String valorCriterio = obtenerValorCriterio(p, criterio);
+            if (valorCriterio.contains(texto.toLowerCase())) {
+                lista.add(p);
+            }
+            if (valorCriterio.compareTo(texto.toLowerCase()) < 0) {
+                inicio = medio + 1; // El elemento está en la mitad derecha
+            } else {
+                fin = medio - 1; // El elemento está en la mitad izquierda
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("No existe el valor a comparar");
+    }
+
+    return lista;
+    }
+     private String obtenerValorCriterio(Docente docente, String criterio) {
+        switch (criterio) {
+            case "nombre":
+                return docente.getNombre();
+            case "apellido":
+                return docente.getApellido();
+            case "cedula":
+                return docente.getCedula();
+            case "correo":
+                return docente.getCorreo();
+            case "edad":
+                return docente.getEdad();
+            case "aniosExperiencia":
+                return docente.getAniosExperiencia();
+            case "tituloProfesional":
+                return docente.getTituloProfesional();
+            default:
+                throw new IllegalArgumentException("Criterio no válido");
+        }
+    }
+     public static void main(String[] args) {
+            try {
+            DocenteControl1 pc = new   DocenteControl1();      
+            System.out.println("Lista Original:");
+            System.out.println(pc.all().toString());
+            System.out.println("-----------");
+            System.out.println(pc.ordenar(pc.all(),0,"aniosExperiencia").toString());
+
+        } catch (Exception e) {
+                System.out.println("Error");
+        }
+    }
+    
     
 }

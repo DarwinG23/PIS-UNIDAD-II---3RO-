@@ -89,7 +89,7 @@ public class ModeloTablaDocente extends AbstractTableModel  {
             case 4:
                 return "Correo";
             case 5:
-                return "Anios Experiencia";  
+                return "Años Experiencia";  
             case 6:
                 return "Titulo"; 
             default:
