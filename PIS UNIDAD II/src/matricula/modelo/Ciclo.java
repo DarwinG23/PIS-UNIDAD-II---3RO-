@@ -98,5 +98,36 @@ public class Ciclo {
     public String toString() {
         return numCiclo.toString();
     } 
+    public Boolean compare( Ciclo p, String field, Integer type){
+        switch (type) {
+            case 0:
+                if(field.equalsIgnoreCase("numCiclo")){
+                    return numCiclo.compareTo(p.getNumCiclo()) < 0;
+                } else if(field.equalsIgnoreCase("fechaInicio")){
+                    return fechaInicio.compareTo(p.getFechaInicio()) < 0;
+                }else if(field.equalsIgnoreCase("fechFin")){
+                    return fechaFin.compareTo(p.getFechaFin()) < 0;
+                 }else if(field.equalsIgnoreCase("id_Malla")){
+                    return id_Malla.compareTo(p.getId_Malla()) < 0;
+                 }else if(field.equalsIgnoreCase("id")){
+                    return id.compareTo(p.getId()) < 0;
+                }
+            case 1:
+            if(field.equalsIgnoreCase("numCiclo")){
+                    return numCiclo.compareTo(p.getNumCiclo()) > 0;
+                } else if(field.equalsIgnoreCase("fechInicio")){
+                    return fechaInicio.compareTo(p.getFechaInicio()) > 0;
+                }else if(field.equalsIgnoreCase("fechFin")){
+                    return fechaFin.compareTo(p.getFechaFin()) > 0;
+                }else if(field.equalsIgnoreCase("id_Malla")){
+                    return id_Malla.compareTo(p.getId_Malla()) > 0;
+                }else if(field.equalsIgnoreCase("id")){
+                    return id.compareTo(p.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
+                
+        }
+     }
     
 }
