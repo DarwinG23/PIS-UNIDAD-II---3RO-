@@ -36,9 +36,23 @@ public class estadoTarea {
     public void setId(Integer Id) {
         this.Id = Id;
     }
+   
 
     @Override
     public String toString() {
         return estado;
     }
+      public int compareTo(estadoTarea other, String field) {
+        switch (field.toLowerCase()) {
+            case "estado":
+                if (this.estado.equals(other.getEstado())) {
+                    return this.estado.compareTo(other.getEstado());
+                } else {
+                    return this.estado.compareTo(other.getEstado());
+                }
+            default:
+                throw new IllegalArgumentException("Campo no soportado: " + field);
+        }
+      }
+    
 }

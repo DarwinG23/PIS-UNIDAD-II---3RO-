@@ -108,10 +108,55 @@ public class tarea {
     public void setId_estado(estadoTarea id_estado) {
         this.id_estado = id_estado;
     }
-    
+    public Integer compare(tarea p, String field, Integer type) {
+        // 0 menor, 1 mayor
+        switch (type) {
+            case 0:
+                if (field.equalsIgnoreCase("tituloTarea")) {
+                    return tituloTarea.compareTo(p.getTituloTarea());
+                } else if (field.equalsIgnoreCase("fechaInicio")) {
+                    return fechaInicio.compareTo(p.getFechaInicio());
+                } else if (field.equalsIgnoreCase("fechaFinal")) {
+                    return fechaFinal.compareTo(p.getFechaFinal());
+                } else if (field.equalsIgnoreCase("Descripcion")) {
+                    return Descripcion.compareTo(p.getDescripcion());
+                } else if (field.equalsIgnoreCase("id_tarea")) {
+                    return this.id_tarea.compareTo(p.getId_tarea(),"nombre");
+                 } else if (field.equalsIgnoreCase("id_estado")) {
+                    return this.id_estado.compareTo(p.getId_estado(),"estado");
+                } else if (field.equalsIgnoreCase("Id")) {
+                    return Id.compareTo(p.getId());
+                }
+            case 1:
+                if (field.equalsIgnoreCase("tituloTarea")) {
+                    return p.getTituloTarea().compareTo(tituloTarea);
+                } else if (field.equalsIgnoreCase("fechaInicio")) {
+                    return p.getFechaInicio().compareTo(fechaInicio);
+                } else if (field.equalsIgnoreCase("fechaFinal")) {
+                    return p.getFechaFinal().compareTo(fechaFinal);
+                } else if (field.equalsIgnoreCase("Descripcion")) {
+                    return p.getDescripcion().compareTo(Descripcion);
+                } else if (field.equalsIgnoreCase("id_tarea")) {
+                    return p.getId_tarea().compareTo(id_tarea,"nombre");
+                } else if (field.equalsIgnoreCase("id_estado")) {
+                    return p.getId_estado().compareTo(id_estado,"estado");
+                } else if (field.equalsIgnoreCase("nota")) {
+                    return p.getNota().compareTo(nota);    
+                } else if (field.equalsIgnoreCase("Id")) {
+                    return p.getId().compareTo(Id);
+                }
+            default:
+                throw new AssertionError();
+        }
+    }
 
     @Override
     public String toString() {
-        return "Control{" + "id_tarea="+ id_tarea+"id_estado"+id_estado+"nota"+nota+ "descripcion=" +Descripcion+ ", tipoTarea=" + tituloTarea + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + '}';
+        return "id_estado=" + id_estado ;
     }
+
+    
+    
+
+    
 }

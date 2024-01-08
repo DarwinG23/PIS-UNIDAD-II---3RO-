@@ -37,9 +37,25 @@ public class tipoTarea {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+     
     @Override
     public String toString() {
         return  nombre;
     }
+
+    public int compareTo(tipoTarea other, String field) {
+        switch (field.toLowerCase()) {
+            case "nombre":
+                if (this.nombre.equals(other.getNombre())) {
+                    return this.nombre.compareTo(other.getNombre());
+                } else {
+                    return this.nombre.compareTo(other.getNombre());
+                }
+            default:
+                throw new IllegalArgumentException("Campo no soportado: " + field);
+        }
+    }
+        
+    
+    
 }

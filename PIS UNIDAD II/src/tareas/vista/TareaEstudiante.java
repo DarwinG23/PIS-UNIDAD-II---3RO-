@@ -3,115 +3,62 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tareas.vista;
-import tareas.ConexionesDB.Sql;
-import tareas.ConexionesDB.Dao.PdfDao;
-import tareas.ConexionesDB.Tabla.TablaPdf_Vo;
-import tareas.ConexionesDB.Vo.PdfVo;
-import java.awt.Desktop;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.swing.JButton;
+import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-/**
- *
+    
+ /*
  * @author ALEJANDRO
  */
 public class TareaEstudiante extends javax.swing.JFrame {
-    TablaPdf_Vo tpdf = new  TablaPdf_Vo();
-    String ruta_archivo = "";
-    int id = -1;
+    JFileChooser seleccion=new JFileChooser();
     private String dato,dato1;
     private javax.swing.JFrame parent;
+    File archivo;
+    FileInputStream entrada;
+    FileOutputStream  salida;
     /**
      * Creates new form TareaEstudiante
      */
-    public void setDato(String dato, String dato1){
+   public TareaEstudiante() {
+        initComponents();
+    }
+   public String AbrirArchivo(File archivo){
+        String documento= "";
+        try {
+            entrada= new FileInputStream(archivo);
+            int ascci;
+            while((ascci=entrada.read())!=-1){
+                char caracter=(char)ascci;
+                documento+=caracter;
+            }
+        } catch (Exception e) {
+        }
+        return documento;
+    }
+    public String GuardarArchivo(File archivo,String documento){
+        String mensaje=null;
+        try {
+            salida=new FileOutputStream(archivo);
+            byte[] bytxt=documento.getBytes();
+            salida.write(bytxt);
+            mensaje="Archivo Guardado";
+        } catch (Exception e) {
+        }
+        return mensaje;
+    }
+     public void setDato(String dato, String dato1){
         this.dato = dato;
         txtTitulo.setText(dato);
         txtDescripcion.setText(dato1);
     }
-   
+    public void setParent(javax.swing.JFrame parent) {
+        this.parent = parent;
+    } 
     
-     public TareaEstudiante() {
-        initComponents();
-        tpdf.visualizar_PdfVO(tblMostrar);
-        activa_boton(false, false, false);
-        txtNombre.setEnabled(false);
-        txtTitulo.setEnabled(false);
-        txtDescripcion.setEnabled(false);
-    }
-      public void activa_boton(boolean a, boolean b, boolean c) {
-        btnGuardar.setEnabled(a);
-        btnModificar.setEnabled(b);
-        btnEliminar.setEnabled(c);
-        txtNombre.setText("");
-        btnSeleccionar.setText("Seleccionar...");
-    }
-    public void guardar_pdf(int codigo, String nombre, File ruta) {
-        PdfDao pa = new PdfDao();
-        PdfVo po = new PdfVo();
-        po.setCodigopdf(codigo);
-        po.setNombrepdf(nombre);
-        try {
-            byte[] pdf = new byte[(int) ruta.length()];
-            InputStream input = new FileInputStream(ruta);
-            input.read(pdf);
-            po.setArchivopdf(pdf);
-        } catch (IOException ex) {
-            po.setArchivopdf(null);
-            //System.out.println("Error al agregar archivo pdf "+ex.getMessage());
-        }
-        pa.Agregar_PdfVO(po);
-    }
-
-    public void modificar_pdf(int codigo, String nombre, File ruta) {
-        PdfDao pa = new PdfDao();
-        PdfVo po = new PdfVo();
-        po.setCodigopdf(codigo);
-        po.setNombrepdf(nombre);
-        try {
-            byte[] pdf = new byte[(int) ruta.length()];
-            InputStream input = new FileInputStream(ruta);
-            input.read(pdf);
-            po.setArchivopdf(pdf);
-        } catch (IOException ex) {
-            po.setArchivopdf(null);
-            //System.out.println("Error al agregar archivo pdf "+ex.getMessage());
-        }
-        pa.Modificar_PdfVO(po);
-    }
-
-    public void modificar_pdf(int codigo, String nombre) {
-        PdfDao pa = new PdfDao();
-        PdfVo po = new PdfVo();
-        po.setCodigopdf(codigo);
-        po.setNombrepdf(nombre);
-        pa.Modificar_PdfVO2(po);
-    }
-
-    public void eliminar_pdf(int codigo) {
-        PdfDao pa = new PdfDao();
-        PdfVo po = new PdfVo();
-        po.setCodigopdf(codigo);
-        pa.Eliminar_PdfVO(po);
-    }
-
-    public void seleccionar_pdf() {
-        JFileChooser j = new JFileChooser();
-        FileNameExtensionFilter fi = new FileNameExtensionFilter("pdf", "pdf");
-        j.setFileFilter(fi);
-        int se = j.showOpenDialog(this);
-        if (se == 0) {
-            this.btnSeleccionar.setText("" + j.getSelectedFile().getName());
-            ruta_archivo = j.getSelectedFile().getAbsolutePath();
-
-        } else {
-        }
-    }
     
 
     /**
@@ -130,37 +77,42 @@ public class TareaEstudiante extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblMostrar = new javax.swing.JTable();
-        btnNuevo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        btnSeleccionar = new javax.swing.JButton();
+        btnAbrir = new javax.swing.JButton();
         txtTitulo = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         btnRegresar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtMostrar = new javax.swing.JTextArea();
+        btnGuardar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 153));
         jLabel1.setText("Título  Tarea:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 0, 153));
         jLabel2.setText("NOMBRE MATERIA:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 0, 153));
         jLabel3.setText("Descripción:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
+        tblMostrarDatos.setBackground(new java.awt.Color(255, 255, 255));
+        tblMostrarDatos.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         tblMostrarDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -176,89 +128,44 @@ public class TareaEstudiante extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 480, 110));
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 51));
         jLabel4.setText("Enviar Tarea");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 0, 153));
         jLabel5.setText("Nombre Archivo:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 0, 153));
         jLabel6.setText("Seleccionar Archivo:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 160, 20));
 
-        tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblMostrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblMostrarMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblMostrar);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, 110));
-
-        btnNuevo.setText("Nuevo Archivo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
-
-        btnGuardar.setText("Guardar Archivo");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, -1, -1));
-
-        btnModificar.setText("Modificar Archivo");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, -1));
-
-        btnEliminar.setText("Eliminar Archivo");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, -1, -1));
-
-        btnCancelar.setText("Cancelar Archivo");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, -1, -1));
+        txtNombre.setBackground(new java.awt.Color(255, 255, 204));
+        txtNombre.setForeground(new java.awt.Color(255, 255, 204));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 390, -1));
 
-        btnSeleccionar.setText("SELECCIONAR");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+        btnAbrir.setBackground(new java.awt.Color(255, 255, 204));
+        btnAbrir.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        btnAbrir.setForeground(new java.awt.Color(255, 153, 153));
+        btnAbrir.setText("SELECCIONAR");
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
+                btnAbrirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 390, -1));
+        jPanel1.add(btnAbrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 240, -1));
+
+        txtTitulo.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 420, -1));
+
+        txtDescripcion.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 420, -1));
 
+        btnRegresar.setBackground(new java.awt.Color(0, 102, 102));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("<<<");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,104 +174,61 @@ public class TareaEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-        );
+        txtMostrar.setBackground(new java.awt.Color(255, 255, 204));
+        txtMostrar.setColumns(20);
+        txtMostrar.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        txtMostrar.setForeground(new java.awt.Color(255, 255, 204));
+        txtMostrar.setRows(5);
+        jScrollPane2.setViewportView(txtMostrar);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 570, 160));
+
+        btnGuardar.setBackground(new java.awt.Color(255, 255, 204));
+        btnGuardar.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 153, 153));
+        btnGuardar.setText("GUARDAR ARCHIVO");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 0, 621, 535));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(204, 0, 204));
+        jButton1.setText("INICIO");
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 134, -1));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 0, 204));
+        jButton2.setText("SALIR");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 235, 134, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        seleccionar_pdf();
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String nombre = txtNombre.getText();
-        Sql s = new Sql();
-        int codigo = s.auto_increment("SELECT MAX(codigopdf) FROM PDF;");
-        File ruta = new File(ruta_archivo);
-        if (nombre.trim().length() != 0 && ruta_archivo.trim().length() != 0) {
-            guardar_pdf(codigo, nombre, ruta);
-            tpdf.visualizar_PdfVO(tblMostrar);
-            ruta_archivo = "";
-            activa_boton(false, false, false);
-            txtNombre.setEnabled(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Rellenar todo los campos");
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String nombre = txtNombre.getText();
-        File ruta = new File(ruta_archivo);
-        if (nombre.trim().length() != 0 && ruta_archivo.trim().length() != 0) {
-            modificar_pdf(id, nombre, ruta);
-            tpdf.visualizar_PdfVO(tblMostrar);
-        } else if (ruta_archivo.trim().length() == 0) {
-            modificar_pdf(id, nombre);
-            tpdf.visualizar_PdfVO(tblMostrar);
-        }
-        ruta_archivo = "";
-        activa_boton(false, false, false);
-        txtNombre.setEnabled(false);
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminar_pdf(id);
-        tpdf.visualizar_PdfVO(tblMostrar);
-        activa_boton(false, false, false);
-        txtNombre.setEnabled(false);
-        ruta_archivo = "";
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         activa_boton(false, false, false);
-        ruta_archivo = "";
-        txtNombre.setEnabled(false);
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-         activa_boton(true, false, false);
-        txtNombre.setEnabled(true);
-        ruta_archivo = "";
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void tblMostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMostrarMouseClicked
-         int column = tblMostrar.getColumnModel().getColumnIndexAtX(evt.getX());
-        int row = evt.getY() / tblMostrar.getRowHeight();
-        activa_boton(false, true, true);
-        txtNombre.setEnabled(true);
-        if (row < tblMostrar.getRowCount() && row >= 0 && column < tblMostrar.getColumnCount() && column >= 0) {
-            id = (int) tblMostrar.getValueAt(row, 0);
-            Object value = tblMostrar.getValueAt(row, column);
-            if (value instanceof JButton) {
-                ((JButton) value).doClick();
-                JButton boton = (JButton) value;
-
-                if (boton.getText().equals("Vacio")) {
-                    JOptionPane.showMessageDialog(null, "No hay archivo");
-                } else {
-                    PdfDao pd = new PdfDao();
-                    pd.ejecutar_archivoPDF(id);
-                    try {
-                        Desktop.getDesktop().open(new File("new.pdf"));
-                    } catch (Exception ex) {
-                    }
+    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
+        if(seleccion.showDialog(null,"Abrir")==JFileChooser.APPROVE_OPTION){
+            archivo=seleccion.getSelectedFile();
+            if(archivo.canRead()){
+                if(archivo.getName().endsWith("txt")){
+                    String documento=AbrirArchivo(archivo);
+                    txtMostrar.setText(documento);
+                } else{
+                    JOptionPane.showMessageDialog(null, "Archivo no compatible");
                 }
-
-            } else {
-                String name = "" + tblMostrar.getValueAt(row, 1);
-                txtNombre.setText(name);
             }
         }
-    }//GEN-LAST:event_tblMostrarMouseClicked
+    }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         TareaDocente td=new TareaDocente();
@@ -372,6 +236,24 @@ public class TareaEstudiante extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if(seleccion.showDialog(null,"Guardar")==JFileChooser.APPROVE_OPTION){
+            archivo=seleccion.getSelectedFile();
+
+                if(archivo.getName().endsWith("txt")){
+                    String documento=txtMostrar.getText();
+                    String mensaje=GuardarArchivo(archivo, documento);
+                    if(mensaje!=null){
+                        JOptionPane.showMessageDialog(null, mensaje);
+                    }else{
+                    JOptionPane.showMessageDialog(null, "Archivo no compatible");
+                    } 
+                }else{        
+                    JOptionPane.showMessageDialog(null, "Guardar Docuemento de texto");    
+                }   
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,13 +291,11 @@ public class TareaEstudiante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -423,15 +303,14 @@ public class TareaEstudiante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblMostrar;
     private javax.swing.JTable tblMostrarDatos;
     public static javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextArea txtMostrar;
     private javax.swing.JTextField txtNombre;
     public static javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
-void setParent(javax.swing.JFrame parent) {
-        this.parent = parent;
-    }
+
 }
