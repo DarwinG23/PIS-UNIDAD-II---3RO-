@@ -95,7 +95,47 @@ public class GestionEstudiante extends javax.swing.JFrame {
              
          }
      }
-    
+     private void ordenar(){
+        String criterio = cbxCriterio1.getSelectedItem().toString().toLowerCase();
+        Integer tipo=0;
+        if (cbxMetodo.isSelected()) {
+            tipo = 1;
+        } 
+        try {
+            System.out.println("QuickSort");
+            mta.setEstudianteTabla(estudianteControl.ordenarQuickSort(estudianteControl.all(), tipo, criterio));
+             tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+     }
+     private void buscar(){
+        String texto = txtBuscar.getText();
+        String criterio= cbxCriterio1.getSelectedItem().toString();
+        if(cbxMetodo1.getSelectedItem().toString()=="Busqueda_Binaria"){
+        try {
+            System.out.println("Busqueda_Binaria");
+            mta.setEstudianteTabla(estudianteControl.all());
+            mta.setEstudianteTabla(estudianteControl.busquedaBinaria(texto, mta.getEstudianteTabla(), criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        } else if(cbxMetodo1.getSelectedItem().toString()=="Busqueda_Lineal"){
+           try {
+            System.out.println("Busqueda Lineal");
+            mta.setEstudianteTabla(estudianteControl.all());
+            mta.setEstudianteTabla(estudianteControl.buscarPorCriterioLineal(texto, mta.getEstudianteTabla(), criterio));
+            tblMostrar.setModel(mta);
+            tblMostrar.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }     
+        }
+    }
+     
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -122,6 +162,15 @@ public class GestionEstudiante extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        cbxCriterio = new javax.swing.JComboBox<>();
+        cbxMetodo = new javax.swing.JCheckBox();
+        btnOrdenar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cbxCriterio1 = new javax.swing.JComboBox<>();
+        cbxMetodo1 = new javax.swing.JComboBox<>();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,7 +188,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
@@ -177,23 +226,23 @@ public class GestionEstudiante extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 260, -1));
-        jPanel1.add(txtPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 420, -1));
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 260, -1));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 400, -1));
+        jPanel1.add(txtPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 410, -1));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 400, -1));
 
         txtEdad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEdadActionPerformed(evt);
             }
         });
-        jPanel1.add(txtEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 120, -1));
-        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 260, -1));
+        jPanel1.add(txtEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 410, -1));
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 410, -1));
 
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Correo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 260, -1));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 410, -1));
 
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,6 +289,49 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 160, -1));
 
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Ordenar:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, -1));
+
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
+        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, -1, -1));
+
+        cbxMetodo.setText("DESCENDENTE");
+        jPanel1.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 560, -1, -1));
+
+        btnOrdenar.setBackground(new java.awt.Color(0, 0, 51));
+        btnOrdenar.setForeground(new java.awt.Color(255, 255, 255));
+        btnOrdenar.setText("ORDENAR");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 560, 120, -1));
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Buscar:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, -1, -1));
+
+        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
+        jPanel1.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 560, -1, -1));
+
+        cbxMetodo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
+        jPanel1.add(cbxMetodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 600, 130, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 600, 140, -1));
+
+        btnBuscar.setBackground(new java.awt.Color(0, 0, 51));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 90, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 655));
 
         pack();
@@ -283,6 +375,14 @@ public class GestionEstudiante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+        ordenar();
+    }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscar( );
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -319,9 +419,15 @@ public class GestionEstudiante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxCriterio1;
+    private javax.swing.JCheckBox cbxMetodo;
+    private javax.swing.JComboBox<String> cbxMetodo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -329,12 +435,15 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtEdad;
