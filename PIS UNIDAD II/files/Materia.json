@@ -1,0 +1,32 @@
+<<<<<<< HEAD
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "materias.modelo.Materia",
+                "nombre": " Matematicas",
+                "paralelo": "A",
+                "ciclo": " 3ro",
+                "id_Materia": 253,
+                "id": 1
+            },
+            "next": {
+                "info": {
+                    "@class": "materias.modelo.Materia",
+                    "nombre": " Base de datos",
+                    "paralelo": "A",
+                    "ciclo": " 3ro",
+                    "id_Materia": 2342,
+                    "id": 2
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next"
+        },
+        "length": 2
+    }
+}
+=======
+{"lista.DynamicList":{"header":{"info":{"@class":"materias.modelo.Materia","nombre":" Diseño Circuitos","paralelo":" B","ciclo":"5 ","id_Materia":" 4GHJU","id":2,"fecha":"25\/01\/2024"},"next":{"info":{"@class":"materias.modelo.Materia","nombre":"Analisis","paralelo":" B","ciclo":"5 ","id_Materia":" 4GHJU","id":2,"fecha":"08\/01\/2024"}}},"last":{"@reference":"..\/header\/next"},"length":2}}
+>>>>>>> origin/feature/correcciónvistamodulomateria
