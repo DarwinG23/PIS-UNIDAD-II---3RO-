@@ -98,9 +98,36 @@ public class Facultad {
     public String toString() {
         return nombre;
     }
-    
-    
-    
-    
+    public Boolean compare( Facultad p, String field, Integer type){
+        switch (type) {
+            case 0:
+                if(field.equalsIgnoreCase("nombre")){
+                    return nombre.compareTo(p.getNombre()) < 0;
+                } else if(field.equalsIgnoreCase("descripcion")){
+                    return descripcion.compareTo(p.getDescripcion()) < 0;
+                }else if(field.equalsIgnoreCase("ubicacion")){
+                    return ubicacion.compareTo(p.getUbicacion()) < 0;
+                 }else if(field.equalsIgnoreCase("numBloques")){
+                    return numBloques.compareTo(p.getNumBloques()) < 0;
+                 }else if(field.equalsIgnoreCase("id")){
+                    return id.compareTo(p.getId()) < 0;
+                }
+            case 1:
+            if(field.equalsIgnoreCase("nombre")){
+                    return nombre.compareTo(p.getNombre()) > 0;
+                } else if(field.equalsIgnoreCase("descripcion")){
+                    return descripcion.compareTo(p.getDescripcion()) > 0;
+                }else if(field.equalsIgnoreCase("ubicacion")){
+                    return ubicacion.compareTo(p.getUbicacion()) > 0;
+                }else if(field.equalsIgnoreCase("numBloques")){
+                    return numBloques.compareTo(p.getNumBloques()) > 0;
+                }else if(field.equalsIgnoreCase("id")){
+                    return id.compareTo(p.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
+                
+        }
+     }  
     
 }
