@@ -80,6 +80,46 @@ public class GuardarCarrera extends javax.swing.JFrame {
         UtilVistaMalla.cargarcomboCarrera(cbxMalla);
         cargarTabla();
     }
+     private void ordenar(){
+        String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
+        Integer tipo=0;
+        if (btnOrden1.isSelected()) {
+            tipo = 1;
+        } 
+        try {
+            mtc.setCarreras(carreraControl.ordenarQuickSort(carreraControl.all(), tipo, criterio));
+             tbCarrera.setModel(mtc);
+            tbCarrera.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }
+     private void buscar(){
+        String texto = txtBuscar.getText();
+        String criterio= cbxCriterio.getSelectedItem().toString();
+        if(cbxMetodo1.getSelectedItem().toString()=="Busqueda_Binaria"){
+        try {
+            System.out.println("Busqueda_Binaria");
+            mtc.setCarreras(carreraControl.all());
+            mtc.setCarreras(carreraControl.busquedaBinaria(texto, mtc.getCarreras(), criterio));
+            tbCarrera.setModel(mtc);
+            tbCarrera.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        } else if(cbxMetodo1.getSelectedItem().toString()=="Busqueda_Lineal"){
+           try {
+            System.out.println("Busqueda_Lineal");
+            mtc.setCarreras(carreraControl.all());
+            mtc.setCarreras(carreraControl.buscarPorCriterioLineal(texto, mtc.getCarreras(), criterio));
+            tbCarrera.setModel(mtc);
+            tbCarrera.updateUI();
+        } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }     
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,23 +150,27 @@ public class GuardarCarrera extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tbMallas = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxCriterio1 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtBuscar1 = new javax.swing.JTextField();
+        btnOrdenar1 = new javax.swing.JButton();
+        btnBuscar2 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbxCriterio = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnOrdenar = new javax.swing.JButton();
+        btnBuscar1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         cbxMalla = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnAgregarMalla = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         brnMostrarMallas = new javax.swing.JButton();
+        cbxMetodo1 = new javax.swing.JComboBox<>();
+        cbxMetodo2 = new javax.swing.JComboBox<>();
+        btnOrden = new javax.swing.JCheckBox();
+        btnOrden1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -202,7 +246,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tbCarrera);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 130, 540, 88));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 540, 88));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -236,7 +280,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Texto:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 270, -1, -1));
 
         tbMallas.setBackground(new java.awt.Color(255, 255, 255));
         tbMallas.setModel(new javax.swing.table.DefaultTableModel(
@@ -252,47 +296,57 @@ public class GuardarCarrera extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tbMallas);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, 540, 88));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, 540, 88));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tabla de carreras:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 50, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 160, -1));
+        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "descripcion", "duracionAnios", "numCiclos" }));
+        jPanel1.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 100, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Criterio:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 280, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 270, 120, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, -1, -1));
+        jPanel1.add(txtBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 270, 120, -1));
 
-        jButton1.setText("Ordenar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 270, -1, -1));
+        btnOrdenar1.setText("Ordenar");
+        jPanel1.add(btnOrdenar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 300, -1, -1));
 
-        jButton2.setText("Buscar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 270, -1, -1));
+        btnBuscar2.setText("Buscar");
+        jPanel1.add(btnBuscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 270, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Criterio:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 160, -1));
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "descripcion", "duracionAnios", "numCiclos" }));
+        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 80, 100, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Texto:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 90, -1, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 90, 120, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 80, -1, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 80, 120, -1));
 
-        jButton3.setText("Ordenar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 90, -1, -1));
+        btnOrdenar.setText("Ordenar");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, -1, -1));
 
-        jButton4.setText("Buscar");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 90, -1, -1));
+        btnBuscar1.setText("Buscar");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 80, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -333,6 +387,23 @@ public class GuardarCarrera extends javax.swing.JFrame {
             }
         });
         jPanel1.add(brnMostrarMallas, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, 100, -1));
+
+        cbxMetodo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
+        jPanel1.add(cbxMetodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 80, 100, -1));
+
+        cbxMetodo2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
+        jPanel1.add(cbxMetodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 270, 100, -1));
+
+        btnOrden.setText("Ascendente");
+        btnOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 300, -1, -1));
+
+        btnOrden1.setText("Ascendente");
+        jPanel1.add(btnOrden1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -405,9 +476,21 @@ public class GuardarCarrera extends javax.swing.JFrame {
                 Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);}
     }//GEN-LAST:event_brnMostrarMallasActionPerformed
-    }
+
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+        ordenar();
+    }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void btnOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOrdenActionPerformed
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        buscar();
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -452,14 +535,18 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private javax.swing.JButton brnMostrarMallas;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregarMalla;
+    private javax.swing.JButton btnBuscar1;
+    private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JCheckBox btnOrden;
+    private javax.swing.JCheckBox btnOrden1;
+    private javax.swing.JButton btnOrdenar;
+    private javax.swing.JButton btnOrdenar1;
+    private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxCriterio1;
     private javax.swing.JComboBox<String> cbxMalla;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cbxMetodo1;
+    private javax.swing.JComboBox<String> cbxMetodo2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -478,11 +565,11 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tbCarrera;
     private javax.swing.JTable tbMallas;
     private javax.swing.JTextField txtAnios;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscar1;
     private javax.swing.JTextField txtCiclos;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
