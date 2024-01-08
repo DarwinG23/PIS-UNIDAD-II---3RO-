@@ -96,7 +96,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Censador{" + "nombre=" + nombre + ", paralelo=" + paralelo + ", ciclo=" + ciclo+ "id_Materia=" + id_Materia + '}';
+        return nombre;
     }
      
 }

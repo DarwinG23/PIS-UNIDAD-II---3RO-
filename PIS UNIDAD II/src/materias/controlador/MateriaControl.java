@@ -33,7 +33,7 @@ public class MateriaControl {
         this.materia = materia;
     }
 
-    public DynamicList<Materia> getMateriaes() {
+    public DynamicList<Materia> getMaterias() {
         return materias;
     }
 

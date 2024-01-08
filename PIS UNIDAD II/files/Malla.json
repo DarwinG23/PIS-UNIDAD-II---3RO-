@@ -1,0 +1,40 @@
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "matricula.modelo.Malla",
+                "nombre": "Computacion 2019",
+                "id": 1,
+                "id_Carrera": 1
+            },
+            "next": {
+                "info": {
+                    "@class": "matricula.modelo.Malla",
+                    "nombre": "Minas 2019",
+                    "id": 2,
+                    "id_Carrera": 2
+                },
+                "next": {
+                    "info": {
+                        "@class": "matricula.modelo.Malla",
+                        "nombre": "Computacion 2023",
+                        "id": 3,
+                        "id_Carrera": 1
+                    },
+                    "next": {
+                        "info": {
+                            "@class": "matricula.modelo.Malla",
+                            "nombre": "Minas 2023",
+                            "id": 4,
+                            "id_Carrera": 2
+                        }
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next\/next\/next"
+        },
+        "length": 4
+    }
+}

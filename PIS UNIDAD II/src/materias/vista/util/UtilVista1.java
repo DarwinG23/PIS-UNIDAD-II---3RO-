@@ -6,6 +6,7 @@ package materias.vista.util;
 
 import javax.swing.JComboBox;
 import materias.controlador.registros.MateriaControl1;
+import materias.modelo.Materia;
 
 /**
  *
@@ -16,12 +17,16 @@ public class UtilVista1 {
         MateriaControl1 rc= new MateriaControl1();
         cbx.removeAllItems();
          for (int i = 0; i < rc.getMaterias().getLength(); i++) {
-            cbx.addItem(rc.getMaterias().getInfo(i).getNombre());
+            cbx.addItem(rc.getMaterias().getInfo(i));
         }
     }
  
     public static String  obtenerRolControl(JComboBox cbx) {
         return (String) cbx.getSelectedItem();
+    }
+    
+    public static Materia  obtenerMateria(JComboBox cbx) {
+        return (Materia) cbx.getSelectedItem();
     }
 }
   

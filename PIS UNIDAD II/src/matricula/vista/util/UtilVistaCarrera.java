@@ -28,6 +28,19 @@ public class UtilVistaCarrera {
         }
     }
     
+    public static void cargarcomboCarreraFiltro(JComboBox cbx) throws EmptyException{
+        CarreraControl mc = new CarreraControl();
+        cbx.removeAllItems();
+        if(mc.getListCarrera().isEmpty()){
+            throw new EmptyException("No hay carreras que mostrar");
+        }
+        else{
+           for (int i = 0; i < mc.getListCarrera().getLength(); i++) {
+            cbx.addItem(mc.getListCarrera().getInfo(i));
+           }
+        }
+    }
+    
     public static Carrera obtenerCarrera(JComboBox cbx){
         return (Carrera) cbx.getSelectedItem();
     }

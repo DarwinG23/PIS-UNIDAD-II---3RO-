@@ -10,6 +10,6 @@ package matricula.modelo;
  */
 public enum Estado {
     
-    APROBADO, MATRICULADO, REPROBADO
+    APROBADO, MATRICULADO, REPROBADO, DISPONIBLE, SOLICITADA
     
 }

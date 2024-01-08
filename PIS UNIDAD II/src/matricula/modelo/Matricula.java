@@ -5,52 +5,42 @@
 package matricula.modelo;
 
 import java.util.Date;
+import lista.DynamicList;
 
 /**
  *
  * @author darwi
  */
-public class Matricula {
-    private String nombreEstudiante; 
-    private Carrera carrera;
+public class Matricula { 
     private Date fechaEmision;
-    private Date fechaVencimiento;
+    private Estado estado;
     private Integer id;
+    private Integer id_Carrera;
+    private Modalidad modalidad;
+    private DynamicList<Cursa> cursas;
 
-    public Matricula(String nombreEstudiante, Carrera carrera, Date fechaEmision, Date fechaVencimiento, Integer id) {
-        this.nombreEstudiante = nombreEstudiante;
-        this.carrera = carrera;
+    public Matricula(Date fechaEmision, Estado estado, Integer id, Integer id_Carrera, Modalidad modalidad, DynamicList<Cursa> cursas) {
         this.fechaEmision = fechaEmision;
-        this.fechaVencimiento = fechaVencimiento;
+        this.estado = estado;
         this.id = id;
+        this.id_Carrera = id_Carrera;
+        this.modalidad = modalidad;
+        this.cursas = cursas;
     }
 
+   
+
+    
+
+    
     public Matricula() {
-        this.nombreEstudiante = null;
-        this.carrera = null;
         this.fechaEmision = null;
-        this.fechaVencimiento = null;
+        this.estado = null;
         this.id = null;
-    }
-    
-    
-    
-    
-
-    public String getNombreEstudiante() {
-        return nombreEstudiante;
-    }
-
-    public void setNombreEstudiante(String nombreEstudiante) {
-        this.nombreEstudiante = nombreEstudiante;
-    }
-
-    public Carrera getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(Carrera carrera) {
-        this.carrera = carrera;
+        this.id_Carrera = null;
+        this.cursas = null;
+        this.modalidad = null;
+        
     }
 
     public Date getFechaEmision() {
@@ -61,12 +51,12 @@ public class Matricula {
         this.fechaEmision = fechaEmision;
     }
 
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -77,9 +67,42 @@ public class Matricula {
         this.id = id;
     }
 
+
+    public Integer getId_Carrera() {
+        return id_Carrera;
+    }
+
+    public void setId_Carrera(Integer id_Carrera) {
+        this.id_Carrera = id_Carrera;
+    }
+
+    public DynamicList<Cursa> getCursas() {
+        if(cursas == null){
+            cursas = new DynamicList<>();
+        }
+        return cursas;
+    }
+
+    public void setCursas(DynamicList<Cursa> cursas) {
+        this.cursas = cursas;
+    }
+
+    public Modalidad getModalidad() {
+        return modalidad;
+    }
+
+    public void setModalidad(Modalidad modalidad) {
+        this.modalidad = modalidad;
+    }
+    
+    
+    
+    
+
+
     @Override
     public String toString() {
-        return "Matricula" + id + "Estudiante" + nombreEstudiante;
+        return  id + "";
     }
     
     
