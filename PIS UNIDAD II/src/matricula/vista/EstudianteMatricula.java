@@ -7,13 +7,14 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.CursaControl;
 import matricula.controlador.MatriculaControl;
+import matricula.modelo.Cursa;
 import matricula.modelo.Estado;
 import matricula.modelo.Matricula;
 import matricula.vista.tabla.ModeloTablaMatricula;
-
 
 /**
  *
@@ -34,12 +35,12 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         return true;
     }
 
-    private void cargarTabla() throws EmptyException { 
+    private void cargarTabla() throws EmptyException {
         DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
-        
+
         for (int i = 0; i < matriculaControl.getListMatricula().getLength(); i++) {
             Matricula matriculaActual = matriculaControl.getListMatricula().getInfo(i);
-     
+
             if (matriculaActual.getEstado() == Estado.DISPONIBLE) {
                 matriculasFiltradas.add(matriculaActual);
             }
@@ -48,7 +49,47 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         tbMatricula.setModel(mtm);
         tbMatricula.updateUI();
     }
-    
+
+    public void guardar(Integer filaSeleccionada, Cursa cursa) {
+        if (verificar()) {
+            if (cursaControl.marge(cursa, filaSeleccionada)) {
+                JOptionPane.showMessageDialog(null, "Se ha matriculado con exito");
+                cursaControl.setCursa(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    public void modificarCursa(Integer filaSeleccionada) throws EmptyException {
+        DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
+        boolean asignado = false;
+        for (int i = 0; i < matriculaControl.getListMatricula().getInfo(filaSeleccionada).getCursas().getLength(); i++) {
+            Cursa cursaActual = matriculaControl.getListMatricula().getInfo(filaSeleccionada).getCursas().getInfo(i);
+            if (cursaActual.getId_estudiante() == null && !asignado) {
+                cursaControl.getCursa().setId(cursaControl.getListCursa().getInfo(i).getId());
+                cursaControl.getCursa().setId_materia(cursaControl.getListCursa().getInfo(i).getId_materia());
+                cursaControl.getCursa().setId_matricula(cursaControl.getListCursa().getInfo(i).getId_matricula());
+                cursaControl.getCursa().setId_docente(cursaControl.getListCursa().getInfo(i).getId_docente());
+                cursaControl.getCursa().setParalelo(cursaControl.getListCursa().getInfo(i).getParalelo());
+                cursaControl.getCursa().setId_estudiante(cbxEstudiante.getSelectedIndex());
+                asignado = true;
+                if (cursaControl.marge(cursaControl.getCursa(), i)) {
+                    JOptionPane.showMessageDialog(null, "Se ha matriculado con exito");
+                    cursaControl.setCursa(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+                }
+
+            }
+
+        }
+
+    }
+
     public EstudianteMatricula() throws EmptyException {
         initComponents();
         cargarTabla();
@@ -63,7 +104,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMatricula = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
@@ -74,6 +114,8 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         btnMatricularse = new javax.swing.JButton();
+        cbxEstudiante = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,11 +124,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/matricula/vista/img/logo_unl.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 190, -1));
-
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
 
         tbMatricula.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,8 +162,8 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Criterio:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+        jLabel15.setText("Estudiante:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 170, -1));
 
         btnMatricularse.setText("Matricularse");
@@ -135,7 +172,15 @@ public class EstudianteMatricula extends javax.swing.JFrame {
                 btnMatricularseActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMatricularse, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 140, 60));
+        jPanel1.add(btnMatricularse, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 140, 60));
+
+        cbxEstudiante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 220, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Criterio:");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,9 +199,23 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMatricularseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatricularseActionPerformed
-       
+        int filaSeleccionada = tbMatricula.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                modificarCursa(filaSeleccionada);
+            } catch (Exception ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                cargarTabla();
+            } catch (EmptyException ex) {
+                Logger.getLogger(EstudianteMatricula.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnMatricularseActionPerformed
-    
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -198,13 +257,14 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMatricularse;
+    private javax.swing.JComboBox<String> cbxEstudiante;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

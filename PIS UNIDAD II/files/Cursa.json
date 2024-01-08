@@ -1,1 +1,1 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"matricula.modelo.Cursa","id":1,"id_matricula":1,"id_materia":1},"next":{"info":{"@class":"matricula.modelo.Cursa","id":2,"id_matricula":2,"id_materia":1}}},"last":{"@reference":"..\/header\/next"},"length":2}}
+{"lista.DynamicList":{"header":{"info":{"@class":"matricula.modelo.Cursa","id_estudiante":3,"id_materia":1},"next":{"info":{"@class":"matricula.modelo.Cursa","id":2,"id_matricula":2,"id_materia":1}}},"last":{"@reference":"..\/header\/next"},"length":2}}
