@@ -91,6 +91,41 @@ public class Cursa {
     public String toString() {
         return  id_estudiante +" "+ id_materia +" " +  paralelo;
     }
+    public Boolean compare( Cursa p, String field, Integer type){
+        switch (type) {
+            case 0:
+                if(field.equalsIgnoreCase("id_estudiante")){
+                    return id_estudiante.compareTo(p.getId_estudiante()) < 0;
+                } else if(field.equalsIgnoreCase("id_matricula")){
+                    return id_matricula.compareTo(p.getId_matricula()) < 0;
+                }else if(field.equalsIgnoreCase("id_materia")){
+                    return id_materia.compareTo(p.getId_materia()) < 0;
+                 }else if(field.equalsIgnoreCase("id_docente")){
+                    return id_docente.compareTo(p.getId_docente()) < 0;
+                 }else if(field.equalsIgnoreCase("paralelo")){
+                    return paralelo.compareTo(p.getParalelo()) < 0;
+                 }else if(field.equalsIgnoreCase("id")){
+                    return id.compareTo(p.getId()) < 0;
+                }
+            case 1:
+            if(field.equalsIgnoreCase("id_estudiante")){
+                    return id_estudiante.compareTo(p.getId_estudiante()) > 0;
+                } else if(field.equalsIgnoreCase("id_matricula")){
+                    return id_matricula.compareTo(p.getId_matricula()) > 0;
+                }else if(field.equalsIgnoreCase("id_materia")){
+                    return id_materia.compareTo(p.getId_materia()) > 0;
+                }else if(field.equalsIgnoreCase("id_docente")){
+                    return id_docente.compareTo(p.getId_docente()) > 0;
+                }else if(field.equalsIgnoreCase("paralelo")){
+                    return paralelo.compareTo(p.getParalelo()) > 0;
+                }else if(field.equalsIgnoreCase("id")){
+                    return id.compareTo(p.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
+                
+        }
+     }
     
 
     
