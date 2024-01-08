@@ -188,7 +188,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
@@ -289,8 +289,10 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 160, -1));
 
-        jLabel8.setText("ORDENAR:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Ordenar:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, -1));
 
         cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
         jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, -1, -1));
@@ -298,6 +300,8 @@ public class GestionEstudiante extends javax.swing.JFrame {
         cbxMetodo.setText("DESCENDENTE");
         jPanel1.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 560, -1, -1));
 
+        btnOrdenar.setBackground(new java.awt.Color(0, 0, 51));
+        btnOrdenar.setForeground(new java.awt.Color(255, 255, 255));
         btnOrdenar.setText("ORDENAR");
         btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,8 +310,10 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 560, 120, -1));
 
-        jLabel9.setText("BUSCAR:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, -1, -1));
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Buscar:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, -1, -1));
 
         cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
         jPanel1.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 560, -1, -1));
@@ -316,6 +322,8 @@ public class GestionEstudiante extends javax.swing.JFrame {
         jPanel1.add(cbxMetodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 600, 130, -1));
         jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 600, 140, -1));
 
+        btnBuscar.setBackground(new java.awt.Color(0, 0, 51));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

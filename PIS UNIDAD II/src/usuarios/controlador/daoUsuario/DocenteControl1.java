@@ -12,7 +12,7 @@ import usuarios.modelo.Docente;
 
 /**
  *
- * @author USUARIO
+ * @author Alexander
  */
 public class DocenteControl1 extends DaoImplement<Docente> {
       private DynamicList<Docente> docente;
