@@ -171,6 +171,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         cbxMetodo1 = new javax.swing.JComboBox<>();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -332,6 +333,14 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 90, -1));
 
+        jButton1.setText("IR ATRAS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 350, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 655));
 
         pack();
@@ -383,6 +392,12 @@ public class GestionEstudiante extends javax.swing.JFrame {
         buscar( );
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Menu m1=new Menu();
+        m1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -428,6 +443,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxCriterio1;
     private javax.swing.JCheckBox cbxMetodo;
     private javax.swing.JComboBox<String> cbxMetodo1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

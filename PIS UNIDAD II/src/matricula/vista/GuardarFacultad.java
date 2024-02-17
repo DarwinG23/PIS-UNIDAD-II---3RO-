@@ -13,6 +13,7 @@ import matricula.controlador.FacultadControl;
 import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaFacultad;
 import matricula.vista.util.UtilVistaCarrera;
+import usuarios.vista.Inicio;
 
 /**
  *
@@ -257,6 +258,11 @@ public class GuardarFacultad extends javax.swing.JFrame {
         jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 135, -1));
 
         jButton7.setText("Inicio");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 135, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 480));
@@ -426,6 +432,12 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Inicio n1=new Inicio();
+        n1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
     
     /**
      * @param args the command line arguments

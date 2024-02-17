@@ -14,6 +14,7 @@ import materias.vista.util.UtilVista1;
 import matricula.controlador.CicloControl;
 import matricula.vista.tabla.ModeloTablaCiclo;
 import matricula.vista.util.UtilVistaMalla;
+import usuarios.vista.Inicio;
 
 /**
  *
@@ -28,6 +29,7 @@ public class GuardarCiclo extends javax.swing.JFrame {
     public void cargarFacultades(DynamicList carreras) {
         mtc.setCiclos(carreras);
         initComponents();
+       
     }
 
     public Boolean verificar() {
@@ -147,7 +149,6 @@ public class GuardarCiclo extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
         btnOrdenar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -283,14 +284,15 @@ public class GuardarCiclo extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Inicio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 185, -1));
 
         jButton2.setText("Salir");
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 185, -1));
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/matricula/vista/img/logo_unl.png"))); // NOI18N
-        jLabel16.setText("jLabel9");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 180, 120));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 570));
 
@@ -428,6 +430,12 @@ public class GuardarCiclo extends javax.swing.JFrame {
         buscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Inicio n1=new Inicio();
+        n1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -491,7 +499,6 @@ public class GuardarCiclo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

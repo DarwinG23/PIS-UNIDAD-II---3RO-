@@ -12,6 +12,7 @@ import lista.DynamicList;
 import materias.modelo.Materia;
 import materias.vista.util.UtilVista1;
 import matricula.controlador.CicloControl;
+import usuarios.vista.Inicio;
 
 /**
  *
@@ -134,6 +135,8 @@ public class AgregarMateria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Inicio n1=new Inicio();
+        n1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

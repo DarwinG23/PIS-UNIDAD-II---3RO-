@@ -1,0 +1,1 @@
+{"lista.DynamicList":{"header":{"info":{"@class":"usuarios.modelo.Docente","nombre":" Wilman","apellido":" Chamba","edad":" 30","id":1,"cedula":"1108598569 ","correo":" wlman.chamba@unl.edu.ec","tituloProfesional":"Ingeniero en sistemas ","aniosExperiencia":"10 "}},"last":{"@reference":"..\/header"},"length":1}}

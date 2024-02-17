@@ -11,11 +11,11 @@ import usuarios.controlador.daoUsuario.RegistroControl1;
  *
  * @author Alexander
  */
-public class Login extends javax.swing.JFrame {
+public class InicioAdmin extends javax.swing.JFrame {
 
     private RegistroControl1 registroControl = new RegistroControl1();
 
-    public Login() {
+    public InicioAdmin() {
         initComponents();
     }
 
@@ -67,7 +67,6 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        txtRegistrarse = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         txtContrasenia1 = new javax.swing.JPasswordField();
@@ -78,7 +77,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("            INICIO DE SESIÓN");
+        jLabel1.setText("            ADMINISTRADOR");
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 40));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -100,15 +99,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtRegistrarse.setBackground(new java.awt.Color(0, 0, 51));
-        txtRegistrarse.setForeground(new java.awt.Color(255, 255, 255));
-        txtRegistrarse.setText("REGISTRARSE");
-        txtRegistrarse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRegistrarseActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Usuario:");
@@ -123,11 +113,6 @@ public class Login extends javax.swing.JFrame {
                         .addGap(143, 143, 143)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(txtRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,6 +124,10 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(txtNombre)
                             .addComponent(txtUsuario))))
                 .addContainerGap(113, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 212, Short.MAX_VALUE)
+                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(210, 210, 210))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,11 +144,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnIniciar)
-                    .addComponent(txtRegistrarse))
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
+                .addComponent(btnIniciar)
+                .addGap(55, 55, 55)
                 .addComponent(jLabel2)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -206,15 +193,11 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         Guardar();
-        Menu A = new Menu();
-        A.setVisible(true);
+        Inicio i = new Inicio();
+        i.setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_btnIniciarActionPerformed
-
-    private void txtRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegistrarseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,20 +216,23 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new InicioAdmin().setVisible(true);
             }
         });
     }
@@ -262,7 +248,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField txtContrasenia1;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JButton txtRegistrarse;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 

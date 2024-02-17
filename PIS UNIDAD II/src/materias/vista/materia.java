@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import materias.controlador.registros.MateriaControl1;
 import materias.vista.Tabla.ModeloTablaMateria;
+import usuarios.vista.Inicio;
 
 /**
  *
@@ -172,6 +173,7 @@ public class materia extends javax.swing.JFrame {
         cbxCriterio2 = new javax.swing.JComboBox<>();
         txtBuscar = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -327,6 +329,14 @@ public class materia extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, -1, -1));
 
+        jButton3.setText("INICIO");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 540, 160, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -394,6 +404,12 @@ public class materia extends javax.swing.JFrame {
         buscar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Inicio n1=new Inicio();
+        n1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +455,7 @@ public class materia extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxMetodo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

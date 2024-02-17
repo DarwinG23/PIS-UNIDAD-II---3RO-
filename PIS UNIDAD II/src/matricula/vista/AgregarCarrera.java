@@ -12,6 +12,7 @@ import lista.DynamicList;
 import matricula.controlador.FacultadControl;
 import matricula.modelo.Carrera;
 import matricula.vista.util.UtilVistaCarrera;
+import usuarios.vista.Inicio;
 
 /**
  *
@@ -134,6 +135,8 @@ public class AgregarCarrera extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        Inicio n1=new Inicio();
+        n1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 

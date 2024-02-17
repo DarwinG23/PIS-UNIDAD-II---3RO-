@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import usuarios.vista.Inicio;
+import usuarios.vista.Menu;
     
  /*
  * @author ALEJANDRO
@@ -25,6 +27,7 @@ public class TareaEstudiante extends javax.swing.JFrame {
      */
    public TareaEstudiante() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
    public String AbrirArchivo(File archivo){
         String documento= "";
@@ -194,7 +197,7 @@ public class TareaEstudiante extends javax.swing.JFrame {
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 0, 621, 535));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 0, 621, 540));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -203,12 +206,22 @@ public class TareaEstudiante extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(204, 0, 204));
         jButton1.setText("INICIO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 134, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(204, 0, 204));
         jButton2.setText("SALIR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 235, 134, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 540));
@@ -254,6 +267,16 @@ public class TareaEstudiante extends javax.swing.JFrame {
                 }   
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         Menu m1=new Menu();
+        m1.setVisible(true);
+        this.dispose(   );
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
