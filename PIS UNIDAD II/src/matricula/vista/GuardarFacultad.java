@@ -35,12 +35,13 @@ public class GuardarFacultad extends javax.swing.JFrame {
         return (!txtDescripcion.getText().trim().isEmpty()
                 && !txtNombre.getText().trim().isEmpty()
                 && !txtDescripcion.getText().trim().isEmpty()
-                && !txtNumBloques.getText().trim().isEmpty()
-                && !txtUbicacion.getText().trim().isEmpty());
+                && !txtNumBloques.getText().trim().isEmpty());
     }
 
     private void cargarTabla() {
         mtc.setFacultades(facultadControl.getListFacultades());
+        tbCarrera.setModel(mtf);
+        tbCarrera.updateUI();
         tbFacultad.setModel(mtc);
         tbFacultad.updateUI();
     }
@@ -51,7 +52,9 @@ public class GuardarFacultad extends javax.swing.JFrame {
             facultadControl.getFacultad().setNombre(txtNombre.getText());
             facultadControl.getFacultad().setNumBloques(Integer.parseInt(txtNumBloques.getText()));
             //facultadControl.getFacultad().getCarreras().add(UtilVistaCarrera.obtenerCarrera(cbxCarrera));
-            facultadControl.getFacultad().setUbicacion(txtUbicacion.getText());
+            facultadControl.getFacultad().getUbicacion().setLatitud(Double.parseDouble(txtLatitud.getText()));
+            facultadControl.getFacultad().getUbicacion().setLongitud(Double.parseDouble(txtLongitud.getText()));
+            facultadControl.getFacultad().setUbicacion(facultadControl.getFacultad().getUbicacion());
             if (facultadControl.persist()) {
                 JOptionPane.showMessageDialog(null, "Datos guardados");
                 cargarTabla();
@@ -69,7 +72,8 @@ public class GuardarFacultad extends javax.swing.JFrame {
         txtNombre.setText("");
         txtDescripcion.setText(" ");
         txtNumBloques.setText("");
-        txtUbicacion.setText(" ");
+        txtLatitud.setText("Latitud");
+        txtLongitud.setText("Longitud ");
         cargarTabla();
         facultadControl.setFacultad(null);
     }
@@ -81,6 +85,8 @@ public class GuardarFacultad extends javax.swing.JFrame {
         cargarTabla();
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.jpg"));
         pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+        txtLatitud.setText("Latitud");
+        txtLongitud.setText("Longitud ");
     }
 
     private void ordenar() {
@@ -139,8 +145,6 @@ public class GuardarFacultad extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnMostrarCarrera = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtUbicacion = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         AgregarCarrera = new javax.swing.JButton();
@@ -148,6 +152,8 @@ public class GuardarFacultad extends javax.swing.JFrame {
         txtNumBloques = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        txtLatitud = new javax.swing.JTextField();
+        txtLongitud = new javax.swing.JTextField();
         pnlGris = new org.edisoncor.gui.panel.PanelImage();
         jLabel9 = new javax.swing.JLabel();
         btnOrden = new javax.swing.JCheckBox();
@@ -171,8 +177,8 @@ public class GuardarFacultad extends javax.swing.JFrame {
         tbCarrera = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        btnAdmFacultad = new javax.swing.JMenuItem();
         btnAdmCarrera = new javax.swing.JMenuItem();
+        btnAdmMalla = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,19 +214,13 @@ public class GuardarFacultad extends javax.swing.JFrame {
         });
         pnlAzul.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 80, -1));
 
-        btnMostrarCarrera.setText("Mostrar Carreras");
+        btnMostrarCarrera.setText("Ver Carreras");
         btnMostrarCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarCarreraActionPerformed(evt);
             }
         });
         pnlAzul.add(btnMostrarCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 120, -1));
-
-        txtUbicacion.setColumns(20);
-        txtUbicacion.setRows(5);
-        jScrollPane1.setViewportView(txtUbicacion);
-
-        pnlAzul.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 310, 110));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -250,6 +250,8 @@ public class GuardarFacultad extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("FACULTAD");
         pnlAzul.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+        pnlAzul.add(txtLatitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 150, -1));
+        pnlAzul.add(txtLongitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 150, -1));
 
         getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 580));
 
@@ -262,7 +264,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
 
         btnOrden.setText("Ascendente");
         pnlGris.add(btnOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 100, -1));
-        pnlGris.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 70, -1));
+        pnlGris.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 150, -1));
 
         btnOrdenar.setText("Ordenar");
         btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +272,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
                 btnOrdenarActionPerformed(evt);
             }
         });
-        pnlGris.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 70, -1));
+        pnlGris.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 70, -1));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +280,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        pnlGris.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 70, -1));
+        pnlGris.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 70, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 51));
@@ -314,27 +316,27 @@ public class GuardarFacultad extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 51));
         jLabel5.setText("CARRERAS");
-        pnlGris.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, -1, -1));
-        pnlGris.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 130, -1));
+        pnlGris.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
+        pnlGris.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 130, -1));
 
         jButton3.setText("Ordenar");
-        pnlGris.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
+        pnlGris.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, 60, -1));
 
         jButton5.setText("Buscar");
-        pnlGris.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, -1, -1));
+        pnlGris.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 60, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 51));
         jLabel10.setText("Texto:");
-        pnlGris.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
+        pnlGris.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pnlGris.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 150, -1));
+        pnlGris.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 150, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 51));
         jLabel8.setText("Criterio:");
-        pnlGris.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 60, -1));
+        pnlGris.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 60, -1));
 
         tbCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -349,17 +351,27 @@ public class GuardarFacultad extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tbCarrera);
 
-        pnlGris.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 610, 90));
+        pnlGris.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 610, 90));
 
         getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 580));
 
         jMenu1.setText("Administracion");
 
-        btnAdmFacultad.setText("Facultad");
-        jMenu1.add(btnAdmFacultad);
-
         btnAdmCarrera.setText("Carrera");
+        btnAdmCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCarreraActionPerformed(evt);
+            }
+        });
         jMenu1.add(btnAdmCarrera);
+
+        btnAdmMalla.setText("Malla");
+        btnAdmMalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMallaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmMalla);
 
         jMenuBar1.add(jMenu1);
 
@@ -386,11 +398,19 @@ public class GuardarFacultad extends javax.swing.JFrame {
             try {
                 new AgregarCarrera(filaSeleccionada).setVisible(true);
             } catch (Exception ex) {
-                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+                int i = JOptionPane.showConfirmDialog(null, "No hay carrera para agregar \n ¿Desea crearla?", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+                if (i == JOptionPane.OK_OPTION) {
+                    try {
+                        new GuardarCarrera().setVisible(true);
+                        this.dispose();
+                    } catch (EmptyException ex1) {
+                        JOptionPane.showConfirmDialog(null, "Hubo un problema al intentar crear la  carrera :c");
+                    }
+                }
             }
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado una facultad de la tabla facultades", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
         }
     }//GEN-LAST:event_AgregarCarreraActionPerformed
 
@@ -398,14 +418,18 @@ public class GuardarFacultad extends javax.swing.JFrame {
         int filaSeleccionada = tbFacultad.getSelectedRow();
         if (filaSeleccionada != -1) {
             try {
-                mtf.setCarreras(facultadControl.getListFacultades().getInfo(filaSeleccionada).getCarreras());
-                tbCarrera.setModel(mtf);
-                tbCarrera.updateUI();
+                if (facultadControl.getListFacultades().getInfo(filaSeleccionada).getCarreras().getLength() == 0) {
+                    JOptionPane.showConfirmDialog(null, "Esta facultad no tiene carreras", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+                } else {
+                    mtf.setCarreras(facultadControl.getListFacultades().getInfo(filaSeleccionada).getCarreras());
+                    tbCarrera.setModel(mtf);
+                    tbCarrera.updateUI();
+                }
             } catch (EmptyException ex) {
                 Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado una facultad de la tabla facultades", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
     }//GEN-LAST:event_btnMostrarCarreraActionPerformed
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -423,6 +447,25 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
         ordenar();
     }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
+        try {
+            new GuardarMalla().setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_btnAdmMallaActionPerformed
+
+    private void btnAdmCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCarreraActionPerformed
+        try {
+            new GuardarCarrera().setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmCarreraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -467,7 +510,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private javax.swing.JButton AgregarCarrera;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JMenuItem btnAdmCarrera;
-    private javax.swing.JMenuItem btnAdmFacultad;
+    private javax.swing.JMenuItem btnAdmMalla;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMostrarCarrera;
@@ -492,7 +535,6 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -503,8 +545,9 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private javax.swing.JTable tbFacultad;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtLatitud;
+    private javax.swing.JTextField txtLongitud;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumBloques;
-    private javax.swing.JTextArea txtUbicacion;
     // End of variables declaration//GEN-END:variables
 }

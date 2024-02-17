@@ -14,11 +14,11 @@ public class Facultad {
     private String nombre;
     private Integer id;
     private String descripcion;
-    private String ubicacion;
+    private Coordenada ubicacion;
     private Integer numBloques;
     private DynamicList<Carrera> carreras;
 
-    public Facultad(String nombre, Integer id, String descripcion, String ubicacion, Integer numBloques, DynamicList<Carrera> carreras) {
+    public Facultad(String nombre, Integer id, String descripcion, Coordenada ubicacion, Integer numBloques, DynamicList<Carrera> carreras) {
         this.nombre = nombre;
         this.id = id;
         this.descripcion = descripcion;
@@ -26,6 +26,8 @@ public class Facultad {
         this.numBloques = numBloques;
         this.carreras = carreras;
     }
+
+    
 
     
 
@@ -65,13 +67,18 @@ public class Facultad {
         this.descripcion = descripcion;
     }
 
-    public String getUbicacion() {
+    public Coordenada getUbicacion() {
+        if(ubicacion == null){
+            ubicacion = new Coordenada();
+        }
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(Coordenada ubicacion) {
         this.ubicacion = ubicacion;
     }
+    
+    
 
     public Integer getNumBloques() {
         return numBloques;
@@ -105,9 +112,7 @@ public class Facultad {
                     return nombre.compareTo(p.getNombre()) < 0;
                 } else if(field.equalsIgnoreCase("descripcion")){
                     return descripcion.compareTo(p.getDescripcion()) < 0;
-                }else if(field.equalsIgnoreCase("ubicacion")){
-                    return ubicacion.compareTo(p.getUbicacion()) < 0;
-                 }else if(field.equalsIgnoreCase("numBloques")){
+                }else if(field.equalsIgnoreCase("numBloques")){
                     return numBloques.compareTo(p.getNumBloques()) < 0;
                  }else if(field.equalsIgnoreCase("id")){
                     return id.compareTo(p.getId()) < 0;
@@ -117,8 +122,6 @@ public class Facultad {
                     return nombre.compareTo(p.getNombre()) > 0;
                 } else if(field.equalsIgnoreCase("descripcion")){
                     return descripcion.compareTo(p.getDescripcion()) > 0;
-                }else if(field.equalsIgnoreCase("ubicacion")){
-                    return ubicacion.compareTo(p.getUbicacion()) > 0;
                 }else if(field.equalsIgnoreCase("numBloques")){
                     return numBloques.compareTo(p.getNumBloques()) > 0;
                 }else if(field.equalsIgnoreCase("id")){

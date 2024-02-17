@@ -165,8 +165,6 @@ public class FacultadControl extends DaoImplement<Facultad>{
         switch (criterio) {
             case "nombre":
                 return facultad.getNombre();
-            case "ubicacion":
-                return facultad.getUbicacion();
             case "numBloques":
                 return numBloques;
             default:
