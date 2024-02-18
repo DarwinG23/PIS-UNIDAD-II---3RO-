@@ -80,7 +80,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
         UtilVistaModalidad.cargarComboModalidad(cbxModalidad);
         UtilVistaPeriodoAcademico.cargarcomboPerido(cbxPeriodo);
         UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
-        pnlAzul.setIcon(new ImageIcon("fotos/Azul.jpg"));
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
                
     }
@@ -129,7 +129,10 @@ public class GuardarMatricula extends javax.swing.JFrame {
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnMatricula = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -314,8 +317,33 @@ public class GuardarMatricula extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenu3.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnIncio);
+
+        btnMatricula.setText("Matriculas");
+        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnMatricula);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnSalir);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -379,6 +407,23 @@ public class GuardarMatricula extends javax.swing.JFrame {
         new GuardarPeriodoAcademico().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
+
+    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIncioActionPerformed
+
+    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
+        try {
+            new EstudianteMatricula().setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnMatriculaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
  
     /**
      * @param args the command line arguments
@@ -430,6 +475,9 @@ public class GuardarMatricula extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarMateria;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JMenuItem btnIncio;
+    private javax.swing.JMenuItem btnMatricula;
+    private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JComboBox<String> cbxMateria;
@@ -451,7 +499,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

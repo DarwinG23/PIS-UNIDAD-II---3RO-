@@ -158,7 +158,7 @@ public class GuardarCiclo extends javax.swing.JFrame {
 
     public GuardarCiclo() throws EmptyException {
         initComponents();
-        pnlAzul.setIcon(new ImageIcon("fotos/Azul.jpg"));
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
         setLocationRelativeTo(null);
         cargarTabla();
@@ -214,6 +214,9 @@ public class GuardarCiclo extends javax.swing.JFrame {
         btnAdmMatricula = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnMatricula = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -432,7 +435,32 @@ public class GuardarCiclo extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
+
+        btnMatricula.setText("Matriculas");
+        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMatricula);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSalir);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -533,6 +561,23 @@ public class GuardarCiclo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIncioActionPerformed
+
+    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
+        try {
+            new EstudianteMatricula().setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnMatriculaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -584,10 +629,13 @@ public class GuardarCiclo extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnCargarMateria;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JMenuItem btnIncio;
+    private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JCheckBox btnOrden;
     private javax.swing.JCheckBox btnOrden1;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton btnOrdenar1;
+    private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JComboBox<String> cbxCriterio1;
     private javax.swing.JComboBox<String> cbxMalla;
