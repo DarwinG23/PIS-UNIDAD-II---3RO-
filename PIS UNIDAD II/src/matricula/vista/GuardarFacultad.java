@@ -179,6 +179,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         btnAdmCarrera = new javax.swing.JMenuItem();
         btnAdmMalla = new javax.swing.JMenuItem();
+        btnAdmCiclo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -373,6 +374,14 @@ public class GuardarFacultad extends javax.swing.JFrame {
         });
         jMenu1.add(btnAdmMalla);
 
+        btnAdmCiclo.setText("Ciclo");
+        btnAdmCiclo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCicloActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCiclo);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -467,6 +476,15 @@ public class GuardarFacultad extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdmCarreraActionPerformed
 
+    private void btnAdmCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCicloActionPerformed
+        try {
+            new GuardarCiclo().setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmCicloActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -510,6 +528,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private javax.swing.JButton AgregarCarrera;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JMenuItem btnAdmCarrera;
+    private javax.swing.JMenuItem btnAdmCiclo;
     private javax.swing.JMenuItem btnAdmMalla;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;

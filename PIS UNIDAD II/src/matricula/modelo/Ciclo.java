@@ -13,34 +13,25 @@ import lista.DynamicList;
  * @author darwi
  */
 public class Ciclo {
+
     private Integer numCiclo;
-    private Date fechaInicio;
-    private Date fechaFin;
     private Integer id;
     private Integer id_Malla;
     private DynamicList<Materia> materias;
 
-    public Ciclo(Integer numCiclo, Date fechaInicio, Date fechaFin, Integer id, Integer id_Malla, DynamicList<Materia> materias) {
+    public Ciclo(Integer numCiclo, Integer id, Integer id_Malla, DynamicList<Materia> materias) {
         this.numCiclo = numCiclo;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
         this.id = id;
         this.id_Malla = id_Malla;
         this.materias = materias;
     }
 
-    
-
     public Ciclo() {
-        this.fechaFin = null;
-        this.fechaInicio = null;
         this.numCiclo = null;
         this.id = null;
         this.id_Malla = null;
         this.materias = null;
     }
-    
-    
 
     public Integer getNumCiclo() {
         return numCiclo;
@@ -48,22 +39,6 @@ public class Ciclo {
 
     public void setNumCiclo(Integer numCiclo) {
         this.numCiclo = numCiclo;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
     }
 
     public Integer getId() {
@@ -92,42 +67,34 @@ public class Ciclo {
     public void setMaterias(DynamicList<Materia> materias) {
         this.materias = materias;
     }
-    
 
     @Override
     public String toString() {
         return numCiclo.toString();
-    } 
-    public Boolean compare( Ciclo p, String field, Integer type){
+    }
+
+    public Boolean compare(Ciclo p, String field, Integer type) {
         switch (type) {
             case 0:
-                if(field.equalsIgnoreCase("numCiclo")){
+                if (field.equalsIgnoreCase("numCiclo")) {
                     return numCiclo.compareTo(p.getNumCiclo()) < 0;
-                } else if(field.equalsIgnoreCase("fechaInicio")){
-                    return fechaInicio.compareTo(p.getFechaInicio()) < 0;
-                }else if(field.equalsIgnoreCase("fechFin")){
-                    return fechaFin.compareTo(p.getFechaFin()) < 0;
-                 }else if(field.equalsIgnoreCase("id_Malla")){
+                } else if (field.equalsIgnoreCase("id_Malla")) {
                     return id_Malla.compareTo(p.getId_Malla()) < 0;
-                 }else if(field.equalsIgnoreCase("id")){
+                } else if (field.equalsIgnoreCase("id")) {
                     return id.compareTo(p.getId()) < 0;
                 }
             case 1:
-            if(field.equalsIgnoreCase("numCiclo")){
+                if (field.equalsIgnoreCase("numCiclo")) {
                     return numCiclo.compareTo(p.getNumCiclo()) > 0;
-                } else if(field.equalsIgnoreCase("fechInicio")){
-                    return fechaInicio.compareTo(p.getFechaInicio()) > 0;
-                }else if(field.equalsIgnoreCase("fechFin")){
-                    return fechaFin.compareTo(p.getFechaFin()) > 0;
-                }else if(field.equalsIgnoreCase("id_Malla")){
+                } else if (field.equalsIgnoreCase("id_Malla")) {
                     return id_Malla.compareTo(p.getId_Malla()) > 0;
-                }else if(field.equalsIgnoreCase("id")){
+                } else if (field.equalsIgnoreCase("id")) {
                     return id.compareTo(p.getId()) > 0;
                 }
             default:
                 throw new AssertionError();
-                
+
         }
-     }
-    
+    }
+
 }

@@ -28,8 +28,6 @@ public class AgregarMalla extends javax.swing.JFrame {
         mallas.add(UtilVistaMalla.obtenerCarrera(cbxMalla));
         carreraControl.getCarrera().setDescripcion(carreraControl.getListCarrera().getInfo(fila).getDescripcion());
         carreraControl.getCarrera().setNombre(carreraControl.getListCarrera().getInfo(fila).getNombre());
-        carreraControl.getCarrera().setDuracionAnios(carreraControl.getListCarrera().getInfo(fila).getDuracionAnios());
-        carreraControl.getCarrera().setNumCiclos(carreraControl.getListCarrera().getInfo(fila).getNumCiclos());
         carreraControl.getCarrera().setMallas(mallas);
         carreraControl.getCarrera().setId(carreraControl.getListCarrera().getInfo(fila).getId());
         if (carreraControl.marge(carreraControl.getCarrera(), fila)) {

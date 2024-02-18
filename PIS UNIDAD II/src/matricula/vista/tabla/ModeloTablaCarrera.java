@@ -28,7 +28,7 @@ public class ModeloTablaCarrera extends AbstractTableModel{
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 6;
+        return 5;
     }
 
     @Override
@@ -47,8 +47,6 @@ public class ModeloTablaCarrera extends AbstractTableModel{
             case 3:
                 return (c != null) ? c.getDuracionAnios(): " ";
             case 4:
-                return (c != null) ? c.getNumCiclos(): " ";
-            case 5:
                 return (c != null) ? c.getMallas().getLength(): " ";
             default:
                 return null;
@@ -72,8 +70,6 @@ public class ModeloTablaCarrera extends AbstractTableModel{
             case 3:
                 return "AÑOS";
             case 4:
-                return "CICLOS";
-            case 5:
                 return "MALLAS";
             default:
                 return null;

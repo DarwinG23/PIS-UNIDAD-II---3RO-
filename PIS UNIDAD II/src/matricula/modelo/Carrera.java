@@ -15,15 +15,13 @@ public class Carrera {
     private String descripcion;
     private Integer duracionAnios;
     private Integer id;
-    private Integer numCiclos;
     private DynamicList<Malla> mallas;
 
-    public Carrera(String nombre, String descripcion, Integer duracionAnios, Integer id, Integer numCiclos, DynamicList<Malla> listaMallas) {
+    public Carrera(String nombre, String descripcion, Integer duracionAnios, Integer id, DynamicList<Malla> listaMallas) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracionAnios = duracionAnios;
         this.id = id;
-        this.numCiclos = numCiclos;
         this.mallas = listaMallas;
     }
 
@@ -34,17 +32,10 @@ public class Carrera {
         this.duracionAnios = null;
         this.descripcion = null;
         this.id = null;
-        this.numCiclos = null;
         this.mallas = null;
     }
 
-    public Integer getNumCiclos() {
-        return numCiclos;
-    }
 
-    public void setNumCiclos(Integer numCiclos) {
-        this.numCiclos = numCiclos;
-    }
     
     
     
@@ -109,8 +100,6 @@ public class Carrera {
                     return descripcion.compareTo(p.getDescripcion()) < 0;
                 }else if(field.equalsIgnoreCase("duracionAnios")){
                     return duracionAnios.compareTo(p.getDuracionAnios()) < 0;
-                 }else if(field.equalsIgnoreCase("numCiclos")){
-                    return numCiclos.compareTo(p.getNumCiclos()) < 0;
                  }else if(field.equalsIgnoreCase("id")){
                     return id.compareTo(p.getId()) < 0;
                 }
@@ -121,8 +110,6 @@ public class Carrera {
                     return descripcion.compareTo(p.getDescripcion()) > 0;
                 }else if(field.equalsIgnoreCase("duracionAnios")){
                     return duracionAnios.compareTo(p.getDuracionAnios()) > 0;
-                }else if(field.equalsIgnoreCase("numCiclos")){
-                    return numCiclos.compareTo(p.getNumCiclos()) > 0;
                 }else if(field.equalsIgnoreCase("id")){
                     return id.compareTo(p.getId()) > 0;
                 }

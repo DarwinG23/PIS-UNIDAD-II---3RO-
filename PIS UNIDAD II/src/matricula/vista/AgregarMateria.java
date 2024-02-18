@@ -27,8 +27,6 @@ public class AgregarMateria extends javax.swing.JFrame {
         DynamicList<Materia> materias = cicloControl.getListCiclo().getInfo(fila).getMaterias();
         materias.add(UtilVista1.obtenerMateria(cbxMateria));
         cicloControl.getCiclo().setMaterias(cicloControl.getListCiclo().getInfo(fila).getMaterias());
-        cicloControl.getCiclo().setFechaInicio(cicloControl.getListCiclo().getInfo(fila).getFechaInicio());
-        cicloControl.getCiclo().setFechaFin(cicloControl.getListCiclo().getInfo(fila).getFechaFin());
         cicloControl.getCiclo().setNumCiclo(cicloControl.getListCiclo().getInfo(fila).getNumCiclo());
         cicloControl.getCiclo().setId_Malla(cicloControl.getListCiclo().getInfo(fila).getId_Malla());
         cicloControl.getCiclo().setMaterias(materias);

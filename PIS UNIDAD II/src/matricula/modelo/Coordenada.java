@@ -51,6 +51,6 @@ public class Coordenada {
 
     @Override
     public String toString() {
-        return  longitud + " " + latitud;
+        return  longitud + "," + latitud;
     }    
 }

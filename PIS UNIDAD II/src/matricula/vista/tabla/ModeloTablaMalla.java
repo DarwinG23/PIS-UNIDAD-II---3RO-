@@ -6,6 +6,7 @@ package matricula.vista.tabla;
 
 import lista.DynamicList;
 import exeption.EmptyException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import matricula.modelo.Malla;
@@ -27,16 +28,17 @@ public class ModeloTablaMalla extends AbstractTableModel {
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 3;
+        return 5;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-       
+       SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
        Malla m;
        try {
            
            m = (Malla)mallas.getInfo(rowIndex);
+           String fecha = formatoFecha.format(m.getFechaCreacion());
            switch (columnIndex) {
             case 0:
                 return (m != null) ? m.getId(): " ";
@@ -44,6 +46,10 @@ public class ModeloTablaMalla extends AbstractTableModel {
                 return (m != null) ? m.getNombre(): " ";
             case 2:
                 return (m != null) ? m.getId_Carrera(): " ";
+            case 3:
+                return (m != null) ? m.getCiclos().getLength(): " ";
+            case 4:
+                return (m != null) ? fecha: " ";
             default:
                 return null;
         }
@@ -63,6 +69,10 @@ public class ModeloTablaMalla extends AbstractTableModel {
                 return "Nombre";
             case 2:
                 return "CARRERA ID";
+            case 3:
+                return "NUM. CICLOS";
+            case 4:
+                return "CREACION";
             default:
                 return null;
         }

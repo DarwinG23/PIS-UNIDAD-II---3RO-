@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import matricula.controlador.CarreraControl;
+import matricula.controlador.MallaControl;
 import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaMalla;
 import matricula.vista.util.UtilVistaMalla;
@@ -26,6 +27,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private ModeloTablaMalla mtm = new  ModeloTablaMalla();
     private CarreraControl carreraControl = new CarreraControl();
 
+
     public void cargarFacultades(DynamicList carreras) {
         mtc.setCarreras(carreras);
         initComponents();
@@ -35,8 +37,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
         return (!txtDescripcion.getText().trim().isEmpty()
                 && !txtNombre.getText().trim().isEmpty()
                 && !txtDescripcion.getText().trim().isEmpty()
-                && !txtAnios.getText().trim().isEmpty()
-                && !txtCiclos.getText().trim().isEmpty());
+                && !txtAnios.getText().trim().isEmpty());
     }
     
     private void cargarTabla(){
@@ -52,7 +53,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
             carreraControl.getCarrera().setDescripcion(txtDescripcion.getText());
             carreraControl.getCarrera().setNombre(txtNombre.getText());
             carreraControl.getCarrera().setDuracionAnios(Integer.parseInt(txtAnios.getText()));
-            carreraControl.getCarrera().setNumCiclos(Integer.parseInt(txtCiclos.getText()));
             //carreraControl.getCarrera().getMallas().add(UtilVistaMalla.obtenerCarrera(cbxMalla));
             if (carreraControl.persist()) {
                 JOptionPane.showMessageDialog(null, "Datos guardados");
@@ -71,7 +71,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
         txtNombre.setText("");
         txtDescripcion.setText(" ");
         txtAnios.setText("");
-        txtCiclos.setText(" ");
         cargarTabla();
         carreraControl.setCarrera(null);
     }
@@ -137,10 +136,8 @@ public class GuardarCarrera extends javax.swing.JFrame {
         pnlAzul = new org.edisoncor.gui.panel.PanelImage();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtAnios = new javax.swing.JTextField();
-        txtCiclos = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
@@ -176,6 +173,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmFacultad = new javax.swing.JMenuItem();
+        btnAdmCiclo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -193,11 +191,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
         jLabel3.setText("Duracion Años:");
         pnlAzul.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Total Ciclos:");
-        pnlAzul.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
-
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setForeground(new java.awt.Color(0, 0, 0));
         pnlAzul.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 258, -1));
@@ -211,19 +204,10 @@ public class GuardarCarrera extends javax.swing.JFrame {
         });
         pnlAzul.add(txtAnios, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 260, -1));
 
-        txtCiclos.setBackground(new java.awt.Color(255, 255, 255));
-        txtCiclos.setForeground(new java.awt.Color(0, 0, 0));
-        txtCiclos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCiclosKeyTyped(evt);
-            }
-        });
-        pnlAzul.add(txtCiclos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 260, -1));
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Descripcion:");
-        pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
         txtDescripcion.setColumns(20);
@@ -231,7 +215,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
-        pnlAzul.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 258, 109));
+        pnlAzul.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 258, 109));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -403,6 +387,14 @@ public class GuardarCarrera extends javax.swing.JFrame {
         });
         jMenu1.add(btnAdmFacultad);
 
+        btnAdmCiclo.setText("Ciclo");
+        btnAdmCiclo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCicloActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCiclo);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -477,13 +469,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void txtCiclosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiclosKeyTyped
-        char tecla = evt.getKeyChar();
-        if((tecla > '<' || tecla > '9') && tecla != KeyEvent.VK_BACK_SPACE){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtCiclosKeyTyped
-
     private void txtAniosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAniosKeyTyped
         char tecla = evt.getKeyChar();
         if((tecla > '<' || tecla > '9') && tecla != KeyEvent.VK_BACK_SPACE){
@@ -492,7 +477,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAniosKeyTyped
 
     private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
-         try {
+        try {
             new GuardarMalla().setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
@@ -508,6 +493,15 @@ public class GuardarCarrera extends javax.swing.JFrame {
             Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAdmFacultadActionPerformed
+
+    private void btnAdmCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCicloActionPerformed
+        try {
+            new GuardarCiclo().setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmCicloActionPerformed
 
     /**
      * @param args the command line arguments
@@ -552,6 +546,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnMostrarMallas;
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JMenuItem btnAdmCiclo;
     private javax.swing.JMenuItem btnAdmFacultad;
     private javax.swing.JMenuItem btnAdmMalla;
     private javax.swing.JButton btnAgregarMalla;
@@ -569,7 +564,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -590,7 +584,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private javax.swing.JTextField txtAnios;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtBuscar1;
-    private javax.swing.JTextField txtCiclos;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

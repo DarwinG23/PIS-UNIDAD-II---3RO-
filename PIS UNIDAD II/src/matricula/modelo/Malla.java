@@ -4,6 +4,10 @@
  */
 package matricula.modelo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import lista.DynamicList;
+
 /**
  *
  * @author darwin
@@ -12,17 +16,26 @@ public class Malla {
 
     private String nombre;
     private Integer id;
+    private Date fechaCreacion;
+    private DynamicList<Ciclo> ciclos;
     private Integer id_Carrera;
 
-    public Malla(String nombre, Integer id, Integer id_Carrera) {
+    public Malla(String nombre, Integer id, Date fechaCreacion, DynamicList<Ciclo> ciclos, Integer id_Carrera) {
         this.nombre = nombre;
         this.id = id;
+        this.fechaCreacion = fechaCreacion;
+        this.ciclos = ciclos;
         this.id_Carrera = id_Carrera;
     }
+
+   
+
+    
 
     public Malla() {
         this.nombre = null;
         this.id = null;
+       this.ciclos = null;
         this.id_Carrera = null;
     }
 
@@ -46,13 +59,37 @@ public class Malla {
         return id_Carrera;
     }
 
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public DynamicList<Ciclo> getCiclos() {
+        if(ciclos == null){
+            ciclos = new DynamicList<>();
+        }
+        return ciclos;
+    }
+
+    public void setCiclos(DynamicList<Ciclo> ciclos) {
+        this.ciclos = ciclos;
+    }
+
+    
+    
+
     public void setId_Carrera(Integer id_Carrera) {
         this.id_Carrera = id_Carrera;
     }
 
     @Override
     public String toString() {
-        return nombre;
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fecha = formatoFecha.format(fechaCreacion);
+        return nombre + " " + fecha;
     }
 
     public Boolean compare(Malla a, String field, Integer type) {
