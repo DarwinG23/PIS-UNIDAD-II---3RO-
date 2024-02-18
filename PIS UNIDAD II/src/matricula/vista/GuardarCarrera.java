@@ -174,6 +174,9 @@ public class GuardarCarrera extends javax.swing.JFrame {
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmFacultad = new javax.swing.JMenuItem();
         btnAdmCiclo = new javax.swing.JMenuItem();
+        btnAdmCursa = new javax.swing.JMenuItem();
+        btnAdmMatricula = new javax.swing.JMenuItem();
+        btnAdmPerido = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -395,6 +398,30 @@ public class GuardarCarrera extends javax.swing.JFrame {
         });
         jMenu1.add(btnAdmCiclo);
 
+        btnAdmCursa.setText("Cursa");
+        btnAdmCursa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCursaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCursa);
+
+        btnAdmMatricula.setText("Matricula");
+        btnAdmMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmMatricula);
+
+        btnAdmPerido.setText("Perido Académico");
+        btnAdmPerido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmPeridoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmPerido);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -503,6 +530,25 @@ public class GuardarCarrera extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdmCicloActionPerformed
 
+    private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
+        new GuardarCursa().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdmCursaActionPerformed
+
+    private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
+        try {
+            new GuardarMatricula().setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(GuardarCarrera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmMatriculaActionPerformed
+
+    private void btnAdmPeridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeridoActionPerformed
+        new GuardarPeriodoAcademico().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdmPeridoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -547,8 +593,11 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private javax.swing.JButton brnMostrarMallas;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JMenuItem btnAdmCiclo;
+    private javax.swing.JMenuItem btnAdmCursa;
     private javax.swing.JMenuItem btnAdmFacultad;
     private javax.swing.JMenuItem btnAdmMalla;
+    private javax.swing.JMenuItem btnAdmMatricula;
+    private javax.swing.JMenuItem btnAdmPerido;
     private javax.swing.JButton btnAgregarMalla;
     private javax.swing.JButton btnBuscar1;
     private javax.swing.JButton btnBuscar2;

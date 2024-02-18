@@ -180,6 +180,9 @@ public class GuardarFacultad extends javax.swing.JFrame {
         btnAdmCarrera = new javax.swing.JMenuItem();
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmCiclo = new javax.swing.JMenuItem();
+        btnAdmCursa = new javax.swing.JMenuItem();
+        btnAdmMatricula = new javax.swing.JMenuItem();
+        btnAdmPeriodo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -382,6 +385,30 @@ public class GuardarFacultad extends javax.swing.JFrame {
         });
         jMenu1.add(btnAdmCiclo);
 
+        btnAdmCursa.setText("Cursa");
+        btnAdmCursa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCursaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCursa);
+
+        btnAdmMatricula.setText("Matricula");
+        btnAdmMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmMatricula);
+
+        btnAdmPeriodo.setText("Periodo Académico");
+        btnAdmPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmPeriodoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmPeriodo);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -485,6 +512,25 @@ public class GuardarFacultad extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAdmCicloActionPerformed
 
+    private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
+        new GuardarCursa().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdmCursaActionPerformed
+
+    private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
+        try {
+            new GuardarMatricula().setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmMatriculaActionPerformed
+
+    private void btnAdmPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeriodoActionPerformed
+        new GuardarPeriodoAcademico().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdmPeriodoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -529,7 +575,10 @@ public class GuardarFacultad extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JMenuItem btnAdmCarrera;
     private javax.swing.JMenuItem btnAdmCiclo;
+    private javax.swing.JMenuItem btnAdmCursa;
     private javax.swing.JMenuItem btnAdmMalla;
+    private javax.swing.JMenuItem btnAdmMatricula;
+    private javax.swing.JMenuItem btnAdmPeriodo;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMostrarCarrera;

@@ -14,7 +14,7 @@ import matricula.vista.AgregarMateria;
 import matricula.vista.EstadoMatricula;
 import matricula.vista.EstudianteMatricula;
 import matricula.vista.GuardarCarrera;
-import matricula.vista.GuardarCiclo1;
+import matricula.vista.GuardarCiclo;
 import matricula.vista.GuardarCursa;
 import matricula.vista.GuardarFacultad;
 import matricula.vista.GuardarMalla;
@@ -381,9 +381,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       GuardarCiclo1 g7;
+       GuardarCiclo g7;
         try {
-            g7 = new GuardarCiclo1();
+            g7 = new GuardarCiclo();
             g7.setVisible(true);
             this.dispose();
         } catch (Exception ex) {
