@@ -14,11 +14,11 @@ import usuarios.modelo.Docente;
  *
  * @author Alexander
  */
-public class DocenteControl1 extends DaoImplement<Docente> {
+public class DocenteControlDao extends DaoImplement<Docente> {
       private DynamicList<Docente> docente;
     private Docente docente1;
     
-     public DocenteControl1() {
+     public DocenteControlDao() {
          super(Docente.class);
     }
 
@@ -43,7 +43,7 @@ public class DocenteControl1 extends DaoImplement<Docente> {
     }
 
     public Boolean persist(){
-        docente1.setId(all().getLength()+ 1);
+        docente1.setIdDocente(all().getLength()+ 1);
         return persist(docente1);
         
     }
@@ -136,15 +136,15 @@ public class DocenteControl1 extends DaoImplement<Docente> {
      private String obtenerValorCriterio(Docente docente, String criterio) {
         switch (criterio) {
             case "nombre":
-                return docente.getNombre();
+                return docente.getDatosUsuarioDocente().getNombre();
             case "apellido":
-                return docente.getApellido();
+                return docente.getDatosUsuarioDocente().getApellido();
             case "cedula":
-                return docente.getCedula();
+                return docente.getDatosUsuarioDocente().getCedula();
             case "correo":
-                return docente.getCorreo();
+                return docente.getDatosUsuarioDocente().getCorreo();
             case "edad":
-                return docente.getEdad();
+                return docente.getDatosUsuarioDocente().getEdad();
             case "aniosExperiencia":
                 return docente.getAniosExperiencia();
             case "tituloProfesional":
@@ -155,7 +155,7 @@ public class DocenteControl1 extends DaoImplement<Docente> {
     }
      public static void main(String[] args) {
             try {
-            DocenteControl1 pc = new   DocenteControl1();      
+            DocenteControlDao pc = new   DocenteControlDao();      
             System.out.println("Lista Original:");
             System.out.println(pc.all().toString());
             System.out.println("-----------");

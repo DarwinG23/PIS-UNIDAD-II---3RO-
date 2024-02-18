@@ -12,7 +12,7 @@ import lista.DynamicList;
 import matricula.controlador.FacultadControl;
 import matricula.modelo.Carrera;
 import matricula.vista.util.UtilVistaCarrera;
-import usuarios.vista.Inicio;
+//import usuarios.vista.Inicio;
 
 /**
  *

@@ -4,42 +4,56 @@
  */
 package usuarios.vista;
 
+import exeption.EmptyException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import lista.DynamicList;
+import usuarios.controlador.daoUsuario.DocenteControlDao;
+import usuarios.controlador.daoUsuario.EstudianteControlDao;
 import usuarios.controlador.daoUsuario.RegistroControl1;
+import usuarios.modelo.Docente;
+import usuarios.modelo.Estudiante;
+import static usuarios.vista.Menu.txtNombreMenu;
 
 /**
  *
  * @author Alexander
  */
-public class InicioAdmin extends javax.swing.JFrame {
+public class LoginPrincipal extends javax.swing.JFrame {
+    EstudianteControlDao estudianteDao = new EstudianteControlDao();
+    DocenteControlDao dcd = new DocenteControlDao();
 
-    private RegistroControl1 registroControl = new RegistroControl1();
+    RegistroControl1 registroControl = new RegistroControl1();
 
-    public InicioAdmin() {
+    public LoginPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     private void Limpiar() {
 
-        txtNombre.setText(" ");
         txtUsuario.setText(" ");
-        txtContrasenia1.setText(" ");
+        txtContrasenia.setText(" ");
 //        CargarTabla();
 //        estudianteControl.setEstudiante(null);
 
     }
 
     private Boolean Validar() {
-        return (!txtNombre.getText().trim().isEmpty()
-                && !txtUsuario.getText().trim().isEmpty()
-                && !txtContrasenia1.getText().trim().isEmpty());
+        return (
+                !txtUsuario.getText().trim().isEmpty()
+                && !txtContrasenia.getText().trim().isEmpty());
     }
 
     private void Guardar() {
         if (Validar()) {
-            registroControl.getRegistro1().setNombre(txtNombre.getText());
             registroControl.getRegistro1().setUsuario(txtUsuario.getText());
-            registroControl.getRegistro1().setContrasenia(txtContrasenia1.getText());
+            registroControl.getRegistro1().setContrasenia(txtContrasenia.getText());
+//             estudianteControl.getEstudiante1().setEdad(txtEdad.getText());
+//              estudianteControl.getEstudiante1().setCorreo(txtCorreo.getText());
+//            estudianteControl.getEstudiante1().setPromedioAcademico(txtPeriodo.getText());     
             if (registroControl.persist()) {
                 JOptionPane.showMessageDialog(null, "Datos guardados con exito");
                 registroControl.setRegistro(null);
@@ -55,6 +69,83 @@ public class InicioAdmin extends javax.swing.JFrame {
         //}
     }
 
+    private void VerificarEstudiante() {
+
+        DynamicList<Estudiante> listaEstudiantes = estudianteDao.all();
+        DynamicList<Docente> listaDocentes = dcd.all();
+
+        String usuarioIngresado = txtUsuario.getText();
+        String contrasenaIngresada = new String(txtContrasenia.getPassword());
+
+        boolean credencialesCorrectas = false;
+
+        for (Estudiante estudiante : listaEstudiantes.toArray()) {
+            if (estudiante.getCorreoUsuario().equals(usuarioIngresado) && estudiante.getContraseniaUsuario().equals(contrasenaIngresada)) {
+                credencialesCorrectas = true;
+                Menu abrirMenu = new Menu();
+                abrirMenu.setVisible(true);
+                txtNombreMenu.setText("Usuario: Estudiante - " + estudiante.getDatosUsuario().getNombre());
+                dispose();
+                break;
+            }
+        }
+
+        for (Docente docente : listaDocentes.toArray()) {
+            if (docente.getCorreoUsuario().equals(usuarioIngresado) && docente.getContraseniaUsuario().equals(contrasenaIngresada)) {
+                credencialesCorrectas = true;
+                String rol = docente.getRolDocente();
+                if (rol.equals("Docente")) {
+                    System.out.println("Docente normal");
+                    /*
+                    Aqui mandan la interfaz del docente que asigna tareas y revisa las tareas o la interfaz intermedia que les decia
+                    En este formato 
+                    InterfazDocente abrirMenu = new InterfazDocente();
+                    abrirMenu.setVisible(true);
+                    */
+                } else if (rol.equals("Personal Administrativo")) {
+                    System.out.println("Docente administrativo");
+                    /*
+                    Aqui mandan la interfaz del docente administrativo en la que gestiona todo lo administrativo
+                    lo mismo que la otra interfaz
+                    */
+                }
+                dispose();
+                break;
+            }
+        }
+
+        if (!credencialesCorrectas) {
+            JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Verifique sus credenciales.", "CREDENCIALES INCORRECTAS", JOptionPane.WARNING_MESSAGE);
+            txtUsuario.setText("");
+            txtContrasenia.setText("");
+        }
+//        DynamicList<Estudiante> listaEstudiantes = estudianteDao.all();
+//        DynamicList<Docente> listaDocente = dcd.all();
+//
+//        String usuarioIngresado = txtUsuario.getText();
+//        char[] contra = txtContrasenia.getPassword();
+//        String contrasenaIngresada = new String(contra);
+//
+//        boolean credencialesCorrectas = false;
+//
+//        for (Estudiante estudiante : listaEstudiantes.toArray()) {
+//            if (estudiante.getCorreoUsuario().equals(usuarioIngresado) && estudiante.getContraseniaUsuario().equals(contrasenaIngresada)) {
+//                credencialesCorrectas = true;
+//                Menu abrirMenu = new Menu();
+//                abrirMenu.setVisible(true);
+//                txtNombreMenu.setText("Usuario: Estudiante - " + estudiante.getDatosUsuario().getNombre());
+//                dispose();
+//                break;
+//            }
+//        }
+//
+//        if (!credencialesCorrectas) {
+//            JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Verifique sus credenciales.", "CREDENCIALES INCORRECTAS", JOptionPane.WARNING_MESSAGE);
+//            txtUsuario.setText("");
+//            txtContrasenia.setText("");
+//        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,14 +153,12 @@ public class InicioAdmin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtContrasenia1 = new javax.swing.JPasswordField();
+        txtContrasenia = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,14 +166,10 @@ public class InicioAdmin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("            ADMINISTRADOR");
+        jLabel1.setText("            INICIO DE SESIÓN");
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 40));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
-
-        jLabel3.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nombre:");
 
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,38 +200,31 @@ public class InicioAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
+                        .addGap(54, 54, 54)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtContrasenia1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(txtNombre)
-                            .addComponent(txtUsuario))))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(txtContrasenia)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(113, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 212, Short.MAX_VALUE)
-                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(210, 210, 210))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(73, 73, 73)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addComponent(btnIniciar)
-                .addGap(55, 55, 55)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel2)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -192,11 +270,11 @@ public class InicioAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        Guardar();
-        Inicio i = new Inicio();
-        i.setVisible(true);
-        this.dispose();
-
+            //        Guardar();
+//        Menu A = new Menu();
+//        A.setVisible(true);
+//        this.dispose();
+VerificarEstudiante();
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
@@ -216,13 +294,13 @@ public class InicioAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -232,7 +310,7 @@ public class InicioAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InicioAdmin().setVisible(true);
+                new LoginPrincipal().setVisible(true);
             }
         });
     }
@@ -241,13 +319,11 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField txtContrasenia1;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
