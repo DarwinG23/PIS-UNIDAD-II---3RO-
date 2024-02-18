@@ -35,7 +35,7 @@ import usuarios.modelo.Estudiante;
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -46,15 +46,17 @@ import usuarios.modelo.Estudiante;
 
             switch (Columna) {
                 case 0:
-                    return (p != null) ? p.getNombre(): "";
+                    return (p != null) ? p.getDatosUsuario().getNombre(): "";
                 case 1:
-                    return (p != null) ? p.getApellido(): "";
+                    return (p != null) ? p.getDatosUsuario().getApellido(): "";
                 case 2:
-                    return (p != null) ? p.getEdad(): "";
+                    return (p != null) ? p.getDatosUsuario().getEdad(): "";
                 case 3:
-                    return (p != null) ? p.getCedula(): "";
+                    return (p != null) ? p.getDatosUsuario().getCedula(): "";
                 case 4:
-                    return (p != null) ? p.getCorreo(): "";
+                    return (p != null) ? p.getDatosUsuario().getCorreo(): "";
+                case 5:
+                    return (p != null) ? p.getCorreoUsuario(): "";
                 default:
                     return null;
             }
@@ -78,7 +80,9 @@ import usuarios.modelo.Estudiante;
             case 3:
                 return "Cedula";
             case 4:
-                return "Correo";
+                return "Correo personal";
+            case 5:
+                return "Correo usuario";
 
             default:
                 return null;
