@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import materias.controlador.registros.MateriaControl1;
 import materias.vista.Tabla.ModeloTablaMateria;
-import usuarios.vista.Inicio;
+
 
 /**
  *
@@ -405,8 +405,7 @@ public class materia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Inicio n1=new Inicio();
-        n1.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

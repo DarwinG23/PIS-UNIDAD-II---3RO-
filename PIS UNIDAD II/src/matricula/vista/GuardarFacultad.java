@@ -14,7 +14,7 @@ import matricula.controlador.FacultadControl;
 import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaFacultad;
 import matricula.vista.util.UtilVistaCarrera;
-import usuarios.vista.Inicio;
+
 
 /**
  *

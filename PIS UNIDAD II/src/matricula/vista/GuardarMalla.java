@@ -18,7 +18,6 @@ import matricula.vista.tabla.ModeloTablaCiclo;
 import matricula.vista.tabla.ModeloTablaMalla;
 import matricula.vista.util.UtilVistaCarrera;
 import matricula.vista.util.UtilVistaMalla;
-import usuarios.vista.Inicio;
 
 /**
  *

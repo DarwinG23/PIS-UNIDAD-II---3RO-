@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.CursaControl;
 import matricula.vista.tabla.ModeloTablaCursa;
-import usuarios.vista.Inicio;
+
 
 /**
  *

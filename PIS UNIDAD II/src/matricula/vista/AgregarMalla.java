@@ -12,7 +12,7 @@ import lista.DynamicList;
 import matricula.controlador.CarreraControl;
 import matricula.modelo.Malla;
 import matricula.vista.util.UtilVistaMalla;
-import usuarios.vista.Inicio;
+//import usuarios.vista.Inicio;
 
 /**
  *
@@ -141,8 +141,7 @@ public class AgregarMalla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        Inicio n1=new Inicio();
-        n1.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 

@@ -16,7 +16,7 @@ import matricula.modelo.Cursa;
 import matricula.modelo.Estado;
 import matricula.modelo.Matricula;
 import matricula.vista.tabla.ModeloTablaMatricula;
-import usuarios.vista.Inicio;
+
 
 /**
  *

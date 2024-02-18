@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.PeriodoAcademicoControl;
 import matricula.vista.tabla.ModeloTablaPeriodoAcademico;
-import usuarios.vista.Inicio;
+
 
 /**
  *
