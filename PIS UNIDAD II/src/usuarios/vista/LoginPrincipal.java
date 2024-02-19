@@ -207,7 +207,7 @@ public class LoginPrincipal extends javax.swing.JFrame {
                             .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                             .addComponent(txtContrasenia)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                        .addGap(160, 160, 160)
                         .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
@@ -222,9 +222,9 @@ public class LoginPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(47, 47, 47)
                 .addComponent(btnIniciar)
-                .addGap(27, 27, 27)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
