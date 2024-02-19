@@ -43,15 +43,15 @@ public class ModeloTablaDocente extends AbstractTableModel  {
 
             switch (Columna) {
                 case 0:
-                    return (p != null) ? p.getDatosUsuarioDocente().getNombre(): "";
+                    return (p != null) ? p.getNombre(): "";
                 case 1:
-                    return (p != null) ? p.getDatosUsuarioDocente().getApellido(): "";
+                    return (p != null) ? p.getApellido(): "";
                 case 2:
-                    return (p != null) ? p.getDatosUsuarioDocente().getEdad(): "";
+                    return (p != null) ? p.getEdad(): "";
                 case 3:
-                    return (p != null) ? p.getDatosUsuarioDocente().getCedula(): "";
+                    return (p != null) ? p.getCedula(): "";
                 case 4:
-                    return (p != null) ? p.getDatosUsuarioDocente().getCorreo(): "";
+                    return (p != null) ? p.getCorreo(): "";
                 case 5:
                     return (p != null) ? p.getAniosExperiencia(): "";
                 case 6:

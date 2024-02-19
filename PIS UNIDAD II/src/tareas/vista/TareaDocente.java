@@ -15,7 +15,7 @@ import tareas.vista.modeloTabla.modeloTablaTarea;
 import tareas.vista.utilVista.utilVistaEstadoTarea;
 import tareas.vista.utilVista.utilVistaTipoTarea;
 import usuarios.modelo.Docente;
-import usuarios.vista.MenuDocente;
+import usuarios.vista.Menu;
 
 /**
  *
@@ -496,10 +496,10 @@ public class TareaDocente extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         try {
-            new MenuDocente(this.docente).setVisible(true);
+            new Menu(this.docente).setVisible(true);
             this.dispose();
         } catch (Exception e) {
-            new MenuDocente().setVisible(true);
+            new Menu().setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed

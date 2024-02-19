@@ -136,15 +136,15 @@ public class DocenteControlDao extends DaoImplement<Docente> {
      private String obtenerValorCriterio(Docente docente, String criterio) {
         switch (criterio) {
             case "nombre":
-                return docente.getDatosUsuarioDocente().getNombre();
+                return docente.getNombre();
             case "apellido":
-                return docente.getDatosUsuarioDocente().getApellido();
+                return docente.getApellido();
             case "cedula":
-                return docente.getDatosUsuarioDocente().getCedula();
+                return docente.getCedula();
             case "correo":
-                return docente.getDatosUsuarioDocente().getCorreo();
+                return docente.getCorreo();
             case "edad":
-                return docente.getDatosUsuarioDocente().getEdad();
+                return docente.getEdad();
             case "aniosExperiencia":
                 return docente.getAniosExperiencia();
             case "tituloProfesional":

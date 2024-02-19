@@ -20,7 +20,7 @@ import matricula.vista.util.UtilVistaMatricula;
 import usuarios.controlador.daoUsuario.EstudianteControlDao;
 import usuarios.controlador.util.Util;
 import usuarios.modelo.Docente;
-import usuarios.modelo.Usuario;
+import usuarios.modelo.Persona;
 import vista.modelo.ModeloTablaEstudiante;
 
 /**
@@ -55,7 +55,6 @@ public class GestionEstudiante extends javax.swing.JFrame {
         Fondo2.setIcon(new ImageIcon("fotos/Azul.png"));
         Limpiar();
         this.docente = usuario;
-        System.out.println(docente.getDatosUsuarioDocente().getNombre());
         try {
             UtilVistaCarrera.cargarcomboCarrera(cbxMatricula);
         } catch (Exception e) {
@@ -117,16 +116,19 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private void Guardar() {
         if (Validar()) {
 
-            Usuario uc = new Usuario();
+            //Persona uc = new Persona();
             if (util.validadorDeCedula(txtCedula.getText())) {
-                uc.setCedula(txtCedula.getText());
-                uc.setNombre(txtNombre.getText());
-                uc.setApellido(txtApellido.getText());
-                uc.setEdad(txtEdad.getText());
-                uc.setCorreo(txtCorreo.getText());
+//                uc.setCedula(txtCedula.getText());
+//                uc.setNombre(txtNombre.getText());
+//                uc.setApellido(txtApellido.getText());
+//                uc.setEdad(txtEdad.getText());
+//                uc.setCorreo(txtCorreo.getText());
 
-                estudianteControl.getEstudiante().setDatosUsuario(uc);
-                estudianteControl.getEstudiante().getDatosUsuario().setEdad(txtEdad.getText());
+                estudianteControl.getEstudiante().setCedula(txtCedula.getText());
+                estudianteControl.getEstudiante().setNombre(txtNombre.getText());
+                estudianteControl.getEstudiante().setApellido(txtApellido.getText());
+                estudianteControl.getEstudiante().setEdad(txtEdad.getText());
+                estudianteControl.getEstudiante().setCorreo(txtCorreo.getText());
 //            estudianteControl.getEstudiante().setPromedioAcademico(txtPeriodo.getText());
                 estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
 //            char[] contrase = jTextField1.getPassword();
@@ -141,8 +143,8 @@ public class GestionEstudiante extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar");
                 }
-            }else{
-               JOptionPane.showMessageDialog(null, "La cedula no es valida ");
+            } else {
+                JOptionPane.showMessageDialog(null, "La cedula no es valida ");
             }
 
         } else {
@@ -158,11 +160,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
         } else {
             try {
                 estudianteControl.setEstudiante(mta.getEstudianteTabla().getInfo(fila));
-                txtNombre.setText(estudianteControl.getEstudiante().getDatosUsuario().getNombre());
-                txtApellido.setText(estudianteControl.getEstudiante().getDatosUsuario().getApellido());
-                txtEdad.setText(estudianteControl.getEstudiante().getDatosUsuario().getEdad());
-                txtCedula.setText(estudianteControl.getEstudiante().getDatosUsuario().getCedula());
-                txtCorreo.setText(estudianteControl.getEstudiante().getDatosUsuario().getCorreo());
+                txtNombre.setText(estudianteControl.getEstudiante().getNombre());
+                txtApellido.setText(estudianteControl.getEstudiante().getApellido());
+                txtEdad.setText(estudianteControl.getEstudiante().getEdad());
+                txtCedula.setText(estudianteControl.getEstudiante().getCedula());
+                txtCorreo.setText(estudianteControl.getEstudiante().getCorreo());
 //                txtPeriodo.setText(estudianteControl.getEstudiante().getPromedioAcademico());
                 txtUsuario.setText(estudianteControl.getEstudiante().getCorreoUsuario());
                 txtContrasenia.setText(estudianteControl.getEstudiante().getContraseniaUsuario());
@@ -561,14 +563,20 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
         if (Validar()) {
-            Usuario uc = new Usuario();
-            uc.setCedula(txtCedula.getText());
-            uc.setNombre(txtNombre.getText());
-            uc.setApellido(txtApellido.getText());
-            uc.setEdad(txtEdad.getText());
-            uc.setCorreo(txtCorreo.getText());
+//            Persona uc = new Persona();
+//            uc.setCedula(txtCedula.getText());
+//            uc.setNombre(txtNombre.getText());
+//            uc.setApellido(txtApellido.getText());
+//            uc.setEdad(txtEdad.getText());
+//            uc.setCorreo(txtCorreo.getText());
 
-            estudianteControl.getEstudiante().setDatosUsuario(uc);
+            estudianteControl.getEstudiante().setCedula(txtCedula.getText());
+            estudianteControl.getEstudiante().setNombre(txtNombre.getText());
+            estudianteControl.getEstudiante().setApellido(txtApellido.getText());
+            estudianteControl.getEstudiante().setEdad(txtEdad.getText());
+            estudianteControl.getEstudiante().setCorreo(txtCorreo.getText());
+
+           // estudianteControl.getEstudiante().setDatosUsuario(uc);
 //            estudianteControl.getEstudiante().setPromedioAcademico(txtPeriodo.getText());
             estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
 //            char[] contrase = txtContrasenia.getPassword();
@@ -663,7 +671,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
 
-        new MenuAdmin(this.docente).setVisible(true);
+        new Menu(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 

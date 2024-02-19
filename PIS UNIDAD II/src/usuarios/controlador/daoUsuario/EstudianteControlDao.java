@@ -137,15 +137,15 @@ public class EstudianteControlDao extends DaoImplement<Estudiante> {
      private String obtenerValorCriterio(Estudiante estudiante, String criterio) {
         switch (criterio) {
             case "nombre":
-                return estudiante.getDatosUsuario().getNombre();
+                return estudiante.getNombre();
             case "apellido":
-                return estudiante.getDatosUsuario().getApellido();
+                return estudiante.getApellido();
             case "cedula":
-                return estudiante.getDatosUsuario().getCedula();
+                return estudiante.getCedula();
             case "correo":
-                return estudiante.getDatosUsuario().getCorreo();
+                return estudiante.getCorreo();
             case "edad":
-                return estudiante.getDatosUsuario().getEdad();
+                return estudiante.getEdad();
             case "promedioAcademico":
                 return estudiante.getPromedioAcademico();
            

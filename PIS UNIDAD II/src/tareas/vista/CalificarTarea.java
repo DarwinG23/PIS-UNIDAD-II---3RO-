@@ -14,7 +14,7 @@ import tareas.controlador.controladorTarea.detalleTarea;
 import tareas.controlador.controladorTarea.reporteTarea1;
 import tareas.vista.modeloTabla.modeloTablaCalificar;
 import usuarios.modelo.Docente;
-import usuarios.vista.MenuDocente;
+import usuarios.vista.Menu;
 
 /**
  *
@@ -283,10 +283,10 @@ public class CalificarTarea extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            new MenuDocente(this.docente).setVisible(true);
+            new Menu(this.docente).setVisible(true);
             this.dispose();
         } catch (Exception e) {
-            new MenuDocente().setVisible(true);
+            new Menu().setVisible(true);
             this.dispose();
         }
         
