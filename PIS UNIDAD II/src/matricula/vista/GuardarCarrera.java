@@ -16,6 +16,8 @@ import matricula.controlador.MallaControl;
 import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaMalla;
 import matricula.vista.util.UtilVistaMalla;
+import usuarios.modelo.Docente;
+import usuarios.modelo.Estudiante;
 import usuarios.vista.Menu;
 
 
@@ -27,6 +29,8 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private ModeloTablaCarrera mtc = new ModeloTablaCarrera();
     private ModeloTablaMalla mtm = new  ModeloTablaMalla();
     private CarreraControl carreraControl = new CarreraControl();
+    private Estudiante estudiante;
+    private Docente docente;
 
 
     public void cargarFacultades(DynamicList carreras) {
@@ -83,6 +87,26 @@ public class GuardarCarrera extends javax.swing.JFrame {
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
          pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         cargarTabla();
+    }
+    
+    public GuardarCarrera(Estudiante estudiante) throws EmptyException {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        //UtilVistaMalla.cargarcomboCarrera(cbxMalla);
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        cargarTabla();
+        this.estudiante = estudiante;
+    }
+    
+    public GuardarCarrera(Docente docente) throws EmptyException {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        //UtilVistaMalla.cargarcomboCarrera(cbxMalla);
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        cargarTabla();
+        this.estudiante = estudiante;
     }
      private void ordenar(){
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
@@ -579,7 +603,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeridoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new Menu().setVisible(true);
+        new Menu(estudiante).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 

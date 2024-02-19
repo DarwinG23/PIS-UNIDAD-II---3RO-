@@ -17,6 +17,7 @@ import matricula.vista.GuardarMalla;
 import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
 import usuarios.controlador.daoUsuario.RegistroControl1;
+import usuarios.modelo.Docente;
 import usuarios.modelo.Estudiante;
 import usuarios.modelo.Registro;
 import usuarios.modelo.Usuario;
@@ -25,15 +26,15 @@ import usuarios.modelo.Usuario;
  *
  * @author Alexander
  */
-public class Menu extends javax.swing.JFrame {
+public class MenuDocente extends javax.swing.JFrame {
   
     RegistroControl1 registroDao = new RegistroControl1();
-    Estudiante estudiante;
+    Docente docente;
 
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public MenuDocente() {
         initComponents();
         Fondo3.setIcon(new ImageIcon("fotos/MenuInicio.jpg"));
         this.setLocationRelativeTo(null);
@@ -41,12 +42,12 @@ public class Menu extends javax.swing.JFrame {
 //        asignarNombre();
     }
     
-     public Menu(Estudiante usuario) {
+     public MenuDocente(Docente usuario) {
         initComponents();
         Fondo3.setIcon(new ImageIcon("fotos/MenuInicio.jpg"));
         this.setLocationRelativeTo(null);
-        this.estudiante = usuario;
-        txtNombre.setText( estudiante.getDatosUsuario().getNombre().toUpperCase() + " " + estudiante.getDatosUsuario().getApellido().toUpperCase() );
+        this.docente = usuario;
+        txtNombre.setText( docente.getDatosUsuarioDocente().getNombre().toUpperCase() + " " + docente.getDatosUsuarioDocente().getApellido().toUpperCase() );
         pnlUsuario.setIcon(new ImageIcon("fotos/usuario.png"));
 //        asignarNombre();
     }
@@ -165,20 +166,21 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new MenuDocente().setVisible(true);
             }
         });
     }

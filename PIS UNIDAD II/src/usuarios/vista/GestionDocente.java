@@ -19,6 +19,7 @@ import matricula.vista.GuardarMalla;
 import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
 import usuarios.controlador.daoUsuario.DocenteControlDao;
+import usuarios.modelo.Docente;
 import usuarios.modelo.Usuario;
 import vista.modelo.ModeloTablaDocente;
 
@@ -30,6 +31,7 @@ public class GestionDocente extends javax.swing.JFrame {
 
     private ModeloTablaDocente mta = new ModeloTablaDocente();
     private DocenteControlDao docenteControl = new DocenteControlDao();
+    private Docente docente;
 
     /**
      * Creates new form GestionDocente
@@ -39,6 +41,14 @@ public class GestionDocente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Fondo.setIcon(new ImageIcon("fotos/Azul.png"));
         Limpiar();
+    }
+    
+    public GestionDocente(Docente usuario) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        Fondo.setIcon(new ImageIcon("fotos/Azul.png"));
+        Limpiar();
+        this.docente = usuario;
     }
 
     private void Limpiar() {
@@ -241,6 +251,10 @@ public class GestionDocente extends javax.swing.JFrame {
         Fondo = new org.edisoncor.gui.panel.PanelImage();
         jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnMatricula = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnAdmCarrera = new javax.swing.JMenuItem();
         btnAdmMalla = new javax.swing.JMenuItem();
@@ -248,10 +262,6 @@ public class GestionDocente extends javax.swing.JFrame {
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmMatricula = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -464,6 +474,34 @@ public class GestionDocente extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
 
+        jMenu2.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
+
+        btnMatricula.setText("Matriculas");
+        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMatricula);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSalir);
+
+        jMenuBar1.add(jMenu2);
+
         jMenu1.setText("Administracion");
 
         btnAdmCarrera.setText("Carrera");
@@ -515,34 +553,6 @@ public class GestionDocente extends javax.swing.JFrame {
         jMenu1.add(btnAdmPeriodo);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Menu");
-
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnIncio);
-
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnMatricula);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnSalir);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -667,7 +677,8 @@ public class GestionDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new MenuAdmin(this.docente).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
