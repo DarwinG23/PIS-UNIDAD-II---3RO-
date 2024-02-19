@@ -17,7 +17,7 @@ public class Materia {
     private String id_Materia;
     private Integer id;
     private Date fecha;
-
+    
     public Materia(String nombre, String paralelo, String ciclo, String id_Materia, Integer id,Date fecha) {
         this.nombre = null;
         this.paralelo = null;

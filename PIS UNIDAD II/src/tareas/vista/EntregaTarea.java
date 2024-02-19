@@ -4,6 +4,8 @@
  */
 package tareas.vista;
 
+import exeption.EmptyException;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,9 +13,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import matricula.vista.EstudianteMatricula;
+import matricula.vista.GuardarCiclo;
 import tareas.controlador.controladorTarea.detalleTarea;
 import tareas.controlador.controladorTarea.envioTarea;
 import tareas.vista.modeloTabla.modeloTareaEstudiante;
+import usuarios.modelo.Estudiante;
+import usuarios.vista.LoginPrincipal;
+import usuarios.vista.Menu;
     
  /*
  * @author ALEJANDRO
@@ -22,7 +29,7 @@ public class EntregaTarea extends javax.swing.JFrame {
     private detalleTarea detalleTarea=new detalleTarea();
     private envioTarea controlEnvio=new envioTarea();
     modeloTareaEstudiante mte=new modeloTareaEstudiante();
-
+    private Estudiante estudiante;
     
     /**
      * Creates new form TareaEstudiante
@@ -32,6 +39,14 @@ public class EntregaTarea extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Limpiar();
     }
+
+    public EntregaTarea(Estudiante estudiante) throws HeadlessException {
+        this.estudiante = estudiante;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        Limpiar();
+    }
+    
     public void recibirDatosTarea(String tituloTarea, String descripcion){
         controlEnvio.getTareaEstudiante1().setTituloTarea(tituloTarea);
         txtTitulo.setText(controlEnvio.getTareaEstudiante1().getTituloTarea());
@@ -135,6 +150,13 @@ public class EntregaTarea extends javax.swing.JFrame {
         txtNombreTarea = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        btnIncio1 = new javax.swing.JMenuItem();
+        btnMatricula1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        btnSalir1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,7 +164,7 @@ public class EntregaTarea extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 535));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, 290, 610));
 
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -232,7 +254,54 @@ public class EntregaTarea extends javax.swing.JFrame {
         });
         panel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 150, -1));
 
-        getContentPane().add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 610, 540));
+        getContentPane().add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 670, 600));
+
+        jMenu3.setText("Menu");
+        jMenu3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        btnIncio1.setText("Inicio");
+        btnIncio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncio1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnIncio1);
+
+        btnMatricula1.setText("Matriculas");
+        btnMatricula1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatricula1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnMatricula1);
+
+        jMenuItem4.setText("Enviar Tarea");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem4);
+
+        jMenuItem6.setText("Reporte Califiacion");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem6);
+
+        btnSalir1.setText("Salir");
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnSalir1);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -248,6 +317,37 @@ public class EntregaTarea extends javax.swing.JFrame {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         cargarVista();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnIncio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncio1ActionPerformed
+       new Menu().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnIncio1ActionPerformed
+
+    private void btnMatricula1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatricula1ActionPerformed
+        try {
+            new EstudianteMatricula(this.estudiante).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnMatricula1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        EntregaTarea et=new EntregaTarea();
+        this.dispose();
+        et.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        ReporteNotas rp=new ReporteNotas();
+        this.dispose();
+        rp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        new LoginPrincipal().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSalir1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,6 +387,9 @@ public class EntregaTarea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JMenuItem btnIncio1;
+    private javax.swing.JMenuItem btnMatricula1;
+    private javax.swing.JMenuItem btnSalir1;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -294,6 +397,10 @@ public class EntregaTarea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.panel.Panel panel1;

@@ -4,6 +4,9 @@
  */
 package usuarios.modelo;
 
+import lista.DynamicList;
+import matricula.modelo.Matricula;
+
 /**
  *
  * @author Alexander
@@ -15,10 +18,22 @@ public class Estudiante {
     private String CorreoUsuario;
     private String ContraseniaUsuario;
     private String promedioAcademico;
+    private DynamicList<Matricula> matriculas;
 
     public Estudiante() {
         
     }
+
+    public Estudiante(Integer idEstudiante, Usuario DatosUsuario, String CorreoUsuario, String ContraseniaUsuario, String promedioAcademico, DynamicList<Matricula> matriculas) {
+        this.idEstudiante = idEstudiante;
+        this.DatosUsuario = DatosUsuario;
+        this.CorreoUsuario = CorreoUsuario;
+        this.ContraseniaUsuario = ContraseniaUsuario;
+        this.promedioAcademico = promedioAcademico;
+        this.matriculas = matriculas;
+    }
+    
+    
 
     public Integer getIdEstudiante() {
         return idEstudiante;
@@ -59,6 +74,16 @@ public class Estudiante {
     public void setPromedioAcademico(String promedioAcademico) {
         this.promedioAcademico = promedioAcademico;
     }
+
+    public DynamicList<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(DynamicList<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+    
+    
 
     public Integer compare(Estudiante p, String field, Integer Orden) {
         // 0 menor, 1 mayor

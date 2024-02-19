@@ -144,7 +144,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
         try {
-            new EstudianteMatricula().setVisible(true);
+            new EstudianteMatricula(this.estudiante).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

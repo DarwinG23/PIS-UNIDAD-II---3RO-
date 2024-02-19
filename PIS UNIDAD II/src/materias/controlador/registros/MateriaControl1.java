@@ -107,7 +107,7 @@ import materias.modelo.Materia;
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Materia  p = aux[medio];
-            String valorCriterio = obtenerValorCriterio(p, criterio).toLowerCase();
+            String valorCriterio = obtenerValorCriterio1(p, criterio).toLowerCase();
             if (valorCriterio.contains(texto.toLowerCase())) {
                 lista.add(p);
             }
@@ -149,10 +149,6 @@ import materias.modelo.Materia;
         switch (criterio.toLowerCase()) {
             case "nombre":
                 return materia.getNombre();
-            case "id_materia":
-                return materia.getId_Materia();
-            case "ciclo":
-                return materia.getCiclo();
             case "paralelo":
                 return materia.getParalelo();
             case "fecha":
@@ -161,6 +157,16 @@ import materias.modelo.Materia;
                 throw new IllegalArgumentException("Criterio no válido");
         }
     }
+    private String obtenerValorCriterio1(Materia materia, String criterio) {
+        String FechaFinal=String.valueOf(materia.getFecha());
+        switch (criterio.toLowerCase()) {
+            case "ciclo":
+                return materia.getCiclo();
+            default:
+                throw new IllegalArgumentException("Criterio no válido");
+        }
+    }
+    
 
     
 }
