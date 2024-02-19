@@ -56,7 +56,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
             matriculaControl.getMatricula().setEstado(Estado.DISPONIBLE);
             matriculaControl.getMatricula().setModalidad(UtilVistaModalidad.obtenerModalidadSeleccionada(cbxModalidad));
             matriculaControl.getMatricula().setId_Carrera(UtilVistaCarrera.obtenerCarrera(cbxCarrera).getId());
-            cursaControl.getCursa().setId_materia(UtilVista1.obtenerMateria(cbxMateria).getId());
             matriculaControl.getMatricula().getCursas().add(cursaControl.getCursa());
             if (matriculaControl.persist()) {
                 cursaControl.getCursa().setId_matricula(matriculaControl.getMatricula().getId());
@@ -77,7 +76,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
         this.setLocationRelativeTo(null);
-        UtilVista1.cargarcomboRolesL(cbxMateria);
         UtilVistaModalidad.cargarComboModalidad(cbxModalidad);
         UtilVistaPeriodoAcademico.cargarcomboPerido(cbxPeriodo);
         UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
@@ -102,15 +100,11 @@ public class GuardarMatricula extends javax.swing.JFrame {
         cbxCarrera = new javax.swing.JComboBox<>();
         cbxPeriodo = new javax.swing.JComboBox<>();
         cbxModalidad = new javax.swing.JComboBox<>();
-        jLabel21 = new javax.swing.JLabel();
-        cbxEstado = new javax.swing.JComboBox<>();
-        jLabel20 = new javax.swing.JLabel();
-        cbxMateria = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         btnAgregarMateria = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         pnlGris = new org.edisoncor.gui.panel.PanelImage();
         jLabel5 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -123,6 +117,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbCursa = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnAdmFacultad = new javax.swing.JMenuItem();
@@ -175,22 +170,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
         cbxModalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pnlAzul.add(cbxModalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 261, -1));
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Estado:");
-        pnlAzul.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
-
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISPONIBLE" }));
-        pnlAzul.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 261, -1));
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Materia:");
-        pnlAzul.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
-
-        cbxMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pnlAzul.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 260, -1));
-
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,10 +187,10 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jButton2.setText("Modficar");
         pnlAzul.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("MATRICULA");
-        pnlAzul.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("MATRICULA");
+        pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
         getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 600));
 
@@ -220,12 +199,12 @@ public class GuardarMatricula extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("CURSAS");
-        pnlGris.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, -1, -1));
+        pnlGris.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Criterio:");
-        pnlGris.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        pnlGris.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pnlGris.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 140, -1));
@@ -270,7 +249,12 @@ public class GuardarMatricula extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tbCursa);
 
-        pnlGris.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 530, 100));
+        pnlGris.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 530, 100));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("MATRICULAS");
+        pnlGris.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, -1, -1));
 
         getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 600));
 
@@ -481,8 +465,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxCarrera;
-    private javax.swing.JComboBox<String> cbxEstado;
-    private javax.swing.JComboBox<String> cbxMateria;
     private javax.swing.JComboBox<String> cbxModalidad;
     private javax.swing.JComboBox<String> cbxPeriodo;
     private javax.swing.JButton jButton2;
@@ -495,10 +477,9 @@ public class GuardarMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
