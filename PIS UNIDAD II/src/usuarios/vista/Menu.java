@@ -16,6 +16,8 @@ import matricula.vista.GuardarCursa;
 import matricula.vista.GuardarMalla;
 import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
+import tareas.vista.EntregaTarea;
+import tareas.vista.ReporteNotas;
 import usuarios.controlador.daoUsuario.RegistroControl1;
 import usuarios.modelo.Estudiante;
 import usuarios.modelo.Registro;
@@ -69,6 +71,8 @@ public class Menu extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         btnIncio = new javax.swing.JMenuItem();
         btnMatricula = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,6 +102,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 580));
 
         jMenu2.setText("Menu");
+        jMenu2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         btnIncio.setText("Inicio");
         btnIncio.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +119,22 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu2.add(btnMatricula);
+
+        jMenuItem3.setText("Enviar Tarea");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem5.setText("Reporte Califiacion");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +168,20 @@ public class Menu extends javax.swing.JFrame {
         new LoginPrincipal().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        EntregaTarea et=new EntregaTarea();
+        this.dispose();
+        et.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        ReporteNotas rp=new ReporteNotas();
+        this.dispose();
+        rp.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,6 +225,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem5;
     private org.edisoncor.gui.panel.PanelImage pnlUsuario;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables

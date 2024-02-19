@@ -118,7 +118,6 @@ public class ReporteNotas extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtNota = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMostrarDatos1 = new javax.swing.JTable();
 
@@ -199,14 +198,6 @@ public class ReporteNotas extends javax.swing.JFrame {
         txtNota.setEnabled(false);
         panel1.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 370, -1));
 
-        btnGuardar.setText("REGRESAR AL MENÚ");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        panel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 250, -1));
-
         tblMostrarDatos1.setBackground(new java.awt.Color(255, 255, 255));
         tblMostrarDatos1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tblMostrarDatos1.setModel(new javax.swing.table.DefaultTableModel(
@@ -232,12 +223,6 @@ public class ReporteNotas extends javax.swing.JFrame {
     private void txtMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMateriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMateriaActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        MenuGestion mg=new MenuGestion(this, rootPaneCheckingEnabled);
-        mg.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,7 +263,6 @@ public class ReporteNotas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

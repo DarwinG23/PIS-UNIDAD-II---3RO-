@@ -119,7 +119,6 @@ public class EntregaTarea extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnRegresar = new javax.swing.JButton();
         panel1 = new org.edisoncor.gui.panel.Panel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -143,18 +142,6 @@ public class EntregaTarea extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnRegresar.setBackground(new java.awt.Color(0, 0, 0));
-        btnRegresar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(204, 0, 0));
-        btnRegresar.setText("REGRESAR AL MENÚ");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 220, -1));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 535));
 
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -262,13 +249,6 @@ public class EntregaTarea extends javax.swing.JFrame {
         cargarVista();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        MenuGestion mg=new MenuGestion(this, rootPaneCheckingEnabled);
-        this.dispose();
-        mg.setVisible(true);
-        
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -307,7 +287,6 @@ public class EntregaTarea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

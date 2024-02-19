@@ -5,6 +5,7 @@
 package tareas.vista;
 
 import java.awt.Desktop;
+import java.awt.HeadlessException;
 import java.net.URI;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -12,6 +13,8 @@ import tareas.controlador.controladorTarea.administrarTarea1;
 import tareas.controlador.controladorTarea.detalleTarea;
 import tareas.controlador.controladorTarea.reporteTarea1;
 import tareas.vista.modeloTabla.modeloTablaCalificar;
+import usuarios.modelo.Docente;
+import usuarios.vista.MenuDocente;
 
 /**
  *
@@ -22,6 +25,7 @@ public class CalificarTarea extends javax.swing.JFrame {
     modeloTablaCalificar mtc=new modeloTablaCalificar();
     private administrarTarea1 tareaControl = new administrarTarea1();
     private reporteTarea1 reporteControl=new reporteTarea1();
+    private Docente docente;
     /**
      * Creates new form CalificarTarea
      */
@@ -30,6 +34,15 @@ public class CalificarTarea extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Limpiar();
     }
+
+    public CalificarTarea(Docente docente) throws HeadlessException {
+        this.docente = docente;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        Limpiar();
+    }
+    
+    
     public void AbrirNavegador(String enlace){ 
         try {
             URI uri = new URI(enlace);
@@ -141,7 +154,10 @@ public class CalificarTarea extends javax.swing.JFrame {
         txtLink = new javax.swing.JTextField();
         btnSeleccionar = new javax.swing.JButton();
         btnSeleccionar1 = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,16 +238,22 @@ public class CalificarTarea extends javax.swing.JFrame {
         });
         panel1.add(btnSeleccionar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 240, -1));
 
-        btnRegresar.setBackground(new java.awt.Color(0, 0, 0));
-        btnRegresar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(204, 0, 0));
-        btnRegresar.setText("REGRESAR AL MENÚ");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Inicio");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        panel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 320, -1));
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -258,16 +280,20 @@ public class CalificarTarea extends javax.swing.JFrame {
     }   
     }//GEN-LAST:event_txtLinkMouseClicked
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        MenuGestion mg=new MenuGestion(this, rootPaneCheckingEnabled);
-         this.dispose();
-        mg.setVisible(true);
-       
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         GuardarNota();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            new MenuDocente(this.docente).setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            new MenuDocente().setVisible(true);
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,7 +331,6 @@ public class CalificarTarea extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnSeleccionar1;
     private javax.swing.JLabel jLabel10;
@@ -314,6 +339,10 @@ public class CalificarTarea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.panel.Panel panel1;
     private javax.swing.JTable tblMostrar;

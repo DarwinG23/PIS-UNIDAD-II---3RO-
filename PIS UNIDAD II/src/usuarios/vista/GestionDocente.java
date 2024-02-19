@@ -691,7 +691,9 @@ public class GestionDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMatriculaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        new LoginPrincipal().setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

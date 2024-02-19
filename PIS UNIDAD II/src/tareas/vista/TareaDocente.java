@@ -196,7 +196,8 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         txtFechaFinal = new com.toedter.calendar.JDateChooser();
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
-        btnRegresar = new javax.swing.JButton();
+        cbxEstudiante1 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         panel2 = new org.edisoncor.gui.panel.Panel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -208,6 +209,12 @@ public class TareaDocente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         cbxOrden = new javax.swing.JCheckBox();
         btnOrdenar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -222,37 +229,37 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("TÍTULO TAREA:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         txtTitulo.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 290, 30));
+        jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 290, 30));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("TIPO TAREA:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         cbxTipo.setBackground(new java.awt.Color(204, 204, 255));
         cbxTipo.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         cbxTipo.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 300, 30));
+        jPanel1.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 300, 30));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("DESCRIPCIÓN TAREA");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 200, 50));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 200, 50));
 
         txtDescripcion.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 310, 40));
+        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 310, 40));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("ESTADO TAREA:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         cbxEstado.setBackground(new java.awt.Color(204, 204, 255));
         cbxEstado.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 300, 40));
+        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 300, 40));
 
         btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setForeground(new java.awt.Color(255, 153, 153));
@@ -262,12 +269,12 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 140, 30));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 190, 60));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("¿DESEA CAMBIAR ALGUN DATO?");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 410, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, -1, -1));
 
         btnSeleccionar.setBackground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setForeground(new java.awt.Color(255, 153, 204));
@@ -277,7 +284,7 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, -1, -1));
+        jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, 40));
 
         btnModificar.setBackground(new java.awt.Color(255, 255, 255));
         btnModificar.setForeground(new java.awt.Color(255, 153, 204));
@@ -287,66 +294,62 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 510, -1, 40));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("FECHA INICIO:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("FECHA FINAL:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Estudiante:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
 
-        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 300, -1));
+        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 300, -1));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("ENVIO DE TAREAS");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 300, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 300, -1));
 
         txtFechaFinal.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 txtFechaFinalMouseWheelMoved(evt);
             }
         });
-        jPanel1.add(txtFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 300, -1));
+        jPanel1.add(txtFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 300, -1));
 
         txtFechaInicio.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 txtFechaInicioMouseWheelMoved(evt);
             }
         });
-        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 300, -1));
+        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 300, -1));
 
-        btnRegresar.setBackground(new java.awt.Color(0, 0, 0));
-        btnRegresar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(204, 0, 0));
-        btnRegresar.setText("REGRESAR AL MENÚ");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 320, -1));
+        jPanel1.add(cbxEstudiante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 300, -1));
 
-        panel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 540));
+        jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("TÍTULO TAREA:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
-        getContentPane().add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 540));
+        panel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 560));
+
+        getContentPane().add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 560));
 
         panel2.setColorSecundario(new java.awt.Color(255, 255, 255));
         panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("TAREAS");
-        panel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 130, -1));
+        jLabel1.setText("BUSCAR TAREAS");
+        panel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 270, 40));
 
         tblMostrar.setBackground(new java.awt.Color(204, 255, 204));
         tblMostrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -361,21 +364,21 @@ public class TareaDocente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMostrar);
 
-        panel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 420, 300));
+        panel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 620, 300));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("BUSCAR DATOS:");
-        panel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        panel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         txtBuscar.setBackground(new java.awt.Color(204, 204, 255));
         txtBuscar.setForeground(new java.awt.Color(153, 153, 255));
-        panel2.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 220, 30));
+        panel2.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 220, 30));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("ORDENAR DATOS:");
-        panel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        panel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
 
         cbxCriterio.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id_TipoTarea", "Id_EstadoTarea", "Titulo_Tarea", "Fecha_Inicio", "Fecha_Final", "Descripcion", " " }));
@@ -384,7 +387,7 @@ public class TareaDocente extends javax.swing.JFrame {
                 cbxCriterioActionPerformed(evt);
             }
         });
-        panel2.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        panel2.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(255, 153, 153));
@@ -394,12 +397,12 @@ public class TareaDocente extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        panel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
+        panel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 190, -1));
 
         cbxOrden.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         cbxOrden.setForeground(new java.awt.Color(255, 102, 102));
         cbxOrden.setText("Descendente");
-        panel2.add(cbxOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, -1, -1));
+        panel2.add(cbxOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 120, 190, -1));
 
         btnOrdenar.setBackground(new java.awt.Color(255, 255, 255));
         btnOrdenar.setForeground(new java.awt.Color(255, 153, 153));
@@ -409,9 +412,45 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnOrdenarActionPerformed(evt);
             }
         });
-        panel2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 140, -1));
+        panel2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 170, -1));
 
-        getContentPane().add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 460, 540));
+        getContentPane().add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 650, 560));
+
+        jMenu3.setText("OPCIONES DOCENTE");
+        jMenu3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jMenuItem2.setText("Calificar Tarea");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("OTROS");
+        jMenu4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jMenuItem3.setText("INICIO");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem3);
+
+        jMenuItem4.setText("SALIR");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -468,12 +507,20 @@ public class TareaDocente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaInicioMouseWheelMoved
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        MenuGestion mg=new MenuGestion(this, rootPaneCheckingEnabled);
-         this.dispose();
-        mg.setVisible(true);
-       
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        CalificarTarea cf=new CalificarTarea();
+        this.dispose();
+        cf.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -514,16 +561,14 @@ public class TareaDocente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.edisoncor.gui.button.ButtonAction btnAtras;
-    private org.edisoncor.gui.button.ButtonAction btnAtras1;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnOrdenar;
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JComboBox<String> cbxEstudiante;
+    private javax.swing.JComboBox<String> cbxEstudiante1;
     private javax.swing.JCheckBox cbxOrden;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JButton jButton1;
@@ -536,9 +581,16 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.panel.Panel panel1;

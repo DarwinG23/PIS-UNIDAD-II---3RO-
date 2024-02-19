@@ -16,6 +16,9 @@ import matricula.vista.GuardarCursa;
 import matricula.vista.GuardarMalla;
 import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
+import tareas.vista.CalificarTarea;
+
+import tareas.vista.TareaDocente;
 import usuarios.controlador.daoUsuario.RegistroControl1;
 import usuarios.modelo.Docente;
 import usuarios.modelo.Estudiante;
@@ -69,7 +72,8 @@ public class MenuDocente extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +103,7 @@ public class MenuDocente extends javax.swing.JFrame {
         getContentPane().add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 580));
 
         jMenu2.setText("Menu");
+        jMenu2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         btnIncio.setText("Inicio");
         btnIncio.addActionListener(new java.awt.event.ActionListener() {
@@ -108,13 +113,21 @@ public class MenuDocente extends javax.swing.JFrame {
         });
         jMenu2.add(btnIncio);
 
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("Asignar Tarea");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu2.add(btnMatricula);
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Calificar Tarea");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -135,19 +148,25 @@ public class MenuDocente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIncioActionPerformed
 
-    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
-        try {
-            new EstudianteMatricula().setVisible(true);
-            this.dispose();
-        } catch (EmptyException ex) {
-            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMatriculaActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         new LoginPrincipal().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        TareaDocente td=new TareaDocente();
+        this.dispose();
+        td.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+        CalificarTarea cf=new CalificarTarea(this.docente);
+        this.dispose();
+        cf.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,10 +207,11 @@ public class MenuDocente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.panel.PanelImage Fondo3;
     private javax.swing.JMenuItem btnIncio;
-    private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private org.edisoncor.gui.panel.PanelImage pnlUsuario;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
