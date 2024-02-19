@@ -92,6 +92,10 @@ public class EstadoMatricula extends javax.swing.JFrame {
         tbMatricula = new javax.swing.JTable();
         pnlLogo = new org.edisoncor.gui.panel.PanelImage();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnMatricula = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnAdmFacultad = new javax.swing.JMenuItem();
         btnAdmCarrera = new javax.swing.JMenuItem();
@@ -100,10 +104,6 @@ public class EstadoMatricula extends javax.swing.JFrame {
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmMatricula = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,6 +172,34 @@ public class EstadoMatricula extends javax.swing.JFrame {
 
         getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 560));
 
+        jMenu3.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnIncio);
+
+        btnMatricula.setText("Matriculas");
+        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnMatricula);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnSalir);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu1.setText("Administración");
 
         btnAdmFacultad.setText("Facultad");
@@ -231,34 +259,6 @@ public class EstadoMatricula extends javax.swing.JFrame {
         jMenu1.add(btnAdmPeriodo);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu3.setText("Menu");
-
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnIncio);
-
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnMatricula);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnSalir);
-
-        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 

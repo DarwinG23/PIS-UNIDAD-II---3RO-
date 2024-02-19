@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import lista.DynamicList;
-import materias.vista.Materia;
+import materias.vista.FrmMateria;
 import matricula.vista.EstudianteMatricula;
 import matricula.vista.GuardarCarrera;
 import matricula.vista.GuardarCiclo;
@@ -79,7 +79,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnAdmPeriodo = new javax.swing.JMenuItem();
         btnAdmEstudiante = new javax.swing.JMenuItem();
         btnAdmDocente = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        btnAdmMateria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -185,13 +185,13 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
         jMenu1.add(btnAdmDocente);
 
-        jMenuItem1.setText("Materias");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdmMateria.setText("Materias");
+        btnAdmMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnAdmMateriaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(btnAdmMateria);
 
         jMenuBar1.add(jMenu1);
 
@@ -262,10 +262,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAdmDocenteActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new Materia().setVisible(true);
+    private void btnAdmMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMateriaActionPerformed
+        new FrmMateria(this.docente).setVisible(true);
+        System.out.println(docente.getDatosUsuarioDocente().getNombre());
         this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_btnAdmMateriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,13 +312,13 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnAdmDocente;
     private javax.swing.JMenuItem btnAdmEstudiante;
     private javax.swing.JMenuItem btnAdmMalla;
+    private javax.swing.JMenuItem btnAdmMateria;
     private javax.swing.JMenuItem btnAdmMatricula;
     private javax.swing.JMenuItem btnAdmPeriodo;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private org.edisoncor.gui.panel.PanelImage pnlUsuario;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
