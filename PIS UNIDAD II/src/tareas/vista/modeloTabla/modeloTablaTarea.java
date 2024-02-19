@@ -36,7 +36,7 @@ public class modeloTablaTarea extends AbstractTableModel {
     @Override
     public int getColumnCount() {
        // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-       return 6;
+       return 7;
     }
     @Override
     public String getValueAt(int i,int i1){
@@ -53,7 +53,7 @@ public class modeloTablaTarea extends AbstractTableModel {
             case 3:return (p !=null) ?  fechaInicio:" ";
             case 4:return (p !=null) ?  fechaFinal:" ";
             case 5: return (p !=null) ?  p.getId_estado().getEstado():" ";
-
+            case 6: return (p !=null) ?  p.getMateria().getNombre():" ";
             
             default:
                 return null;
@@ -77,8 +77,8 @@ public class modeloTablaTarea extends AbstractTableModel {
                     return "Fecha Final";
                 case 5:
                     return "Estado tarea";
-//                case 6:
-//                    return "Nota";
+                case 6:
+                    return "Materia";
                     
            
             default:

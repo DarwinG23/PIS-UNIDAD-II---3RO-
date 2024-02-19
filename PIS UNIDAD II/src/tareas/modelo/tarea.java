@@ -5,6 +5,8 @@
 package tareas.modelo;
 
 import java.util.Date;
+import materias.modelo.Materia;
+import usuarios.modelo.Estudiante;
 
 /**
  *
@@ -18,14 +20,16 @@ public class tarea {
     private Date Fecha_Final;
     private String Descripcion;
     private estadoTarea Id_EstadoTarea;
-    private String estudiante;
-   
+    private Estudiante estudiante;
+    private Materia materia;
    
 
-    public tarea(tipoTarea id_tarea, String Descripcion, String tipoTarea, Integer Id, Date Fecha_Inicio, Date Fecha_Final,estadoTarea id_estado) {
+    public tarea(tipoTarea id_tarea,Materia materia,Estudiante estudiante ,String Descripcion, String tipoTarea, Integer Id, Date Fecha_Inicio, Date Fecha_Final,estadoTarea id_estado) {
         this.Id_TipoTarea = id_tarea;
         this.Titulo_Tarea = tipoTarea;
         this.Id = Id;
+        this.materia=materia;
+        this.estudiante=estudiante;
         this.Descripcion=Descripcion;
         this.Fecha_Inicio = Fecha_Inicio;
         this.Fecha_Final = Fecha_Final;
@@ -99,6 +103,22 @@ public class tarea {
         this.Id_EstadoTarea = id_estado;
     }
 
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
+    }
+    
     
     public Integer compare(tarea p, String field, Integer type) {
         // 0 menor, 1 mayor

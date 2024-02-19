@@ -59,6 +59,8 @@ public class TareaDocente extends javax.swing.JFrame {
         try {
             utilVistaEstadoTarea.CargarComboRolesL(cbxEstado);
             utilVistaTipoTarea.CargarComboRolesL(cbxTipo);
+            utilVistaEstadoTarea.CargarMaterias(cbxMateria);
+            utilVistaEstadoTarea.CargarEstudiantes(cbxEstudiante);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -72,6 +74,8 @@ public class TareaDocente extends javax.swing.JFrame {
         cbxEstado.setSelectedIndex(-1);//limpia combobo
         cbxTipo.setSelectedIndex(-1);//limpia combobo
         cbxTipo.setSelectedIndex(-1);
+        cbxEstudiante.setSelectedIndex(-1);
+        cbxMateria.setSelectedIndex(-1);
         tareaControl.setTarea1(null);
     }
 
@@ -85,6 +89,8 @@ public class TareaDocente extends javax.swing.JFrame {
             tareaControl.getTarea1().setDescripcion(txtDescripcion.getText());
             tareaControl.getTarea1().setId_tarea(utilVistaTipoTarea.ObtenerTipoTarea(cbxTipo));
             tareaControl.getTarea1().setId_estado(utilVistaEstadoTarea.ObtenerEstadoTarea(cbxEstado));
+            tareaControl.getTarea1().setMateria(utilVistaEstadoTarea.ObtenerMateria(cbxMateria));
+            tareaControl.getTarea1().setEstudiante(utilVistaEstadoTarea.ObtenerEstudiante(cbxEstudiante));
             tareaControl.getTarea1().setTituloTarea(txtTitulo.getText());
             tareaControl.getTarea1().setFecha_Inicio(txtFechaInicio.getDate());
             tareaControl.getTarea1().setFecha_Final(txtFechaFinal.getDate());
@@ -126,6 +132,8 @@ public class TareaDocente extends javax.swing.JFrame {
                 txtFechaFinal.setDate(tareaControl.getTarea1().getFecha_Final());
                 cbxEstado.setSelectedItem(tareaControl.getTarea1().getId_estado());
                 cbxTipo.setSelectedItem(tareaControl.getTarea1().getId_tarea());
+                cbxMateria.setSelectedItem(tareaControl.getTarea1().getMateria());
+                cbxEstudiante.setSelectedItem(tareaControl.getTarea1().getEstudiante());
             } catch (Exception e) {
             }
 
@@ -214,10 +222,10 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        cbxEstudiante = new javax.swing.JComboBox<>();
+        cbxMateria = new javax.swing.JComboBox<>();
         txtFechaFinal = new com.toedter.calendar.JDateChooser();
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
-        cbxEstudiante1 = new javax.swing.JComboBox<>();
+        cbxEstudiante = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -394,7 +402,7 @@ public class TareaDocente extends javax.swing.JFrame {
         jLabel10.setText("ESTUDIANTE");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
 
-        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 300, -1));
+        jPanel1.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 300, -1));
 
         txtFechaFinal.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
@@ -410,7 +418,7 @@ public class TareaDocente extends javax.swing.JFrame {
         });
         jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 300, -1));
 
-        jPanel1.add(cbxEstudiante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 300, -1));
+        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 300, -1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -509,7 +517,8 @@ public class TareaDocente extends javax.swing.JFrame {
             tareaControl.getTarea1().setDescripcion(txtDescripcion.getText());
             tareaControl.getTarea1().setId_tarea(utilVistaTipoTarea.ObtenerTipoTarea(cbxTipo));
             tareaControl.getTarea1().setId_estado(utilVistaEstadoTarea.ObtenerEstadoTarea(cbxEstado));
-            //            tareaControl.getTarea1().setNota(Float.parseFloat(txtNota.getText()));
+             tareaControl.getTarea1().setMateria(utilVistaEstadoTarea.ObtenerMateria(cbxMateria));
+            tareaControl.getTarea1().setEstudiante(utilVistaEstadoTarea.ObtenerEstudiante(cbxEstudiante));
             tareaControl.getTarea1().setTituloTarea(txtTitulo.getText());
             tareaControl.getTarea1().setFecha_Inicio(txtFechaInicio.getDate());
             tareaControl.getTarea1().setFecha_Final(txtFechaFinal.getDate());
@@ -580,8 +589,8 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JComboBox<String> cbxEstado;
-    private javax.swing.JComboBox<String> cbxEstudiante;
-    private javax.swing.JComboBox<String> cbxEstudiante1;
+    private javax.swing.JComboBox<Object> cbxEstudiante;
+    private javax.swing.JComboBox<Object> cbxMateria;
     private javax.swing.JCheckBox cbxOrden;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JButton jButton1;
@@ -609,9 +618,9 @@ public class TareaDocente extends javax.swing.JFrame {
     private org.edisoncor.gui.panel.Panel panel2;
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtDescripcion;
+    public static javax.swing.JTextField txtDescripcion;
     private com.toedter.calendar.JDateChooser txtFechaFinal;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
-    private javax.swing.JTextField txtTitulo;
+    public static javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

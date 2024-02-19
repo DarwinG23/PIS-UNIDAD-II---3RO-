@@ -135,7 +135,7 @@ public class Estudiante {
     
     @Override
     public String toString() {
-        return "Estudiante{" + "promedioAcademico=" + promedioAcademico + '}';
+        return DatosUsuario.getNombre();
     }
 
 }
