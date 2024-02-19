@@ -9,7 +9,7 @@ import exeption.EmptyList;
 import java.lang.reflect.Field;
 import javax.swing.JComboBox;
 import lista.DynamicList;
-import usuarios.controlador.daoUsuario.DocenteControl1;
+import usuarios.controlador.daoUsuario.DocenteControlDao;
 import usuarios.modelo.Docente;
 
 /**

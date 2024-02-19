@@ -4,24 +4,67 @@
  */
 package usuarios.modelo;
 
+import lista.DynamicList;
+import matricula.modelo.Matricula;
+
 /**
  *
  * @author Alexander
  */
-public class Estudiante extends Usuario {
-
-    public Estudiante(String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
-        super(nombre, apellido, edad, id, cedula, correo);
-    }
+public class Estudiante {
+    
+    private Integer idEstudiante;
+    private Usuario DatosUsuario;
+    private String CorreoUsuario;
+    private String ContraseniaUsuario;
     private String promedioAcademico;
+    private DynamicList<Matricula> matriculas;
 
-    public Estudiante(String promedioAcademico, String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
-        super(nombre, apellido, edad, id, cedula, correo);
-        this.promedioAcademico = promedioAcademico;
-    }
     public Estudiante() {
         
-        this.promedioAcademico = null;
+    }
+
+    public Estudiante(Integer idEstudiante, Usuario DatosUsuario, String CorreoUsuario, String ContraseniaUsuario, String promedioAcademico, DynamicList<Matricula> matriculas) {
+        this.idEstudiante = idEstudiante;
+        this.DatosUsuario = DatosUsuario;
+        this.CorreoUsuario = CorreoUsuario;
+        this.ContraseniaUsuario = ContraseniaUsuario;
+        this.promedioAcademico = promedioAcademico;
+        this.matriculas = matriculas;
+    }
+    
+    
+
+    public Integer getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public Usuario getDatosUsuario() {
+        return DatosUsuario;
+    }
+
+    public void setDatosUsuario(Usuario DatosUsuario) {
+        this.DatosUsuario = DatosUsuario;
+    }
+
+    public String getCorreoUsuario() {
+        return CorreoUsuario;
+    }
+
+    public void setCorreoUsuario(String CorreoUsuario) {
+        this.CorreoUsuario = CorreoUsuario;
+    }
+
+    public String getContraseniaUsuario() {
+        return ContraseniaUsuario;
+    }
+
+    public void setContraseniaUsuario(String ContraseniaUsuario) {
+        this.ContraseniaUsuario = ContraseniaUsuario;
     }
 
     public String getPromedioAcademico() {
@@ -31,35 +74,58 @@ public class Estudiante extends Usuario {
     public void setPromedioAcademico(String promedioAcademico) {
         this.promedioAcademico = promedioAcademico;
     }
-    public Integer compare(Estudiante p, String field, Integer type) {
+
+    public DynamicList<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(DynamicList<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+    
+    
+
+    public Integer compare(Estudiante p, String field, Integer Orden) {
         // 0 menor, 1 mayor
-        switch (type) {
+        switch (Orden) {
+            
             case 0:
                 if (field.equalsIgnoreCase("apellido")) {
-                    return apellido.compareTo(p.getApellido());
-                } else if (field.equalsIgnoreCase("nombre")) {
-                    return nombre.compareTo(p.getNombre());
-                } else if (field.equalsIgnoreCase("cedula")) {
-                    return cedula.compareTo(p.getCedula());
-                } else if (field.equalsIgnoreCase("correo")) {
-                    return correo.compareTo(p.getCorreo());
-                } else if (field.equalsIgnoreCase("edad")) {
-                    return edad.compareTo(p.getEdad());
-                }else if (field.equalsIgnoreCase("promedioAcademico")) {
+                    return DatosUsuario.getApellido().compareTo(p.getDatosUsuario().getApellido());
+                } 
+                else if (field.equalsIgnoreCase("nombre")) {
+                    return DatosUsuario.getNombre().compareTo(p.getDatosUsuario().getNombre());
+                } 
+                else if (field.equalsIgnoreCase("cedula")) {
+                    return DatosUsuario.getCedula().compareTo(p.getDatosUsuario().getCedula());
+                } 
+                else if (field.equalsIgnoreCase("correo")) {
+                    return DatosUsuario.getCorreo().compareTo(p.getDatosUsuario().getCorreo());
+                }
+                else if (field.equalsIgnoreCase("edad")) {
+                    return DatosUsuario.getEdad().compareTo(p.getDatosUsuario().getEdad());
+                }
+                else if (field.equalsIgnoreCase("promedioAcademico")) {
                     return promedioAcademico.compareTo(p.getPromedioAcademico());
                 }
+                
             case 1:
                 if (field.equalsIgnoreCase("apellido")) {
-                    return p.getApellido().compareTo(apellido);
-                } else if (field.equalsIgnoreCase("nombre")) {
-                    return p.getNombre().compareTo(nombre);
-                } else if (field.equalsIgnoreCase("cedula")) {
-                    return p.getCedula().compareTo(cedula);
-                } else if (field.equalsIgnoreCase("correo")) {
-                    return p.getCorreo().compareTo(correo);
-                } else if (field.equalsIgnoreCase("edad")) {
-                    return p.getEdad().compareTo(edad);
-                }else if (field.equalsIgnoreCase("promedioAcademico")) {
+                    return p.getDatosUsuario().getApellido().compareTo(DatosUsuario.getApellido());
+                } 
+                else if (field.equalsIgnoreCase("nombre")) {
+                    return p.getDatosUsuario().getNombre().compareTo(DatosUsuario.getNombre());
+                } 
+                else if (field.equalsIgnoreCase("cedula")) {
+                    return p.getDatosUsuario().getCedula().compareTo(DatosUsuario.getCedula());
+                }
+                else if (field.equalsIgnoreCase("correo")) {
+                    return p.getDatosUsuario().getCorreo().compareTo(DatosUsuario.getCorreo());
+                } 
+                else if (field.equalsIgnoreCase("edad")) {
+                    return p.getDatosUsuario().getEdad().compareTo(DatosUsuario.getEdad());
+                }
+                else if (field.equalsIgnoreCase("promedioAcademico")) {
                     return p.getPromedioAcademico().compareTo(promedioAcademico);
                 } 
             default:
@@ -71,7 +137,5 @@ public class Estudiante extends Usuario {
     public String toString() {
         return "Estudiante{" + "promedioAcademico=" + promedioAcademico + '}';
     }
-
-    
 
 }

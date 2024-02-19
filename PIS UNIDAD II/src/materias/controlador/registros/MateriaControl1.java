@@ -49,162 +49,65 @@ import materias.modelo.Materia;
 
         return persist(materia);
     }
-//     public DynamicList<Materia> quicksort(DynamicList<Materia> lista, Integer tipo, String field) throws EmptyException, Exception {
-//        Materia[] materias = lista.toArray();
-//        quicksort(materias, 0, materias.length - 1, tipo, field);
-//        return lista.toList(materias);
-//    }
-//
-//    public static void quicksort(Materia[] materias, int izq, int der, Integer tipo, String field) {
-//        int i = izq;
-//        int j = der;
-//        Materia pivote = materias[izq];
-//
-//        while (i <= j) {
-//            while (compare(materias[i], pivote, tipo, field) < 0) {
-//                i++;
-//            }
-//            while (compare(materias[j], pivote, tipo, field) > 0) {
-//                j--;
-//            }
-//            if (i <= j) {
-//                Materia temp = materias[i];
-//                materias[i] = materias[j];
-//                materias[j] = temp;
-//                i++;
-//                j--;
-//            }
-//        }
-//
-//        if (izq < j) {
-//            quicksort(materias, izq, j, tipo, field);
-//        }
-//        if (i < der) {
-//            quicksort(materias, i, der, tipo, field);
-//        }
-//    }
-//    public static int compare(Materia p1, Materia p2, Integer tipo, String field) {
-//        int resultado = 0;
-//
-//        switch (field) {
-//            case "Nombre":
-//                resultado = p1.getNombre().compareTo(p2.getNombre());
-//                break;
-//            case "Paralelo":
-//                resultado = p1.getParalelo().compareTo(p2.getParalelo());
-//                break;
-//            case "Ciclo":
-//                resultado = p1.getCiclo().compareTo(p2.getCiclo());
-//                break;
-//                case "id_Materia":
-//                resultado = p1.getId_Materia().compareTo(p2.getId_Materia());
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Campo de comparación no válido: " + field);
-//        }
-//
-//        if (resultado == 0) {
-//
-//            return 0;
-//        }
-//
-//        return resultado * tipo;
-//    }
-
-    public DynamicList<Materia> ordenar(DynamicList<Materia> lista, Integer tipo, String field) throws Exception, Exception {
-        Field attribute = utiles.getField(Materia.class, field);
-        Integer n = lista.getLength();
-        Materia[] materias = lista.toArray();
-        if (attribute != null) {
-            for (int i = 0; i < n; i++) {
-                int k = i;
-                Materia t = materias[i];
-                for (int j = i + 1; j < n; j++) {
-                    if (materias[j].compare(t, field, tipo)) {
-                        t = materias[j];
-                        k = j;
-                    }
-                }
-                materias[k] = materias[i];
-                materias[i] = t;
-            }
-        } else {
-            throw new Exception("No existe el criterio de busqueda");
-        }
-        return lista.toList(materias);
-    }
     public DynamicList<Materia> ordenarQuickSort(DynamicList<Materia> lista, Integer tipo, String field) throws Exception {
         Field attribute = utiles.getField(Materia.class, field);
         Integer n = lista.getLength();
-        Materia[] materias = lista.toArray();
+        Materia[] tareas = lista.toArray();
+
         if (attribute != null) {
-            quickSort(materias, tipo, field, 0, materias.length - 1);
+            int iteraciones = quickSort(tareas, tipo, field, 0, tareas.length - 1);
+            System.out.println("Iteraciones realizadas: " + iteraciones);
         } else {
             throw new Exception("No existe el atributo: " + field);
-
         }
 
-        return lista.toList(materias);
+        return lista.toList(tareas);
     }
-    private void quickSort(Materia[] materias, Integer tipo, String field, int izq, int der) {
+
+    private int quickSort(Materia[] tareas, Integer tipo, String field, int izq, int der) {
+        int iteraciones = 0; // Contador de iteraciones
+
         if (izq < der) {
             int i = izq;
             int j = der;
-            Materia pivote = materias[(izq + der) / 2];
+            Materia pivote = tareas[(izq + der) / 2];
 
             while (i <= j) {
-                while (materias[i].compare(pivote, field, tipo) ) {
+                while (tareas[i].compare(pivote, field, tipo)) {
                     i++;
+                    iteraciones++;
                 }
 
-                while (materias[j].compare(pivote, field, tipo) ) {
+                while (tareas[j].compare(pivote, field, tipo)) {
                     j--;
+                    iteraciones++;
                 }
 
                 if (i <= j) {
-                    Materia temp = materias[i];
-                    materias[i] = materias[j];
-                    materias[j] = temp;
+                    Materia temp = tareas[i];
+                    tareas[i] = tareas[j];
+                    tareas[j] = temp;
                     i++;
                     j--;
                 }
             }
 
-            quickSort(materias, tipo, field, izq, j);
-            quickSort(materias, tipo, field, i, der);
-        }
-    }
-    
-
-    public DynamicList<Materia> buscarPorCriterioLineal(String texto, DynamicList<Materia> materia, String criterio) {
-        DynamicList<Materia> lista = new DynamicList<>();
-
-        try {
-            Materia[] aux = ordenar(materia, 0, criterio).toArray();
-
-            for (Materia p : aux) {
-                String valor = obtenerValorCriterio(p, criterio).toLowerCase();
-                if (valor.contains(texto.toLowerCase())) {
-                    lista.add(p);
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Error en buscar" + e.getMessage());
+            iteraciones += quickSort(tareas, tipo, field, izq, j);
+            iteraciones += quickSort(tareas, tipo, field, i, der);
         }
 
-        return lista;
+        return iteraciones;
     }
-
-    public DynamicList<Materia> busquedaBinaria(String texto, DynamicList<Materia> materias, String criterio) {
+    public DynamicList<Materia> busquedaBinaria(String texto, DynamicList<Materia> tipos, String criterio) {
     DynamicList<Materia> lista = new DynamicList<>();
     try {
-        Materia[] aux = ordenar(materias, 0, criterio).toArray();
+        Materia [] aux = ordenarQuickSort(tipos, 0, criterio).toArray();
         int inicio = 0;
         int fin = aux.length - 1;
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            Materia p = aux[medio];
-            String valorCriterio = obtenerValorCriterio(p, criterio).toLowerCase();
+            Materia  p = aux[medio];
+            String valorCriterio = obtenerValorCriterio1(p, criterio).toLowerCase();
             if (valorCriterio.contains(texto.toLowerCase())) {
                 lista.add(p);
             }
@@ -220,24 +123,50 @@ import materias.modelo.Materia;
 
     return lista;
     }
+    public DynamicList<Materia> busquedaLineal(String texto, DynamicList<Materia> tarea, String criterio) {
+        DynamicList<Materia> lista = new DynamicList<>();
+
+        try {
+            Materia[] aux = ordenarQuickSort(tarea, 0, criterio).toArray();
+
+            for (Materia p : aux) {
+                String valor = obtenerValorCriterio(p, criterio).toLowerCase();
+                if (valor.contains(texto.toLowerCase())) {
+                    lista.add(p);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error en buscar" + e.getMessage());
+        }
+
+        return lista;
+    }
+
 
 
     private String obtenerValorCriterio(Materia materia, String criterio) {
+        String FechaFinal=String.valueOf(materia.getFecha());
         switch (criterio.toLowerCase()) {
             case "nombre":
                 return materia.getNombre();
-            case "id_materia":
-                return materia.getId_Materia();
-            case "ciclo":
-                return materia.getCiclo();
             case "paralelo":
                 return materia.getParalelo();
             case "fecha":
-                return materia.getFecha();
+                return FechaFinal;
             default:
                 throw new IllegalArgumentException("Criterio no válido");
         }
     }
+    private String obtenerValorCriterio1(Materia materia, String criterio) {
+        String FechaFinal=String.valueOf(materia.getFecha());
+        switch (criterio.toLowerCase()) {
+            case "ciclo":
+                return materia.getCiclo();
+            default:
+                throw new IllegalArgumentException("Criterio no válido");
+        }
+    }
+    
 
     
 }

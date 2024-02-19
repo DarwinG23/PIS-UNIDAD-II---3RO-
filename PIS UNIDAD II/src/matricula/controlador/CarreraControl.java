@@ -159,7 +159,7 @@ public class CarreraControl extends DaoImplement<Carrera>{
 
 
     private String obtenerValorCriterio(Carrera carrera, String criterio) {
-        String numCiclos=String.valueOf(carrera.getNumCiclos());
+//        String numCiclos=String.valueOf(carrera.getNumCiclos());
         String duracionAnios=String.valueOf(carrera.getDuracionAnios());
         switch (criterio) {
             case "nombre":
@@ -168,8 +168,6 @@ public class CarreraControl extends DaoImplement<Carrera>{
                 return carrera.getDescripcion();
             case "duracionAnios":
                 return duracionAnios;
-            case "numCiclos":
-                return numCiclos;
             
             default:
                 throw new IllegalArgumentException("Criterio no válido");

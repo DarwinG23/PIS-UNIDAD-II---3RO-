@@ -7,12 +7,13 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.CarreraControl;
 import matricula.modelo.Malla;
 import matricula.vista.util.UtilVistaMalla;
-import usuarios.vista.Inicio;
+//import usuarios.vista.Inicio;
 
 /**
  *
@@ -28,8 +29,6 @@ public class AgregarMalla extends javax.swing.JFrame {
         mallas.add(UtilVistaMalla.obtenerCarrera(cbxMalla));
         carreraControl.getCarrera().setDescripcion(carreraControl.getListCarrera().getInfo(fila).getDescripcion());
         carreraControl.getCarrera().setNombre(carreraControl.getListCarrera().getInfo(fila).getNombre());
-        carreraControl.getCarrera().setDuracionAnios(carreraControl.getListCarrera().getInfo(fila).getDuracionAnios());
-        carreraControl.getCarrera().setNumCiclos(carreraControl.getListCarrera().getInfo(fila).getNumCiclos());
         carreraControl.getCarrera().setMallas(mallas);
         carreraControl.getCarrera().setId(carreraControl.getListCarrera().getInfo(fila).getId());
         if (carreraControl.marge(carreraControl.getCarrera(), fila)) {
@@ -43,14 +42,16 @@ public class AgregarMalla extends javax.swing.JFrame {
     public AgregarMalla() {
         initComponents();
         this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/AzulGris.jpg"));
     }
 
     public AgregarMalla(Integer filaSeleccionada) throws EmptyException, Exception {
-        initComponents();        
+        initComponents();
         fila = filaSeleccionada;
-        UtilVistaMalla.cargarcomboMallaFiltro(cbxMalla,fila);
+        UtilVistaMalla.cargarcomboMallaFiltro(cbxMalla, fila);
         System.out.println(fila);
         this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/AzulGris.jpg"));
     }
 
     /**
@@ -60,21 +61,24 @@ public class AgregarMalla extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlFondo = new org.edisoncor.gui.panel.PanelImage();
         jLabel1 = new javax.swing.JLabel();
         cbxMalla = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
         jLabel1.setText("Seleccione la malla que desea agregar a la carrera");
+        pnlFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         cbxMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlFondo.add(cbxMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 245, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +86,7 @@ public class AgregarMalla extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
+        pnlFondo.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -89,46 +94,9 @@ public class AgregarMalla extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
+        pnlFondo.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 54, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbxMalla, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnSalir))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 130));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,8 +111,7 @@ public class AgregarMalla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        Inicio n1=new Inicio();
-        n1.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
@@ -188,6 +155,6 @@ public class AgregarMalla extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxMalla;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private org.edisoncor.gui.panel.PanelImage pnlFondo;
     // End of variables declaration//GEN-END:variables
 }

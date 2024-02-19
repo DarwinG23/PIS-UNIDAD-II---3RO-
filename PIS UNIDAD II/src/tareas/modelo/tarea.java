@@ -4,43 +4,43 @@
  */
 package tareas.modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author ALEJANDRO
  */
 public class tarea {
-    private tipoTarea id_tarea;
-    private String tituloTarea;
+    private tipoTarea Id_TipoTarea;
+    private String Titulo_Tarea;
     private Integer Id;
-    private String fechaInicio;
-    private String fechaFinal;
+    private Date Fecha_Inicio;
+    private Date Fecha_Final;
     private String Descripcion;
-    private Float nota;
-    private estadoTarea id_estado;
+    private estadoTarea Id_EstadoTarea;
     private String estudiante;
-    private String docente;
+   
+   
 
-    public tarea(tipoTarea id_tarea,Float nota, String Descripcion, String tipoTarea, Integer Id, String fechaInicio, String fechaFinal,estadoTarea id_estado) {
-        this.id_tarea = id_tarea;
-        this.tituloTarea = tipoTarea;
+    public tarea(tipoTarea id_tarea, String Descripcion, String tipoTarea, Integer Id, Date Fecha_Inicio, Date Fecha_Final,estadoTarea id_estado) {
+        this.Id_TipoTarea = id_tarea;
+        this.Titulo_Tarea = tipoTarea;
         this.Id = Id;
         this.Descripcion=Descripcion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinal = fechaFinal;
-        this.nota=nota;
-        this.id_estado=id_estado;
+        this.Fecha_Inicio = Fecha_Inicio;
+        this.Fecha_Final = Fecha_Final;
+        this.Id_EstadoTarea=id_estado;
     }
 
    
     public tarea() {
-        this.id_tarea =null;
-        this.fechaFinal=null;
-        this.fechaInicio=null;
-        this.tituloTarea = null;
+        this.Id_TipoTarea =null;
+        this.Fecha_Final=null;
+        this.Fecha_Inicio=null;
+        this.Titulo_Tarea = null;
         this.Id=null;
         this.Descripcion=null;
-        this.nota=null;
-        this.id_estado=null;
+        this.Id_EstadoTarea=null;
     }
 
     public String getDescripcion() {
@@ -59,89 +59,79 @@ public class tarea {
         this.Id = Id;
     }
 
-    public String getFechaInicio() {
-        return fechaInicio;
+    public Date getFecha_Inicio() {
+        return Fecha_Inicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFecha_Inicio(Date Fecha_Inicio) {
+        this.Fecha_Inicio = Fecha_Inicio;
     }
 
-    public String getFechaFinal() {
-        return fechaFinal;
+    public Date getFecha_Final() {
+        return Fecha_Final;
     }
 
-    public void setFechaFinal(String fechaFinal) {
-        this.fechaFinal = fechaFinal;
+    public void setFecha_Final(Date Fecha_Final) {
+        this.Fecha_Final = Fecha_Final;
     }
 
-    public Float getNota() {
-        return nota;
-    }
-
-    public void setNota(Float nota) {
-        this.nota = nota;
-    }
-    
-    
-    
     public tipoTarea getId_tarea() {
-        return id_tarea;
+        return Id_TipoTarea;
     }
 
     public void setId_tarea(tipoTarea id_tarea) {
-        this.id_tarea = id_tarea;
+        this.Id_TipoTarea = id_tarea;
     }
 
     public String getTituloTarea() {
-        return tituloTarea;
+        return Titulo_Tarea;
     }
 
     public void setTituloTarea(String tituloTarea) {
-        this.tituloTarea = tituloTarea;
+        this.Titulo_Tarea = tituloTarea;
     }
 
     public estadoTarea getId_estado() {
-        return id_estado;
+        return Id_EstadoTarea;
     }
 
     public void setId_estado(estadoTarea id_estado) {
-        this.id_estado = id_estado;
+        this.Id_EstadoTarea = id_estado;
     }
+
+    
     public Integer compare(tarea p, String field, Integer type) {
         // 0 menor, 1 mayor
         switch (type) {
             case 0:
-                if (field.equalsIgnoreCase("tituloTarea")) {
-                    return tituloTarea.compareTo(p.getTituloTarea());
-                } else if (field.equalsIgnoreCase("fechaInicio")) {
-                    return fechaInicio.compareTo(p.getFechaInicio());
-                } else if (field.equalsIgnoreCase("fechaFinal")) {
-                    return fechaFinal.compareTo(p.getFechaFinal());
+                if (field.equalsIgnoreCase("Titulo_Tarea")) {
+                    return Titulo_Tarea.compareTo(p.getTituloTarea());
+                } else if (field.equalsIgnoreCase("Fecha_Inicio")) {
+                    return Fecha_Inicio.compareTo(p.getFecha_Inicio());
+                } else if (field.equalsIgnoreCase("Fecha_Final")) {
+                    return Fecha_Final.compareTo(p.getFecha_Final());
                 } else if (field.equalsIgnoreCase("Descripcion")) {
                     return Descripcion.compareTo(p.getDescripcion());
-                } else if (field.equalsIgnoreCase("id_tarea")) {
-                    return this.id_tarea.compareTo(p.getId_tarea(),"nombre");
-                 } else if (field.equalsIgnoreCase("id_estado")) {
-                    return this.id_estado.compareTo(p.getId_estado(),"estado");
+                } else if (field.equalsIgnoreCase("Id_TipoTarea")) {
+                    return this.Id_TipoTarea.compareTo(p.getId_tarea(),"nombre");
+                 } else if (field.equalsIgnoreCase("Id_EstadoTarea")) {
+                    return this.Id_EstadoTarea.compareTo(p.getId_estado(),"estado");
                 } else if (field.equalsIgnoreCase("Id")) {
                     return Id.compareTo(p.getId());
                 }
             case 1:
-                if (field.equalsIgnoreCase("tituloTarea")) {
-                    return p.getTituloTarea().compareTo(tituloTarea);
-                } else if (field.equalsIgnoreCase("fechaInicio")) {
-                    return p.getFechaInicio().compareTo(fechaInicio);
-                } else if (field.equalsIgnoreCase("fechaFinal")) {
-                    return p.getFechaFinal().compareTo(fechaFinal);
+                if (field.equalsIgnoreCase("Titulo_Tarea")) {
+                    return p.getTituloTarea().compareTo(Titulo_Tarea);
+                } else if (field.equalsIgnoreCase("Fecha_Inicio")) {
+                    return p.getFecha_Inicio().compareTo(Fecha_Inicio);
+                } else if (field.equalsIgnoreCase("Fecha_Final")) {
+                    return p.getFecha_Final().compareTo(Fecha_Final);
                 } else if (field.equalsIgnoreCase("Descripcion")) {
                     return p.getDescripcion().compareTo(Descripcion);
-                } else if (field.equalsIgnoreCase("id_tarea")) {
-                    return p.getId_tarea().compareTo(id_tarea,"nombre");
-                } else if (field.equalsIgnoreCase("id_estado")) {
-                    return p.getId_estado().compareTo(id_estado,"estado");
-                } else if (field.equalsIgnoreCase("nota")) {
-                    return p.getNota().compareTo(nota);    
+                } else if (field.equalsIgnoreCase("Id_TipoTarea")) {
+                    return p.getId_tarea().compareTo(Id_TipoTarea,"nombre");
+                } else if (field.equalsIgnoreCase("Id_EstadoTarea")) {
+                    return p.getId_estado().compareTo(Id_EstadoTarea,"estado");   
                 } else if (field.equalsIgnoreCase("Id")) {
                     return p.getId().compareTo(Id);
                 }
@@ -152,7 +142,7 @@ public class tarea {
 
     @Override
     public String toString() {
-        return "id_estado=" + id_estado ;
+        return "Estado=" + Id_EstadoTarea ;
     }
 
     

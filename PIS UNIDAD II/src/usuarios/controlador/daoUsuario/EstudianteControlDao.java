@@ -8,44 +8,47 @@ import Controlador.utiles.Utiles;
 import dao.DaoImplement;
 import java.lang.reflect.Field;
 import lista.DynamicList;
-import usuarios.modelo.Docente;
 import usuarios.modelo.Estudiante;
 
 /**
  *
  * @author Alexander
  */
-public class EstudianteControl1 extends DaoImplement<Estudiante> {
-    private DynamicList<Estudiante> estudiante;
-    private Estudiante estudiante1;
-     public EstudianteControl1() {
-         super(Estudiante.class);
+public class EstudianteControlDao extends DaoImplement<Estudiante> {
+
+    private DynamicList<Estudiante> listaEstudiante = new DynamicList<>();
+    private Estudiante estudiante;
+    
+    public EstudianteControlDao() {
+        super(Estudiante.class);
     }
 
-    public DynamicList<Estudiante> getEstudiante() {
-        estudiante=all();
+    public DynamicList<Estudiante> getListaEstudiante() {
+        listaEstudiante = all();
+        return listaEstudiante;
+    }
+
+    public void setListaEstudiante(DynamicList<Estudiante> listaEstudiante) {
+        this.listaEstudiante = listaEstudiante;
+    }
+
+    public Estudiante getEstudiante() {
+        if(estudiante == null){
+            estudiante = new Estudiante();
+        }
         return estudiante;
     }
 
-    public void setEstudiante(DynamicList<Estudiante> estudiante) {
-        this.estudiante= estudiante;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
-
-    public Estudiante getEstudiante1() {
-        if (estudiante1 == null) {
-            estudiante1 = new Estudiante();
-        }
-        return estudiante1;
+    
+        
+    public Boolean Persist(){
+        estudiante.setIdEstudiante(all().getLength()+1);
+        return persist(estudiante);
     }
-
-    public void setEstudiante1(Estudiante estudiante1) {
-        this.estudiante1 = estudiante1;
-    }
-
-    public Boolean persist(){
-        estudiante1.setId(all().getLength()+ 1);
-        return persist(estudiante1);
-    }
+    
     public DynamicList<Estudiante> ordenarQuickSort(DynamicList<Estudiante> lista, Integer tipo, String field) throws Exception {
         Field attribute = Utiles.getField(Estudiante.class, field);
         Integer n = lista.getLength();
@@ -134,15 +137,15 @@ public class EstudianteControl1 extends DaoImplement<Estudiante> {
      private String obtenerValorCriterio(Estudiante estudiante, String criterio) {
         switch (criterio) {
             case "nombre":
-                return estudiante.getNombre();
+                return estudiante.getDatosUsuario().getNombre();
             case "apellido":
-                return estudiante.getApellido();
+                return estudiante.getDatosUsuario().getApellido();
             case "cedula":
-                return estudiante.getCedula();
+                return estudiante.getDatosUsuario().getCedula();
             case "correo":
-                return estudiante.getCorreo();
+                return estudiante.getDatosUsuario().getCorreo();
             case "edad":
-                return estudiante.getEdad();
+                return estudiante.getDatosUsuario().getEdad();
             case "promedioAcademico":
                 return estudiante.getPromedioAcademico();
            

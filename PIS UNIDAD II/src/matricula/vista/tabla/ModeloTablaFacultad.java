@@ -27,7 +27,7 @@ public class ModeloTablaFacultad extends AbstractTableModel {
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 5;
+        return 6;
     }
 
     @Override
@@ -75,9 +75,9 @@ public class ModeloTablaFacultad extends AbstractTableModel {
             case 3:
                 return "CARRERAS";
             case 4:
-                return "UBICACIÓN";
+                return  "DESCRIPCIÓN";
             case 5:
-                return "DESCRIPCIÓN";
+                return "UBICACIÓN";
             default:
                 return null;
         }

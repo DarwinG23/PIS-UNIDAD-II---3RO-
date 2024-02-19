@@ -4,6 +4,7 @@
  */
 package tareas.vista.modeloTabla;
 
+import java.text.SimpleDateFormat;
 import javax.swing.table.AbstractTableModel;
 import lista.DynamicList;
 import tareas.modelo.tarea;
@@ -35,22 +36,24 @@ public class modeloTablaTarea extends AbstractTableModel {
     @Override
     public int getColumnCount() {
        // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-       return 7;
+       return 6;
     }
     @Override
     public String getValueAt(int i,int i1){
         // i=fila 1=columna
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
         try {
             tarea p = tarea.getInfo(i);
-            
+            String fechaInicio=formatoFecha.format(p.getFecha_Inicio());
+            String fechaFinal=formatoFecha.format(p.getFecha_Final());
         switch(i1){
             case 0: return (p !=null) ? p.getTituloTarea():" ";   //modelos ternarios
             case 1: return (p !=null) ? p.getId_tarea().getNombre():" ";
             case 2: return (p !=null) ? p.getDescripcion():" ";
-            case 3:return (p !=null) ? p.getFechaInicio():" ";
-            case 4:return (p !=null) ? p.getFechaFinal():" ";
+            case 3:return (p !=null) ?  fechaInicio:" ";
+            case 4:return (p !=null) ?  fechaFinal:" ";
             case 5: return (p !=null) ?  p.getId_estado().getEstado():" ";
-             case 6: return (p !=null) ? String.valueOf(p.getNota()):" ";
+
             
             default:
                 return null;
@@ -74,8 +77,8 @@ public class modeloTablaTarea extends AbstractTableModel {
                     return "Fecha Final";
                 case 5:
                     return "Estado tarea";
-                case 6:
-                    return "Nota";
+//                case 6:
+//                    return "Nota";
                     
            
             default:

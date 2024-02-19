@@ -5,35 +5,47 @@
 package matricula.vista;
 
 import exeption.EmptyException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
+import materias.vista.FrmMateria;
 import materias.vista.Tabla.ModeloTablaMateria;
 import materias.vista.util.UtilVista1;
+import matricula.controlador.CarreraControl;
 import matricula.controlador.CicloControl;
+import matricula.controlador.MallaControl;
+import matricula.modelo.Ciclo;
+import matricula.modelo.Malla;
 import matricula.vista.tabla.ModeloTablaCiclo;
 import matricula.vista.util.UtilVistaMalla;
-import usuarios.vista.Inicio;
+import usuarios.modelo.Docente;
+import usuarios.vista.LoginPrincipal;
+import usuarios.vista.Menu;
+import usuarios.vista.MenuAdmin;
 
 /**
  *
- * @author darwi
+ * @author darwin
  */
 public class GuardarCiclo extends javax.swing.JFrame {
 
     private ModeloTablaCiclo mtc = new ModeloTablaCiclo();
     private ModeloTablaMateria mtm = new ModeloTablaMateria();
     private CicloControl cicloControl = new CicloControl();
+    private MallaControl mallaControl = new MallaControl();
+    private CarreraControl carreraControl = new CarreraControl();
+    private Docente docente;
 
     public void cargarFacultades(DynamicList carreras) {
         mtc.setCiclos(carreras);
         initComponents();
-       
+
     }
 
     public Boolean verificar() {
-        return (!txtNumeroCiclo.getText().trim().isEmpty());
+        return true; //(!txtNuCiclo.getText().trim().isEmpty());
     }
 
     private void cargarTabla() {
@@ -46,22 +58,61 @@ public class GuardarCiclo extends javax.swing.JFrame {
 
     private void guardar() throws EmptyException {
         if (verificar()) {
-            cicloControl.getCiclo().setFechaInicio(cldInicio.getDate());
-            cicloControl.getCiclo().setFechaFin(cldFin.getDate());
-            cicloControl.getCiclo().setNumCiclo(Integer.parseInt(txtNumeroCiclo.getText()));
+            cicloControl.getCiclo().setNumCiclo(cbxNumCiclo.getSelectedIndex() + 1);
             cicloControl.getCiclo().setId_Malla(UtilVistaMalla.obtenerCarrera(cbxMalla).getId());
-            cicloControl.getCiclo().getMaterias().add((UtilVista1.obtenerMateria(cbxMateria)));
             if (cicloControl.persist()) {
-                JOptionPane.showMessageDialog(null, "Datos guardados");
+
                 cargarTabla();
                 limpiar();
                 cicloControl.setCiclo(null);
+                DynamicList<Ciclo> ciclos = mallaControl.getListMalla().getInfo(cbxMalla.getSelectedIndex()).getCiclos();
+                ciclos.add(cicloControl.getListCiclo().getInfo(cicloControl.getListCiclo().getLength() - 1));
+
+                mallaControl.getMalla().setCiclos(ciclos);
+                mallaControl.getMalla().setFechaCreacion(mallaControl.getListMalla().getInfo(cbxMalla.getSelectedIndex()).getFechaCreacion());
+                mallaControl.getMalla().setId(mallaControl.getListMalla().getInfo(cbxMalla.getSelectedIndex()).getId());
+                mallaControl.getMalla().setId_Carrera(mallaControl.getListMalla().getInfo(cbxMalla.getSelectedIndex()).getId_Carrera());
+                mallaControl.getMalla().setNombre(mallaControl.getListMalla().getInfo(cbxMalla.getSelectedIndex()).getNombre());
+
+                if (mallaControl.marge(mallaControl.getMalla(), cbxMalla.getSelectedIndex())) {
+                    actualizarCarrera(mallaControl.getMalla());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al agregar a el ciclo a la malla");
+
+                }
+
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void actualizarCarrera(Malla malla) throws EmptyException {
+        for (int i = 0; i < carreraControl.getListCarrera().getLength(); i++) {
+            DynamicList<Malla> mallas = carreraControl.getListCarrera().getInfo(i).getMallas();
+            for (int j = 0; j < mallas.getLength(); j++) {
+                System.out.println(mallas.getInfo(j).getId() +"/" + cbxMalla.getSelectedIndex()+1);
+                if (mallas.getInfo(j).getId() == cbxMalla.getSelectedIndex()+1) {
+                    mallas.extract(j);
+                    mallas.add(malla);
+                    carreraControl.getCarrera().setDescripcion(carreraControl.getListCarrera().getInfo(i).getDescripcion());
+                    carreraControl.getCarrera().setDuracionAnios(carreraControl.getListCarrera().getInfo(i).getDuracionAnios());
+                    carreraControl.getCarrera().setId(carreraControl.getListCarrera().getInfo(i).getId());
+                    carreraControl.getCarrera().setMallas(mallas);
+                    carreraControl.getCarrera().setNombre(carreraControl.getListCarrera().getInfo(i).getNombre());
+                    if (carreraControl.marge(carreraControl.getCarrera(), i)) {
+                        System.out.println("si");
+                    } else {
+                        System.out.println(":c");
+                    }
+                }
+            }
+        }
+
     }
 
     private void limpiar() {
@@ -69,52 +120,67 @@ public class GuardarCiclo extends javax.swing.JFrame {
         cicloControl.setCiclo(null);
     }
 
-    public GuardarCiclo() throws EmptyException, Exception {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        UtilVistaMalla.cargarcomboCarrera(cbxMalla);
-        UtilVista1.cargarcomboRolesL(cbxMateria);
-        cargarTabla();
-    }
-     private void ordenar(){
+    private void ordenar() {
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
-        Integer tipo=0;
+        Integer tipo = 0;
         if (btnOrden.isSelected()) {
             tipo = 1;
-        } 
+        }
         try {
             mtc.setCiclos(cicloControl.ordenarQuickSort(cicloControl.all(), tipo, criterio));
-             tbCiclo.setModel(mtc);
+            tbCiclo.setModel(mtc);
             tbCiclo.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    
+
     }
-     private void buscar(){
+
+    private void buscar() {
         String texto = txtBuscar.getText();
-        String criterio= cbxCriterio.getSelectedItem().toString();
-        if(cbxMetodo.getSelectedItem().toString()=="Busqueda_Binaria"){
-        try {
-            System.out.println("Busqueda_Binaria");
-            mtc.setCiclos(cicloControl.all());
-            mtc.setCiclos(cicloControl.busquedaBinaria(texto, mtc.getCiclos(), criterio));
-            tbCiclo.setModel(mtc);
-            tbCiclo.updateUI();
-        } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        String criterio = cbxCriterio.getSelectedItem().toString();
+        if (cbxMetodo.getSelectedItem().toString() == "Busqueda_Binaria") {
+            try {
+                System.out.println("Busqueda_Binaria");
+                mtc.setCiclos(cicloControl.all());
+                mtc.setCiclos(cicloControl.busquedaBinaria(texto, mtc.getCiclos(), criterio));
+                tbCiclo.setModel(mtc);
+                tbCiclo.updateUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (cbxMetodo.getSelectedItem().toString() == "Busqueda_Lineal") {
+            try {
+                System.out.println("Busqueda_Lineal");
+                mtc.setCiclos(cicloControl.all());
+                mtc.setCiclos(cicloControl.buscarPorCriterioLineal(texto, mtc.getCiclos(), criterio));
+                tbCiclo.setModel(mtc);
+                tbCiclo.updateUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        } else if(cbxMetodo.getSelectedItem().toString()=="Busqueda_Lineal"){
-           try {
-            System.out.println("Busqueda_Lineal");
-            mtc.setCiclos(cicloControl.all());
-            mtc.setCiclos(cicloControl.buscarPorCriterioLineal(texto, mtc.getCiclos(), criterio));
-            tbCiclo.setModel(mtc);
-            tbCiclo.updateUI();
-        } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }     
-        }
+    }
+
+    public GuardarCiclo() throws EmptyException {
+        initComponents();
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        setLocationRelativeTo(null);
+        cargarTabla();
+        UtilVistaMalla.cargarcomboCarrera(cbxMalla);
+        //UtilVista1.cargarcomboRolesL(cbxMateria);
+    }
+    
+    public GuardarCiclo(Docente usuario) throws EmptyException {
+        initComponents();
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        setLocationRelativeTo(null);
+        cargarTabla();
+        UtilVistaMalla.cargarcomboCarrera(cbxMalla);
+        //UtilVista1.cargarcomboRolesL(cbxMateria);
+        this.docente = usuario;
     }
 
     /**
@@ -124,58 +190,76 @@ public class GuardarCiclo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        cldInicio = new com.toedter.calendar.JCalendar();
-        cldFin = new com.toedter.calendar.JCalendar();
-        txtNumeroCiclo = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        pnlAzul = new org.edisoncor.gui.panel.PanelImage();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        cbxNumCiclo = new javax.swing.JComboBox<>();
         cbxMalla = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        cbxMateria = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbCiclo = new javax.swing.JTable();
+        btnGuardar = new javax.swing.JButton();
         btnAgregarMateria = new javax.swing.JButton();
         btnCargarMateria = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        pnlGris = new org.edisoncor.gui.panel.PanelImage();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbCiclo = new javax.swing.JTable();
+        cbxCriterio = new javax.swing.JComboBox<>();
+        cbxMetodo = new javax.swing.JComboBox<>();
+        btnOrdenar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        btnOrden1 = new javax.swing.JCheckBox();
+        btnBuscar1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbMateria = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        btnActualizar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btnOrdenar = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        cbxCriterio = new javax.swing.JComboBox<>();
-        btnOrdenar1 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cbxCriterio1 = new javax.swing.JComboBox<>();
         btnOrden = new javax.swing.JCheckBox();
-        cbxMetodo = new javax.swing.JComboBox<>();
+        cbxMetodo2 = new javax.swing.JComboBox<>();
+        btnOrdenar1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtBuscar1 = new javax.swing.JTextField();
+        btnBuscar2 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        btnAdmFacultad = new javax.swing.JMenuItem();
+        btnAdmCarrera = new javax.swing.JMenuItem();
+        btnAdmMalla = new javax.swing.JMenuItem();
+        btnAdmCursa = new javax.swing.JMenuItem();
+        btnAdmMatricula = new javax.swing.JMenuItem();
+        btnAdmPeriodo = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("CICLO");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
-        jPanel1.add(cldInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 380, 230));
-        jPanel1.add(cldFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 380, 200));
-        jPanel1.add(txtNumeroCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, 249, -1));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("CICLO");
+        pnlAzul.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Número:");
+        pnlAzul.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Malla:");
+        pnlAzul.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        cbxNumCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        pnlAzul.add(cbxNumCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 260, -1));
+
+        cbxMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlAzul.add(cbxMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 260, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,34 +267,29 @@ public class GuardarCiclo extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, -1, -1));
+        pnlAzul.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Termina");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, 30));
+        btnAgregarMateria.setText("Agregar Materia");
+        btnAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarMateriaActionPerformed(evt);
+            }
+        });
+        pnlAzul.add(btnAgregarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 560, -1, -1));
 
-        cbxMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 249, -1));
+        btnCargarMateria.setText("Mostrar Materias");
+        btnCargarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarMateriaActionPerformed(evt);
+            }
+        });
+        pnlAzul.add(btnCargarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Materia:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 190, -1, -1));
+        getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 600));
 
-        cbxMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 180, 249, -1));
+        pnlGris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Texto:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Materias del ciclo:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 420, -1, -1));
-
+        tbCiclo.setBackground(new java.awt.Color(255, 255, 255));
         tbCiclo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -224,34 +303,40 @@ public class GuardarCiclo extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tbCiclo);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 320, 620, 91));
+        pnlGris.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 580, 88));
 
-        btnAgregarMateria.setText("Agregar Materia");
-        btnAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "descripcion", "duracionAnios", "numCiclos" }));
+        pnlGris.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 100, -1));
+
+        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
+        pnlGris.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 100, -1));
+
+        btnOrdenar.setText("Ordenar");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarMateriaActionPerformed(evt);
+                btnOrdenarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 530, -1, -1));
+        pnlGris.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+        pnlGris.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, -1));
 
-        btnCargarMateria.setText("Mostrar Materias");
-        btnCargarMateria.addActionListener(new java.awt.event.ActionListener() {
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel11.setText("Texto:");
+        pnlGris.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
+
+        btnOrden1.setText("Ascendente");
+        pnlGris.add(btnOrden1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
+
+        btnBuscar1.setText("Buscar");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargarMateriaActionPerformed(evt);
+                btnBuscar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCargarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 530, -1, -1));
+        pnlGris.add(btnBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Número:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 80, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Inicia:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
-
+        tbMateria.setBackground(new java.awt.Color(255, 255, 255));
         tbMateria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -265,119 +350,158 @@ public class GuardarCiclo extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tbMateria);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 470, 620, 91));
+        pnlGris.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 580, 90));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Malla:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, -1, -1));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel9.setText("Criterio:");
+        pnlGris.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
 
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 530, -1, -1));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton1.setText("Inicio");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 185, -1));
-
-        jButton2.setText("Salir");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 185, -1));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 570));
-
-        btnOrdenar.setText("Ordenar");
-        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 440, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Tabla de ciclos");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 230, -1, -1));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 440, 150, -1));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Criterio:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 450, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 440, 180, -1));
-
-        jButton3.setText("Buscar ");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 440, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Criterio:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 260, -1, -1));
-
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "numCiclo", "fechaInicio", "fechaFin", "id_Malla" }));
-        jPanel1.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 260, 100, -1));
-
-        btnOrdenar1.setText("Ordenar");
-        btnOrdenar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnOrdenar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 290, -1, -1));
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Texto:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 260, -1, -1));
-        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 260, 180, -1));
-
-        btnBuscar.setText("Buscar ");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 290, -1, -1));
+        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "descripcion", "duracionAnios", "numCiclos" }));
+        pnlGris.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 100, -1));
 
         btnOrden.setText("Ascendente");
-        jPanel1.add(btnOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 290, -1, -1));
+        btnOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenActionPerformed(evt);
+            }
+        });
+        pnlGris.add(btnOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
-        cbxMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
-        jPanel1.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 260, -1, -1));
+        cbxMetodo2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
+        pnlGris.add(cbxMetodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 100, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-        );
+        btnOrdenar1.setText("Ordenar");
+        pnlGris.add(btnOrdenar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel7.setText("Texto:");
+        pnlGris.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 300, -1, -1));
+        pnlGris.add(txtBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 120, -1));
+
+        btnBuscar2.setText("Buscar");
+        pnlGris.add(btnBuscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel16.setText("MATERIAS");
+        pnlGris.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel18.setText("CICLOS");
+        pnlGris.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel13.setText("Criterio:");
+        pnlGris.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 600));
+
+        jMenu2.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSalir);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Administración");
+
+        btnAdmFacultad.setText("Facultad");
+        btnAdmFacultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmFacultadActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmFacultad);
+
+        btnAdmCarrera.setText("Carrera");
+        btnAdmCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCarreraActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCarrera);
+
+        btnAdmMalla.setText("Malla");
+        btnAdmMalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMallaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmMalla);
+
+        btnAdmCursa.setText("Cursa");
+        btnAdmCursa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCursaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCursa);
+
+        btnAdmMatricula.setText("Matricula");
+        btnAdmMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmMatricula);
+
+        btnAdmPeriodo.setText("Perido Académico");
+        btnAdmPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmPeriodoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmPeriodo);
+
+        jMenuItem1.setText("Materias");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+
+    }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOrdenActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
             guardar();
         } catch (EmptyException ex) {
-            Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(GuardarCiclo1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -387,7 +511,7 @@ public class GuardarCiclo extends javax.swing.JFrame {
             try {
                 new AgregarMateria(filaSeleccionada).setVisible(true);
             } catch (Exception ex) {
-                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(GuardarCiclo1.class.getName()).log(Level.SEVERE, null, ex);
             }
             cargarTabla();
         } else {
@@ -402,39 +526,72 @@ public class GuardarCiclo extends javax.swing.JFrame {
                 tbMateria.setModel(mtm);
                 tbMateria.updateUI();
             } catch (EmptyException ex) {
-                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showConfirmDialog(null, "Error al cargar la tabla de Materias");
             }
-            System.out.println("hola");
         } else {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnCargarMateriaActionPerformed
     }
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        this.dispose();
+    private void btnAdmFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmFacultadActionPerformed
         try {
-            new GuardarCiclo().setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            new GuardarFacultad(this.docente).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            java.util.logging.Logger.getLogger(GuardarFacultad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnActualizarActionPerformed
+    }//GEN-LAST:event_btnAdmFacultadActionPerformed
 
-    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnOrdenarActionPerformed
+    private void btnAdmCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCarreraActionPerformed
+        try {
+            new GuardarCarrera(this.docente).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            java.util.logging.Logger.getLogger(GuardarFacultad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmCarreraActionPerformed
 
-    private void btnOrdenar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenar1ActionPerformed
-        ordenar();
-    }//GEN-LAST:event_btnOrdenar1ActionPerformed
+    private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
+        try {
+            new GuardarMalla(this.docente).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            java.util.logging.Logger.getLogger(GuardarFacultad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmMallaActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscar();
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Inicio n1=new Inicio();
-        n1.setVisible(true);
+    private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
+        new GuardarCursa(this.docente).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAdmCursaActionPerformed
+
+    private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
+        try {
+            new GuardarMatricula(this.docente).setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmMatriculaActionPerformed
+
+    private void btnAdmPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeriodoActionPerformed
+        new GuardarPeriodoAcademico(this.docente).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdmPeriodoActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+       new LoginPrincipal().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
+        new MenuAdmin(this.docente).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIncioActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new FrmMateria(this.docente).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,51 +625,57 @@ public class GuardarCiclo extends javax.swing.JFrame {
             public void run() {
                 try {
                     new GuardarCiclo().setVisible(true);
-                } catch (Exception e) {
+                } catch (EmptyException ex) {
+                    java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
+    private javax.swing.JMenuItem btnAdmCarrera;
+    private javax.swing.JMenuItem btnAdmCursa;
+    private javax.swing.JMenuItem btnAdmFacultad;
+    private javax.swing.JMenuItem btnAdmMalla;
+    private javax.swing.JMenuItem btnAdmMatricula;
+    private javax.swing.JMenuItem btnAdmPeriodo;
     private javax.swing.JButton btnAgregarMateria;
-    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscar1;
+    private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnCargarMateria;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JMenuItem btnIncio;
     private javax.swing.JCheckBox btnOrden;
+    private javax.swing.JCheckBox btnOrden1;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton btnOrdenar1;
+    private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxCriterio;
+    private javax.swing.JComboBox<String> cbxCriterio1;
     private javax.swing.JComboBox<String> cbxMalla;
-    private javax.swing.JComboBox<String> cbxMateria;
     private javax.swing.JComboBox<String> cbxMetodo;
-    private com.toedter.calendar.JCalendar cldFin;
-    private com.toedter.calendar.JCalendar cldInicio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JComboBox<String> cbxMetodo2;
+    private javax.swing.JComboBox<String> cbxNumCiclo;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
+    private org.edisoncor.gui.panel.PanelImage pnlAzul;
+    private org.edisoncor.gui.panel.PanelImage pnlGris;
     private javax.swing.JTable tbCiclo;
     private javax.swing.JTable tbMateria;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtNumeroCiclo;
+    private javax.swing.JTextField txtBuscar1;
     // End of variables declaration//GEN-END:variables
 }

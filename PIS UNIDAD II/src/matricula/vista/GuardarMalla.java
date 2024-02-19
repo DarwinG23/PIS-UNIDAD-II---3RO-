@@ -7,67 +7,110 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
+import materias.vista.FrmMateria;
+import matricula.controlador.CarreraControl;
+import matricula.controlador.CicloControl;
 import matricula.controlador.MallaControl;
+import matricula.modelo.Malla;
+import matricula.vista.tabla.ModeloTablaCiclo;
 import matricula.vista.tabla.ModeloTablaMalla;
 import matricula.vista.util.UtilVistaCarrera;
-import usuarios.vista.Inicio;
+import matricula.vista.util.UtilVistaMalla;
+import usuarios.modelo.Docente;
+import usuarios.vista.LoginPrincipal;
+import usuarios.vista.Menu;
+import usuarios.vista.MenuAdmin;
 
 /**
  *
  * @author darwi
  */
 public class GuardarMalla extends javax.swing.JFrame {
+
     private ModeloTablaMalla mtc = new ModeloTablaMalla();
     private MallaControl mallaControl = new MallaControl();
-    
-    public void cargarFacultades(DynamicList carreras){
+    private CarreraControl carreraControl = new CarreraControl();
+    private CicloControl cicloControl = new CicloControl();
+    private ModeloTablaCiclo mtm = new ModeloTablaCiclo();
+    private Docente docente;
+
+    public void cargarFacultades(DynamicList carreras) {
         mtc.setMallas(carreras);
         initComponents();
     }
-    
-    public Boolean verificar(){
+
+    public Boolean verificar() {
         return (!txtNombre.getText().trim().isEmpty());
     }
-    
-     private void cargarTabla(){
+
+    private void cargarTabla() {
         mtc.setMallas(mallaControl.getListMalla());
+        tbCiclos.setModel(mtm);
+        tbCiclos.updateUI();
         tbMalla.setModel(mtc);
         tbMalla.updateUI();
     }
-    
-    private void guardar() throws EmptyException{
+
+    private void guardar() throws EmptyException {
         if (verificar()) {
             mallaControl.getMalla().setNombre(txtNombre.getText());
             mallaControl.getMalla().setId_Carrera(UtilVistaCarrera.obtenerCarrera(cbxCarrera).getId());
+            mallaControl.getMalla().setFechaCreacion(JdFechaCreacion.getDate());
+
             if (mallaControl.persist()) {
-                JOptionPane.showMessageDialog(null, "Datos guardados");
                 cargarTabla();
                 limpiar();
                 mallaControl.setMalla(null);
-            }else{
+                
+                DynamicList<Malla> mallas = carreraControl.getListCarrera().getInfo(cbxCarrera.getSelectedIndex()).getMallas();
+                mallas.add(mallaControl.getListMalla().getInfo(mallaControl.getListMalla().getLength() - 1));
+                carreraControl.getCarrera().setDescripcion(carreraControl.getListCarrera().getInfo(cbxCarrera.getSelectedIndex()).getDescripcion());
+                carreraControl.getCarrera().setNombre(carreraControl.getListCarrera().getInfo(cbxCarrera.getSelectedIndex()).getNombre());
+                carreraControl.getCarrera().setMallas(mallas);
+                carreraControl.getCarrera().setId(carreraControl.getListCarrera().getInfo(cbxCarrera.getSelectedIndex()).getId());
+
+                if (carreraControl.marge(carreraControl.getCarrera(), cbxCarrera.getSelectedIndex())) {
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al agregar la malla a la carrera", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+
         }
+
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         txtNombre.setText("");
         cargarTabla();
         mallaControl.setMalla(null);
     }
-    
-    
 
     public GuardarMalla() throws EmptyException {
         initComponents();
         this.setLocationRelativeTo(null);
         cargarTabla();
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
-        
+
+    }
+    
+    public GuardarMalla(Docente usuario) throws EmptyException {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        cargarTabla();
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
+        this.docente = usuario;
+
     }
 
     /**
@@ -77,49 +120,113 @@ public class GuardarMalla extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        pnlAzul = new org.edisoncor.gui.panel.PanelImage();
+        jLabel17 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         cbxCarrera = new javax.swing.JComboBox<>();
+        btnGuardar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        JdFechaCreacion = new com.toedter.calendar.JDateChooser();
+        btnVerCiclos = new javax.swing.JButton();
+        btnAgregarCiclo = new javax.swing.JButton();
+        pnlGris = new org.edisoncor.gui.panel.PanelImage();
+        txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMalla = new javax.swing.JTable();
-        btnGuardar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbCiclos = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtBuscar1 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        btnAdmFacultad = new javax.swing.JMenuItem();
+        btnAdmCarrera = new javax.swing.JMenuItem();
+        btnAdmCiclo = new javax.swing.JMenuItem();
+        btnAdmCursa = new javax.swing.JMenuItem();
+        btnAdmMatricula = new javax.swing.JMenuItem();
+        btnAdmPeriodo = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("MALLA");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Texto:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 420, -1, -1));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("MALLA");
+        pnlAzul.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Carrera:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 239, -1));
+        pnlAzul.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        pnlAzul.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 239, -1));
 
         cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 239, -1));
+        pnlAzul.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 239, -1));
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        pnlAzul.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Nombre:");
+        pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Fecha:");
+        pnlAzul.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        pnlAzul.add(JdFechaCreacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 240, -1));
+
+        btnVerCiclos.setText("Ver Ciclos");
+        btnVerCiclos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerCiclosActionPerformed(evt);
+            }
+        });
+        pnlAzul.add(btnVerCiclos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, -1, -1));
+
+        btnAgregarCiclo.setText("Argregar Ciclo");
+        btnAgregarCiclo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCicloActionPerformed(evt);
+            }
+        });
+        pnlAzul.add(btnAgregarCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 540, 120, -1));
+
+        getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 600));
+
+        pnlGris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        pnlGris.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 120, -1));
 
         tbMalla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,88 +241,221 @@ public class GuardarMalla extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbMalla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 580, 101));
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton3.setText("INICIO");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(58, 58, 58))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 490));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Nombre:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Tabla de mallas");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+        pnlGris.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 580, 101));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 170, -1));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Criterio:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, 150, -1));
+        pnlGris.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 170, -1));
 
         jButton1.setText("Ordenar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, -1, -1));
+        pnlGris.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 490, -1, -1));
 
-        jButton2.setText("Buscar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 420, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel1.setText("Texto:");
+        pnlGris.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel7.setText("Criterio:");
+        pnlGris.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel18.setText("MALLAS");
+        pnlGris.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel19.setText("CICLOS");
+        pnlGris.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
+
+        tbCiclos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbCiclos);
+
+        pnlGris.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 580, 101));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel10.setText("Criterio:");
+        pnlGris.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel3.setText("Texto:");
+        pnlGris.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
+        pnlGris.add(txtBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 120, -1));
+
+        jButton3.setText("Buscar");
+        pnlGris.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+
+        jButton4.setText("Ordenar");
+        pnlGris.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
+
+        jButton5.setText("Buscar");
+        pnlGris.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, -1, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlGris.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 170, -1));
+
+        getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 600));
+
+        jMenu2.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSalir);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Administración");
+
+        btnAdmFacultad.setText("Facultad");
+        btnAdmFacultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmFacultadActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmFacultad);
+
+        btnAdmCarrera.setText("Carrera");
+        btnAdmCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCarreraActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCarrera);
+
+        btnAdmCiclo.setText("Ciclo");
+        btnAdmCiclo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCicloActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCiclo);
+
+        btnAdmCursa.setText("Cursa");
+        btnAdmCursa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmCursaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmCursa);
+
+        btnAdmMatricula.setText("Matricula");
+        btnAdmMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmMatricula);
+
+        btnAdmPeriodo.setText("Periodo Académico");
+        btnAdmPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmPeriodoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAdmPeriodo);
+
+        jMenuItem1.setText("Materias");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdmFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmFacultadActionPerformed
+        try {
+            new GuardarFacultad(this.docente).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmFacultadActionPerformed
+
+    private void btnAdmCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCarreraActionPerformed
+        try {
+            new GuardarCarrera(this.docente).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmCarreraActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnAgregarCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCicloActionPerformed
+        int filaSeleccionada = tbMalla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                new AgregarCiclo(filaSeleccionada).setVisible(true);
+            } catch (Exception ex) {
+                int i = JOptionPane.showConfirmDialog(null, "No hay ciclos para agregar \n ¿Desea crearlo?", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+                if (i == JOptionPane.OK_OPTION) {
+                    try {
+                        new GuardarCiclo().setVisible(true);
+                        this.dispose();
+                    } catch (EmptyException ex1) {
+                        JOptionPane.showConfirmDialog(null, "Hubo un problema al intentar crear el ciclo :c");
+                    }
+                }
+            }
+            cargarTabla();
+        } else {
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado una malla de la tabla mallas", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_btnAgregarCicloActionPerformed
+
+    private void btnVerCiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCiclosActionPerformed
+        int filaSeleccionada = tbMalla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                if (mallaControl.getListMalla().getInfo(filaSeleccionada).getCiclos().getLength() == 0) {
+                    JOptionPane.showConfirmDialog(null, "Esta facultad no tiene carreras", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+                } else {
+                    mtm.setCiclos(mallaControl.getListMalla().getInfo(filaSeleccionada).getCiclos());
+                    tbCiclos.setModel(mtm);
+                    tbCiclos.updateUI();
+                }
+            } catch (EmptyException ex) {
+                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado una malla de la tabla mallas", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_btnVerCiclosActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
@@ -225,11 +465,48 @@ public class GuardarMalla extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Inicio n1=new Inicio();
-        n1.setVisible(true);
+    private void btnAdmCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCicloActionPerformed
+         try {
+            new GuardarCiclo(this.docente).setVisible(true);
+            this.dispose();
+        } catch (EmptyException ex) {
+            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmCicloActionPerformed
+
+    private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
+        new GuardarCursa(this.docente).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAdmCursaActionPerformed
+
+    private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
+        try {
+            new GuardarMatricula(this.docente).setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(GuardarMalla.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdmMatriculaActionPerformed
+
+    private void btnAdmPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeriodoActionPerformed
+        new GuardarPeriodoAcademico(this.docente).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdmPeriodoActionPerformed
+
+    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
+        new MenuAdmin(this.docente).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIncioActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+       new LoginPrincipal().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new FrmMateria(this.docente).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,24 +548,47 @@ public class GuardarMalla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser JdFechaCreacion;
+    private javax.swing.JMenuItem btnAdmCarrera;
+    private javax.swing.JMenuItem btnAdmCiclo;
+    private javax.swing.JMenuItem btnAdmCursa;
+    private javax.swing.JMenuItem btnAdmFacultad;
+    private javax.swing.JMenuItem btnAdmMatricula;
+    private javax.swing.JMenuItem btnAdmPeriodo;
+    private javax.swing.JButton btnAgregarCiclo;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JMenuItem btnIncio;
+    private javax.swing.JMenuItem btnSalir;
+    private javax.swing.JButton btnVerCiclos;
     private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private org.edisoncor.gui.panel.PanelImage pnlAzul;
+    private org.edisoncor.gui.panel.PanelImage pnlGris;
+    private javax.swing.JTable tbCiclos;
     private javax.swing.JTable tbMalla;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscar1;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

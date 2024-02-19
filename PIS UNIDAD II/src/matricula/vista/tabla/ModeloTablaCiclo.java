@@ -31,7 +31,7 @@ public class ModeloTablaCiclo extends AbstractTableModel {
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 6;
+        return 4;
     }
 
     @Override
@@ -42,8 +42,6 @@ public class ModeloTablaCiclo extends AbstractTableModel {
         try {
 
             c = (Ciclo) ciclos.getInfo(rowIndex);
-            String fechaInicio = formatoFecha.format(c.getFechaInicio());
-            String fechaFin = formatoFecha.format(c.getFechaFin());
 
 //            String nombreMalla = obtenerNombreMalla(c.getId_Malla());
             switch (columnIndex) {
@@ -52,12 +50,8 @@ public class ModeloTablaCiclo extends AbstractTableModel {
                 case 1:
                     return (c != null) ? c.getNumCiclo() : " ";
                 case 2:
-                    return (c != null) ? fechaInicio : " ";
-                case 3:
-                    return (c != null) ? fechaFin : " ";
-                case 4:
                     return (c != null) ? c.getMaterias().getLength() : " ";
-                case 5:
+                case 3:
                     return (c != null) ? c.getId_Malla() : " ";
                 default:
                     return null;
@@ -77,12 +71,8 @@ public class ModeloTablaCiclo extends AbstractTableModel {
             case 1:
                 return "Numero";
             case 2:
-                return "FECHA INICIO";
-            case 3:
-                return "FECHA FIN";
-            case 4:
                 return "NÚMERO MATERIAS";
-            case 5:
+            case 3:
                 return "MALLA";
             default:
                 return null;

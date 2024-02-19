@@ -7,6 +7,7 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.CursaControl;
@@ -15,7 +16,9 @@ import matricula.modelo.Cursa;
 import matricula.modelo.Estado;
 import matricula.modelo.Matricula;
 import matricula.vista.tabla.ModeloTablaMatricula;
-import usuarios.vista.Inicio;
+import usuarios.modelo.Estudiante;
+import usuarios.vista.Menu;
+
 
 /**
  *
@@ -23,9 +26,10 @@ import usuarios.vista.Inicio;
  */
 public class EstudianteMatricula extends javax.swing.JFrame {
 
-    ModeloTablaMatricula mtm = new ModeloTablaMatricula();
-    MatriculaControl matriculaControl = new MatriculaControl();
-    CursaControl cursaControl = new CursaControl();
+    private ModeloTablaMatricula mtm = new ModeloTablaMatricula();
+    private MatriculaControl matriculaControl = new MatriculaControl();
+    private CursaControl cursaControl = new CursaControl();
+    private Estudiante estudiante;
 
     public void cargarFacultades(DynamicList carreras) {
         mtm.setMatriculas(carreras);
@@ -94,7 +98,18 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     public EstudianteMatricula() throws EmptyException {
         initComponents();
         cargarTabla();
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
+    }
+    
+    public EstudianteMatricula(Estudiante usuario) throws EmptyException {
+        initComponents();
+        cargarTabla();
+        this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
+        this.estudiante = usuario;
     }
 
     /**
@@ -104,47 +119,60 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        btnMatricularse = new javax.swing.JButton();
+        pnlFondo = new org.edisoncor.gui.panel.PanelImage();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        cbxEstudiante = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMatricula = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        cbxEstudiante = new javax.swing.JComboBox<>();
-        jLabel16 = new javax.swing.JLabel();
+        pnlLogo = new org.edisoncor.gui.panel.PanelImage();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbMateria = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Materias");
+        pnlFondo.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, -1, -1));
 
-        jButton3.setText("INICIO");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 120, 50));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Criterio:");
+        pnlFondo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
-        btnMatricularse.setText("Matricularse");
-        btnMatricularse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatricularseActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnMatricularse, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 140, 40));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlFondo.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 170, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Texto");
+        pnlFondo.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
+
+        jButton1.setText("Ordenar");
+        pnlFondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 540, -1, -1));
+
+        cbxEstudiante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlFondo.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 220, -1));
+
+        jButton2.setText("Buscar");
+        pnlFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, -1, -1));
 
         tbMatricula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,80 +187,76 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbMatricula);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 600, 110));
+        pnlFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 600, 110));
+        pnlFondo.add(pnlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 320, 100));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Texto");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
+        tbMateria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbMateria);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Matriculas");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
+        pnlFondo.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 600, 110));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 150, -1));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Matriculas");
+        pnlFondo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
 
-        jButton1.setText("Ordenar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, -1, -1));
+        jButton3.setText("Buscar");
+        pnlFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
-        jButton2.setText("Buscar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
+        jButton4.setText("Ordenar");
+        pnlFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Estudiante:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 170, -1));
+        jButton5.setText("Ver Materias");
+        pnlFondo.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, -1));
 
-        cbxEstudiante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 220, -1));
+        jButton6.setText("Matricularse");
+        pnlFondo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Criterio:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+        getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 580));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, Short.MAX_VALUE)
-        );
+        jMenu2.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
+
+        jMenuItem2.setText("Salir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMatricularseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatricularseActionPerformed
-        int filaSeleccionada = tbMatricula.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            try {
-                modificarCursa(filaSeleccionada);
-            } catch (Exception ex) {
-                Logger.getLogger(GuardarCiclo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                cargarTabla();
-            } catch (EmptyException ex) {
-                Logger.getLogger(EstudianteMatricula.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnMatricularseActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Inicio n1=new Inicio();
-        n1.setVisible(true);
+    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
+        new Menu(this.estudiante).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnIncioActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
 
     /**
@@ -275,20 +299,27 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMatricularse;
+    private javax.swing.JMenuItem btnIncio;
     private javax.swing.JComboBox<String> cbxEstudiante;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private org.edisoncor.gui.panel.PanelImage pnlFondo;
+    private org.edisoncor.gui.panel.PanelImage pnlLogo;
+    private javax.swing.JTable tbMateria;
     private javax.swing.JTable tbMatricula;
     // End of variables declaration//GEN-END:variables
 }

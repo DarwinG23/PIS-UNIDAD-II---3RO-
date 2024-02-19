@@ -163,16 +163,10 @@ public class CicloControl extends DaoImplement<Ciclo> {
 
     private String obtenerValorCriterio(Ciclo ciclo, String criterio) {
         String numCiclos=String.valueOf(ciclo.getNumCiclo());
-        String fechaInicio=String.valueOf(ciclo.getFechaInicio());
-        String fechaFin=String.valueOf(ciclo.getFechaFin());
         String idMalla=String.valueOf(ciclo.getId_Malla());
         switch (criterio) {
             case "numCiclo":
                 return numCiclos;
-            case "fechaInicio":
-                return fechaInicio;
-            case "duracionAnios":
-                return fechaFin;
             case "id_Malla":
                 return idMalla;
             
