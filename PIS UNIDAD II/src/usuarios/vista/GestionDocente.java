@@ -253,7 +253,6 @@ public class GestionDocente extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnAdmCarrera = new javax.swing.JMenuItem();
@@ -484,14 +483,6 @@ public class GestionDocente extends javax.swing.JFrame {
         });
         jMenu2.add(btnIncio);
 
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnMatricula);
-
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -631,7 +622,7 @@ public class GestionDocente extends javax.swing.JFrame {
 
     private void btnAdmCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCarreraActionPerformed
         try {
-            new GuardarCarrera().setVisible(true);
+            new GuardarCarrera(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
 //            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -640,7 +631,7 @@ public class GestionDocente extends javax.swing.JFrame {
 
     private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
         try {
-            new GuardarMalla().setVisible(true);
+            new GuardarMalla(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
 //            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -650,7 +641,7 @@ public class GestionDocente extends javax.swing.JFrame {
 
     private void btnAdmCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCicloActionPerformed
         try {
-            new GuardarCiclo().setVisible(true);
+            new GuardarCiclo(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
 //            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -658,13 +649,13 @@ public class GestionDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmCicloActionPerformed
 
     private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
-        new GuardarCursa().setVisible(true);
+        new GuardarCursa(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmCursaActionPerformed
 
     private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
         try {
-            new GuardarMatricula().setVisible(true);
+            new GuardarMatricula(this.docente).setVisible(true);
             this.dispose();
         } catch (Exception ex) {
 //            Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -672,7 +663,7 @@ public class GestionDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmMatriculaActionPerformed
 
     private void btnAdmPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeriodoActionPerformed
-        new GuardarPeriodoAcademico().setVisible(true);
+        new GuardarPeriodoAcademico(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
@@ -680,15 +671,6 @@ public class GestionDocente extends javax.swing.JFrame {
         new MenuAdmin(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
-
-    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
-        try {
-            new EstudianteMatricula().setVisible(true);
-            this.dispose();
-        } catch (EmptyException ex) {
-            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMatriculaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         new LoginPrincipal().setVisible(true);
@@ -741,7 +723,6 @@ public class GestionDocente extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnAdmPeriodo;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JMenuItem btnIncio;
-    private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JCheckBox btnOrden;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JMenuItem btnSalir;

@@ -71,7 +71,6 @@ public class MenuDocente extends javax.swing.JFrame {
         txtNombre = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
@@ -105,14 +104,6 @@ public class MenuDocente extends javax.swing.JFrame {
         jMenu2.setText("Menu");
         jMenu2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnIncio);
-
         jMenuItem2.setText("Asignar Tarea");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,10 +134,6 @@ public class MenuDocente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         new LoginPrincipal().setVisible(true);
@@ -206,7 +193,6 @@ public class MenuDocente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.panel.PanelImage Fondo3;
-    private javax.swing.JMenuItem btnIncio;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

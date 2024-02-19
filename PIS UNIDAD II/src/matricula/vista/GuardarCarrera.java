@@ -18,20 +18,19 @@ import matricula.vista.tabla.ModeloTablaMalla;
 import matricula.vista.util.UtilVistaMalla;
 import usuarios.modelo.Docente;
 import usuarios.modelo.Estudiante;
-import usuarios.vista.Menu;
-
+import usuarios.vista.LoginPrincipal;
+import usuarios.vista.MenuAdmin;
 
 /**
  *
  * @author darwi
  */
 public class GuardarCarrera extends javax.swing.JFrame {
-    private ModeloTablaCarrera mtc = new ModeloTablaCarrera();
-    private ModeloTablaMalla mtm = new  ModeloTablaMalla();
-    private CarreraControl carreraControl = new CarreraControl();
-    private Estudiante estudiante;
-    private Docente docente;
 
+    private ModeloTablaCarrera mtc = new ModeloTablaCarrera();
+    private ModeloTablaMalla mtm = new ModeloTablaMalla();
+    private CarreraControl carreraControl = new CarreraControl();
+    private Docente docente;
 
     public void cargarFacultades(DynamicList carreras) {
         mtc.setCarreras(carreras);
@@ -44,16 +43,16 @@ public class GuardarCarrera extends javax.swing.JFrame {
                 && !txtDescripcion.getText().trim().isEmpty()
                 && !txtAnios.getText().trim().isEmpty());
     }
-    
-    private void cargarTabla(){
+
+    private void cargarTabla() {
         mtc.setCarreras(carreraControl.getListCarrera());
         tbCarrera.setModel(mtc);
         tbCarrera.updateUI();
         tbMallas.setModel(mtm);
         tbMallas.updateUI();
     }
-    
-    private void guardar() throws EmptyException{
+
+    private void guardar() throws EmptyException {
         if (verificar()) {
             carreraControl.getCarrera().setDescripcion(txtDescripcion.getText());
             carreraControl.getCarrera().setNombre(txtNombre.getText());
@@ -64,15 +63,15 @@ public class GuardarCarrera extends javax.swing.JFrame {
                 cargarTabla();
                 limpiar();
                 carreraControl.setCarrera(null);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         txtNombre.setText("");
         txtDescripcion.setText(" ");
         txtAnios.setText("");
@@ -85,74 +84,64 @@ public class GuardarCarrera extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         //UtilVistaMalla.cargarcomboCarrera(cbxMalla);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         cargarTabla();
     }
-    
-    public GuardarCarrera(Estudiante estudiante) throws EmptyException {
+
+    public GuardarCarrera(Docente usuario) throws EmptyException {
         initComponents();
         this.setLocationRelativeTo(null);
         //UtilVistaMalla.cargarcomboCarrera(cbxMalla);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         cargarTabla();
-        this.estudiante = estudiante;
+        this.docente = usuario;
     }
-    
-    public GuardarCarrera(Docente docente) throws EmptyException {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        //UtilVistaMalla.cargarcomboCarrera(cbxMalla);
-        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
-        cargarTabla();
-        this.estudiante = estudiante;
-    }
-     private void ordenar(){
+
+    private void ordenar() {
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
-        Integer tipo=0;
+        Integer tipo = 0;
         if (btnOrden1.isSelected()) {
             tipo = 1;
-        } 
+        }
         try {
             mtc.setCarreras(carreraControl.ordenarQuickSort(carreraControl.all(), tipo, criterio));
-             tbCarrera.setModel(mtc);
+            tbCarrera.setModel(mtc);
             tbCarrera.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    
+
     }
-     private void buscar(){
+
+    private void buscar() {
         String texto = txtBuscar.getText();
-        String criterio= cbxCriterio.getSelectedItem().toString();
-        if(cbxMetodo1.getSelectedItem().toString()=="Busqueda_Binaria"){
-        try {
-            System.out.println("Busqueda_Binaria");
-            mtc.setCarreras(carreraControl.all());
-            mtc.setCarreras(carreraControl.busquedaBinaria(texto, mtc.getCarreras(), criterio));
-            tbCarrera.setModel(mtc);
-            tbCarrera.updateUI();
-        } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        } else if(cbxMetodo1.getSelectedItem().toString()=="Busqueda_Lineal"){
-           try {
-            System.out.println("Busqueda_Lineal");
-            mtc.setCarreras(carreraControl.all());
-            mtc.setCarreras(carreraControl.buscarPorCriterioLineal(texto, mtc.getCarreras(), criterio));
-            tbCarrera.setModel(mtc);
-            tbCarrera.updateUI();
-        } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }     
+        String criterio = cbxCriterio.getSelectedItem().toString();
+        if (cbxMetodo1.getSelectedItem().toString() == "Busqueda_Binaria") {
+            try {
+                System.out.println("Busqueda_Binaria");
+                mtc.setCarreras(carreraControl.all());
+                mtc.setCarreras(carreraControl.busquedaBinaria(texto, mtc.getCarreras(), criterio));
+                tbCarrera.setModel(mtc);
+                tbCarrera.updateUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (cbxMetodo1.getSelectedItem().toString() == "Busqueda_Lineal") {
+            try {
+                System.out.println("Busqueda_Lineal");
+                mtc.setCarreras(carreraControl.all());
+                mtc.setCarreras(carreraControl.buscarPorCriterioLineal(texto, mtc.getCarreras(), criterio));
+                tbCarrera.setModel(mtc);
+                tbCarrera.updateUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -195,6 +184,9 @@ public class GuardarCarrera extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmFacultad = new javax.swing.JMenuItem();
@@ -202,10 +194,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmMatricula = new javax.swing.JMenuItem();
         btnAdmPerido = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -400,6 +388,26 @@ public class GuardarCarrera extends javax.swing.JFrame {
 
         getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 600));
 
+        jMenu3.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnIncio);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnSalir);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu1.setText("Administración");
 
         btnAdmMalla.setText("Malla");
@@ -452,39 +460,11 @@ public class GuardarCarrera extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Menu");
-
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnIncio);
-
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnMatricula);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnSalir);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-        
+
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
         ordenar();
     }//GEN-LAST:event_btnOrdenarActionPerformed
@@ -551,14 +531,14 @@ public class GuardarCarrera extends javax.swing.JFrame {
 
     private void txtAniosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAniosKeyTyped
         char tecla = evt.getKeyChar();
-        if((tecla > '<' || tecla > '9') && tecla != KeyEvent.VK_BACK_SPACE){
+        if ((tecla > '<' || tecla > '9') && tecla != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAniosKeyTyped
 
     private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
         try {
-            new GuardarMalla().setVisible(true);
+            new GuardarMalla(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -566,8 +546,8 @@ public class GuardarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmMallaActionPerformed
 
     private void btnAdmFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmFacultadActionPerformed
-         try {
-            new GuardarFacultad().setVisible(true);
+        try {
+            new GuardarFacultad(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -576,7 +556,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
 
     private void btnAdmCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCicloActionPerformed
         try {
-            new GuardarCiclo().setVisible(true);
+            new GuardarCiclo(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarFacultad.class.getName()).log(Level.SEVERE, null, ex);
@@ -584,13 +564,13 @@ public class GuardarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmCicloActionPerformed
 
     private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
-        new GuardarCursa().setVisible(true);
+        new GuardarCursa(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmCursaActionPerformed
 
     private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
         try {
-            new GuardarMatricula().setVisible(true);
+            new GuardarMatricula(this.docente).setVisible(true);
             this.dispose();
         } catch (Exception ex) {
             Logger.getLogger(GuardarCarrera.class.getName()).log(Level.SEVERE, null, ex);
@@ -598,26 +578,19 @@ public class GuardarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmMatriculaActionPerformed
 
     private void btnAdmPeridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeridoActionPerformed
-        new GuardarPeriodoAcademico().setVisible(true);
+        new GuardarPeriodoAcademico(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmPeridoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new Menu(estudiante).setVisible(true);
+
+        new MenuAdmin(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
-    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
-        try {
-            new EstudianteMatricula().setVisible(true);
-            this.dispose();
-        } catch (EmptyException ex) {
-            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMatriculaActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        new LoginPrincipal().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
@@ -674,7 +647,6 @@ public class GuardarCarrera extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JMenuItem btnIncio;
-    private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JCheckBox btnOrden;
     private javax.swing.JCheckBox btnOrden1;
     private javax.swing.JButton btnOrdenar;

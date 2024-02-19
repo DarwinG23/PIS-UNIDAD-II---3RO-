@@ -12,18 +12,21 @@ import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.CursaControl;
 import matricula.vista.tabla.ModeloTablaCursa;
+import usuarios.modelo.Docente;
+import usuarios.vista.LoginPrincipal;
 import usuarios.vista.Menu;
-
+import usuarios.vista.MenuAdmin;
 
 /**
  *
  * @author darwi
  */
 public class GuardarCursa extends javax.swing.JFrame {
-    
+
     private ModeloTablaCursa mtc = new ModeloTablaCursa();
     private CursaControl cursaControl = new CursaControl();
-    
+    private Docente docente;
+
     public void cargarFacultades(DynamicList cursas) {
         mtc.setCursas(cursas);
         initComponents();
@@ -46,7 +49,7 @@ public class GuardarCursa extends javax.swing.JFrame {
             cursaControl.getCursa().setId_matricula(cursaControl.getListCursa().getInfo(filaSeleccionada).getId_matricula());
             cursaControl.getCursa().setId_docente(cbxDocente.getSelectedIndex());
             cursaControl.getCursa().setParalelo(txtParalelo.getText());
-            if (cursaControl.marge(cursaControl.getCursa(),filaSeleccionada )) {
+            if (cursaControl.marge(cursaControl.getCursa(), filaSeleccionada)) {
                 JOptionPane.showMessageDialog(null, "Datos guardados");
                 cargarTabla();
                 limpiar();
@@ -62,22 +65,30 @@ public class GuardarCursa extends javax.swing.JFrame {
     private void limpiar() {
         txtParalelo.setText("");
     }
-    
 
-    
     public GuardarCursa() {
         initComponents();
         cargarTabla();
         this.setLocationRelativeTo(null);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
-    private void ordenar(){
+
+    public GuardarCursa(Docente usuario) {
+        initComponents();
+        cargarTabla();
+        this.setLocationRelativeTo(null);
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        this.docente = usuario;
+    }
+
+    private void ordenar() {
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
-        Integer tipo=0;
+        Integer tipo = 0;
         if (cbxOrden.isSelected()) {
             tipo = 1;
-        } 
+        }
         try {
             mtc.setCursas(cursaControl.ordenarQuickSort(cursaControl.all(), tipo, criterio));
             tbCursa.setModel(mtc);
@@ -85,31 +96,32 @@ public class GuardarCursa extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    
+
     }
-     private void buscar(){
+
+    private void buscar() {
         String texto = txtBuscar.getText();
-        String criterio= cbxCriterio.getSelectedItem().toString();
-        if(cbxMetodo.getSelectedItem().toString()=="Busqueda_Binaria"){
-        try {
-            System.out.println("Busqueda_Binaria");
-            mtc.setCursas(cursaControl.all());
-            mtc.setCursas(cursaControl.busquedaBinaria(texto, mtc.getCursas(), criterio));
-            tbCursa.setModel(mtc);
-            tbCursa.updateUI();
-        } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        } else if(cbxMetodo.getSelectedItem().toString()=="Busqueda_Lineal"){
-           try {
-            System.out.println("Busqueda_Lineal");
-            mtc.setCursas(cursaControl.all());
-            mtc.setCursas(cursaControl.buscarPorCriterioLineal(texto, mtc.getCursas(), criterio));
-            tbCursa.setModel(mtc);
-            tbCursa.updateUI();
-        } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }     
+        String criterio = cbxCriterio.getSelectedItem().toString();
+        if (cbxMetodo.getSelectedItem().toString() == "Busqueda_Binaria") {
+            try {
+                System.out.println("Busqueda_Binaria");
+                mtc.setCursas(cursaControl.all());
+                mtc.setCursas(cursaControl.busquedaBinaria(texto, mtc.getCursas(), criterio));
+                tbCursa.setModel(mtc);
+                tbCursa.updateUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (cbxMetodo.getSelectedItem().toString() == "Busqueda_Lineal") {
+            try {
+                System.out.println("Busqueda_Lineal");
+                mtc.setCursas(cursaControl.all());
+                mtc.setCursas(cursaControl.buscarPorCriterioLineal(texto, mtc.getCursas(), criterio));
+                tbCursa.setModel(mtc);
+                tbCursa.updateUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -141,6 +153,9 @@ public class GuardarCursa extends javax.swing.JFrame {
         tbCursa = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnAdmFacultad = new javax.swing.JMenuItem();
         btnAdmCarrera = new javax.swing.JMenuItem();
@@ -149,10 +164,6 @@ public class GuardarCursa extends javax.swing.JFrame {
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmMatricula = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -251,6 +262,26 @@ public class GuardarCursa extends javax.swing.JFrame {
 
         getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 600));
 
+        jMenu2.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnSalir);
+
+        jMenuBar1.add(jMenu2);
+
         jMenu1.setText("Administración");
 
         btnAdmFacultad.setText("Facultad");
@@ -311,34 +342,6 @@ public class GuardarCursa extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Menu");
-
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnIncio);
-
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnMatricula);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnSalir);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -354,7 +357,8 @@ public class GuardarCursa extends javax.swing.JFrame {
             }
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);}
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
@@ -367,7 +371,7 @@ public class GuardarCursa extends javax.swing.JFrame {
 
     private void btnAdmFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmFacultadActionPerformed
         try {
-            new GuardarFacultad().setVisible(true);
+            new GuardarFacultad(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarCursa.class.getName()).log(Level.SEVERE, null, ex);
@@ -376,7 +380,7 @@ public class GuardarCursa extends javax.swing.JFrame {
 
     private void btnAdmCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCarreraActionPerformed
         try {
-            new GuardarCarrera().setVisible(true);
+            new GuardarCarrera(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarCursa.class.getName()).log(Level.SEVERE, null, ex);
@@ -385,7 +389,7 @@ public class GuardarCursa extends javax.swing.JFrame {
 
     private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
         try {
-            new GuardarMalla().setVisible(true);
+            new GuardarMalla(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarCursa.class.getName()).log(Level.SEVERE, null, ex);
@@ -394,7 +398,7 @@ public class GuardarCursa extends javax.swing.JFrame {
 
     private void btnAdmCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCicloActionPerformed
         try {
-            new GuardarCiclo().setVisible(true);
+            new GuardarCiclo(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarCursa.class.getName()).log(Level.SEVERE, null, ex);
@@ -402,41 +406,33 @@ public class GuardarCursa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmCicloActionPerformed
 
     private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
-        new GuardarCursa().setVisible(true);
+        new GuardarCursa(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmCursaActionPerformed
 
     private void btnAdmMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMatriculaActionPerformed
         try {
-            new GuardarMatricula().setVisible(true);
+            new GuardarMatricula(this.docente).setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(GuardarCursa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAdmMatriculaActionPerformed
 
     private void btnAdmPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeriodoActionPerformed
-        new GuardarPeriodoAcademico().setVisible(true);
+        new GuardarPeriodoAcademico(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new Menu().setVisible(true);
+        new MenuAdmin(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
-    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
-        try {
-            new EstudianteMatricula().setVisible(true);
-             this.dispose();
-        } catch (EmptyException ex) {
-            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMatriculaActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        new LoginPrincipal().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
@@ -483,7 +479,6 @@ public class GuardarCursa extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JMenuItem btnIncio;
-    private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxCriterio;

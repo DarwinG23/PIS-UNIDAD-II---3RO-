@@ -21,36 +21,39 @@ import matricula.vista.tabla.ModeloTablaMatricula;
 import matricula.vista.util.UtilVistaCarrera;
 import matricula.vista.util.UtilVistaModalidad;
 import matricula.vista.util.UtilVistaPeriodoAcademico;
+import usuarios.modelo.Docente;
+import usuarios.vista.LoginPrincipal;
 import usuarios.vista.Menu;
-
+import usuarios.vista.MenuAdmin;
 
 /**
  *
  * @author darwi
  */
 public class GuardarMatricula extends javax.swing.JFrame {
-    ModeloTablaMatricula mtm = new ModeloTablaMatricula();
-    MatriculaControl matriculaControl = new MatriculaControl();
-    CursaControl cursaControl = new CursaControl();
-    ModeloTablaCursaMateria mtcm = new  ModeloTablaCursaMateria();
-    
-    
-    public void cargarFacultades(DynamicList carreras){
+
+    private ModeloTablaMatricula mtm = new ModeloTablaMatricula();
+    private MatriculaControl matriculaControl = new MatriculaControl();
+    private CursaControl cursaControl = new CursaControl();
+    private ModeloTablaCursaMateria mtcm = new ModeloTablaCursaMateria();
+    private Docente docente;
+
+    public void cargarFacultades(DynamicList carreras) {
         mtm.setMatriculas(carreras);
         initComponents();
     }
-    
-    public Boolean verificar(){
+
+    public Boolean verificar() {
         return true;
     }
-    
-     private void cargarTabla(){
+
+    private void cargarTabla() {
         mtm.setMatriculas(matriculaControl.getListMatricula());
         tbMatricula.setModel(mtm);
         tbMatricula.updateUI();
     }
-    
-    private void guardar() throws EmptyException{
+
+    private void guardar() throws EmptyException {
         if (verificar()) {
             matriculaControl.getMatricula().setFechaEmision(java.sql.Date.valueOf(LocalDate.now()));
             matriculaControl.getMatricula().setEstado(Estado.DISPONIBLE);
@@ -64,14 +67,14 @@ public class GuardarMatricula extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Datos guardados");
                 cargarTabla();
                 matriculaControl.setMatricula(null);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public GuardarMatricula() throws EmptyException, Exception {
         initComponents();
         cargarTabla();
@@ -80,8 +83,21 @@ public class GuardarMatricula extends javax.swing.JFrame {
         UtilVistaPeriodoAcademico.cargarcomboPerido(cbxPeriodo);
         UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
-               
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+
+    }
+    
+    public GuardarMatricula(Docente usuario) throws EmptyException, Exception {
+        initComponents();
+        cargarTabla();
+        this.setLocationRelativeTo(null);
+        UtilVistaModalidad.cargarComboModalidad(cbxModalidad);
+        UtilVistaPeriodoAcademico.cargarcomboPerido(cbxPeriodo);
+        UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
+        this.docente = usuario;
+
     }
 
     /**
@@ -119,16 +135,15 @@ public class GuardarMatricula extends javax.swing.JFrame {
         tbCursa = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        btnIncio = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnAdmFacultad = new javax.swing.JMenuItem();
         btnAdmCarrera = new javax.swing.JMenuItem();
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
-        btnMatricula = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -258,6 +273,26 @@ public class GuardarMatricula extends javax.swing.JFrame {
 
         getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 640, 600));
 
+        jMenu3.setText("Menu");
+
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnIncio);
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnSalir);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu1.setText("Administración");
 
         btnAdmFacultad.setText("Facultad");
@@ -302,34 +337,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Menu");
-
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnIncio);
-
-        btnMatricula.setText("Matriculas");
-        btnMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnMatricula);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btnSalir);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -353,12 +360,13 @@ public class GuardarMatricula extends javax.swing.JFrame {
             }
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);}
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun ciclo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnAdmFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmFacultadActionPerformed
         try {
-            new GuardarFacultad().setVisible(true);
+            new GuardarFacultad(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarMatricula.class.getName()).log(Level.SEVERE, null, ex);
@@ -367,7 +375,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
 
     private void btnAdmCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCarreraActionPerformed
         try {
-            new GuardarCarrera().setVisible(true);
+            new GuardarCarrera(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarMatricula.class.getName()).log(Level.SEVERE, null, ex);
@@ -376,7 +384,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
 
     private void btnAdmMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmMallaActionPerformed
         try {
-            new GuardarMalla().setVisible(true);
+            new GuardarMalla(this.docente).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
             Logger.getLogger(GuardarMatricula.class.getName()).log(Level.SEVERE, null, ex);
@@ -384,33 +392,25 @@ public class GuardarMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmMallaActionPerformed
 
     private void btnAdmCursaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmCursaActionPerformed
-        new GuardarCursa().setVisible(true);
+        new GuardarCursa(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmCursaActionPerformed
 
     private void btnAdmPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmPeriodoActionPerformed
-        new GuardarPeriodoAcademico().setVisible(true);
+        new GuardarPeriodoAcademico(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new Menu().setVisible(true);
+        new MenuAdmin(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
-    private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
-        try {
-            new EstudianteMatricula().setVisible(true);
-            this.dispose();
-        } catch (EmptyException ex) {
-            java.util.logging.Logger.getLogger(GuardarCiclo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMatriculaActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+       new LoginPrincipal().setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
- 
+
     /**
      * @param args the command line arguments
      */
@@ -462,7 +462,6 @@ public class GuardarMatricula extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarMateria;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JMenuItem btnIncio;
-    private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JComboBox<String> cbxModalidad;

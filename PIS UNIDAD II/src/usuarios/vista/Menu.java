@@ -69,7 +69,6 @@ public class Menu extends javax.swing.JFrame {
         txtNombre = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        btnIncio = new javax.swing.JMenuItem();
         btnMatricula = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -104,14 +103,6 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.setText("Menu");
         jMenu2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        btnIncio.setText("Inicio");
-        btnIncio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncioActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnIncio);
-
         btnMatricula.setText("Matriculas");
         btnMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +111,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(btnMatricula);
 
-        jMenuItem3.setText("Enviar Tarea");
+        jMenuItem3.setText(" Tarea");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -150,10 +141,6 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
         try {
@@ -220,7 +207,6 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.panel.PanelImage Fondo3;
-    private javax.swing.JMenuItem btnIncio;
     private javax.swing.JMenuItem btnMatricula;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu jMenu2;
