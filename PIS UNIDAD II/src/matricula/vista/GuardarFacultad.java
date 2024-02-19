@@ -14,6 +14,7 @@ import matricula.controlador.FacultadControl;
 import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaFacultad;
 import matricula.vista.util.UtilVistaCarrera;
+import usuarios.vista.Menu;
 
 
 /**
@@ -84,7 +85,7 @@ public class GuardarFacultad extends javax.swing.JFrame {
         //UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
         cargarTabla();
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-        pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         txtLatitud.setText("Latitud");
         txtLongitud.setText("Longitud ");
     }
@@ -560,7 +561,8 @@ public class GuardarFacultad extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

@@ -21,6 +21,7 @@ import matricula.vista.tabla.ModeloTablaMatricula;
 import matricula.vista.util.UtilVistaCarrera;
 import matricula.vista.util.UtilVistaModalidad;
 import matricula.vista.util.UtilVistaPeriodoAcademico;
+import usuarios.vista.Menu;
 
 
 /**
@@ -81,7 +82,7 @@ public class GuardarMatricula extends javax.swing.JFrame {
         UtilVistaPeriodoAcademico.cargarcomboPerido(cbxPeriodo);
         UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-        pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
                
     }
 
@@ -409,7 +410,8 @@ public class GuardarMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

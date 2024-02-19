@@ -13,6 +13,7 @@ import lista.DynamicList;
 import matricula.controlador.MatriculaControl;
 import matricula.vista.tabla.ModeloTablaMatricula;
 import matricula.vista.util.UtilVistaEstado;
+import usuarios.vista.Menu;
 
 
 /**
@@ -332,7 +333,8 @@ public class EstadoMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

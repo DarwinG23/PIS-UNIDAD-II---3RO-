@@ -19,6 +19,7 @@ import matricula.modelo.Ciclo;
 import matricula.modelo.Malla;
 import matricula.vista.tabla.ModeloTablaCiclo;
 import matricula.vista.util.UtilVistaMalla;
+import usuarios.vista.Menu;
 
 /**
  *
@@ -159,7 +160,7 @@ public class GuardarCiclo extends javax.swing.JFrame {
     public GuardarCiclo() throws EmptyException {
         initComponents();
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-        pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         setLocationRelativeTo(null);
         cargarTabla();
         UtilVistaMalla.cargarcomboCarrera(cbxMalla);
@@ -566,7 +567,8 @@ public class GuardarCiclo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

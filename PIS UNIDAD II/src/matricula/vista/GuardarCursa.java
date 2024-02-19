@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.CursaControl;
 import matricula.vista.tabla.ModeloTablaCursa;
+import usuarios.vista.Menu;
 
 
 /**
@@ -69,7 +70,7 @@ public class GuardarCursa extends javax.swing.JFrame {
         cargarTabla();
         this.setLocationRelativeTo(null);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-        pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
     private void ordenar(){
         String criterio = cbxCriterio.getSelectedItem().toString().toLowerCase();
@@ -419,7 +420,8 @@ public class GuardarCursa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

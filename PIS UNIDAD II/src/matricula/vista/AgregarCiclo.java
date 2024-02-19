@@ -7,6 +7,7 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.FacultadControl;
@@ -48,6 +49,7 @@ public class AgregarCiclo extends javax.swing.JFrame {
     public AgregarCiclo() {
         initComponents();
         this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/AzulGris.jpg"));
     }
 
     public AgregarCiclo(Integer filaSeleccionada) throws EmptyException, Exception {
@@ -55,6 +57,7 @@ public class AgregarCiclo extends javax.swing.JFrame {
         UtilVistaCiclo.cargarcomboCiclo(cbxCiclo);
         fila = filaSeleccionada;
         this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/AzulGris.jpg"));
     }
 
     /**
@@ -64,21 +67,16 @@ public class AgregarCiclo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        pnlFondo = new org.edisoncor.gui.panel.PanelImage();
         cbxCiclo = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Seleccione la carrera que desea agregar a la facultad");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbxCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxCiclo.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +84,7 @@ public class AgregarCiclo extends javax.swing.JFrame {
                 cbxCicloActionPerformed(evt);
             }
         });
-        jPanel1.add(cbxCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 51, 221, -1));
+        pnlFondo.add(cbxCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 221, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +92,7 @@ public class AgregarCiclo extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 52, -1, -1));
+        pnlFondo.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -102,18 +100,14 @@ public class AgregarCiclo extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 52, 57, -1));
+        pnlFondo.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 57, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel1.setText("Seleccione la carrera que desea agregar a la facultad");
+        pnlFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -176,6 +170,6 @@ public class AgregarCiclo extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxCiclo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private org.edisoncor.gui.panel.PanelImage pnlFondo;
     // End of variables declaration//GEN-END:variables
 }

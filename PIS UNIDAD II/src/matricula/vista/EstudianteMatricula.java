@@ -16,6 +16,7 @@ import matricula.modelo.Cursa;
 import matricula.modelo.Estado;
 import matricula.modelo.Matricula;
 import matricula.vista.tabla.ModeloTablaMatricula;
+import usuarios.vista.Menu;
 
 
 /**
@@ -130,7 +131,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         btnAdmMatricula = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        btnIncio = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -251,8 +252,13 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
         jMenu2.setText("Menu");
 
-        jMenuItem1.setText("Inicio");
-        jMenu2.add(jMenuItem1);
+        btnIncio.setText("Inicio");
+        btnIncio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnIncio);
 
         jMenuItem2.setText("Salir");
         jMenu2.add(jMenuItem2);
@@ -317,6 +323,11 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         new GuardarPeriodoAcademico().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
+
+    private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIncioActionPerformed
     
 
     /**
@@ -366,6 +377,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnAdmMalla;
     private javax.swing.JMenuItem btnAdmMatricula;
     private javax.swing.JMenuItem btnAdmPeriodo;
+    private javax.swing.JMenuItem btnIncio;
     private javax.swing.JComboBox<String> cbxEstudiante;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -377,7 +389,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;

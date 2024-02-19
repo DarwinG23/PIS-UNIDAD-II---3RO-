@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.PeriodoAcademicoControl;
 import matricula.vista.tabla.ModeloTablaPeriodoAcademico;
-
+import usuarios.vista.Menu;
 
 /**
  *
@@ -67,7 +67,7 @@ public class GuardarPeriodoAcademico extends javax.swing.JFrame {
         cargarTabla();
         this.setLocationRelativeTo(null);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-        pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
 
     /**
@@ -327,7 +327,8 @@ public class GuardarPeriodoAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmMatriculaActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

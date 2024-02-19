@@ -16,6 +16,7 @@ import matricula.controlador.MallaControl;
 import matricula.vista.tabla.ModeloTablaCarrera;
 import matricula.vista.tabla.ModeloTablaMalla;
 import matricula.vista.util.UtilVistaMalla;
+import usuarios.vista.Menu;
 
 
 /**
@@ -80,7 +81,7 @@ public class GuardarCarrera extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         //UtilVistaMalla.cargarcomboCarrera(cbxMalla);
         pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
-        pnlGris.setIcon(new ImageIcon("fotos/Gris.jpg"));
+         pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
         cargarTabla();
     }
      private void ordenar(){
@@ -578,7 +579,8 @@ public class GuardarCarrera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeridoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new Menu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed

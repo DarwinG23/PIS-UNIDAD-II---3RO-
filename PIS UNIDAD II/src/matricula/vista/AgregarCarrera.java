@@ -7,6 +7,7 @@ package matricula.vista;
 import exeption.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import lista.DynamicList;
 import matricula.controlador.FacultadControl;
@@ -43,6 +44,7 @@ public class AgregarCarrera extends javax.swing.JFrame {
     public AgregarCarrera() {
         initComponents();
         this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/AzulGris.jpg"));
     }
 
     public AgregarCarrera(Integer filaSeleccionada) throws EmptyException, Exception {
@@ -50,6 +52,7 @@ public class AgregarCarrera extends javax.swing.JFrame {
         UtilVistaCarrera.cargarcomboCarreraFiltro(cbxCarrera);
         fila = filaSeleccionada;
         this.setLocationRelativeTo(null);
+        pnlFondo.setIcon(new ImageIcon("fotos/AzulGris.jpg"));
     }
 
     /**
@@ -59,24 +62,16 @@ public class AgregarCarrera extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        cbxCarrera = new javax.swing.JComboBox<>();
+        pnlFondo = new org.edisoncor.gui.panel.PanelImage();
         btnAgregar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        cbxCarrera = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Seleccione la carrera que desea agregar a la facultad");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
-
-        cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 51, 221, -1));
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +79,7 @@ public class AgregarCarrera extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 52, -1, -1));
+        pnlFondo.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -92,18 +87,17 @@ public class AgregarCarrera extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 52, 57, -1));
+        pnlFondo.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 57, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlFondo.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 221, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel1.setText("Seleccione la carrera que desea agregar a la facultad");
+        pnlFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
+
+        getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 140));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -161,6 +155,6 @@ public class AgregarCarrera extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private org.edisoncor.gui.panel.PanelImage pnlFondo;
     // End of variables declaration//GEN-END:variables
 }
