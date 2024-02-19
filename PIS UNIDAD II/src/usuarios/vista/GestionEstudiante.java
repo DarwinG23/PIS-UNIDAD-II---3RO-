@@ -15,6 +15,8 @@ import matricula.vista.GuardarCursa;
 import matricula.vista.GuardarMalla;
 import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
+import matricula.vista.util.UtilVistaCarrera;
+import matricula.vista.util.UtilVistaMatricula;
 import usuarios.controlador.daoUsuario.EstudianteControlDao;
 import usuarios.modelo.Docente;
 import usuarios.modelo.Usuario;
@@ -39,6 +41,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Fondo2.setIcon(new ImageIcon("fotos/Azul.png"));
         Limpiar();
+        try {
+            UtilVistaCarrera.cargarcomboCarrera(cbxMatricula);
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, "Necesita crear matriculas para registrar un estudiante");
+        }
     }
     
     public GestionEstudiante(Docente usuario) {
@@ -48,6 +55,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
         Limpiar();
         this.docente = usuario;
         System.out.println(docente.getDatosUsuarioDocente().getNombre());
+        try {
+            UtilVistaCarrera.cargarcomboCarrera(cbxMatricula);
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, "Necesita crear matriculas para registrar un estudiante");
+        }
     }
 
     private void CargarTabla() {
@@ -237,7 +249,10 @@ public class GestionEstudiante extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        cbxMatricula = new javax.swing.JComboBox<>();
         txtContrasenia = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         Fondo2 = new org.edisoncor.gui.panel.PanelImage();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -315,8 +330,8 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Contraseña:");
-        PN.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        jLabel7.setText("Matricula:");
+        PN.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
         PN.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 290, -1));
 
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
@@ -435,9 +450,24 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         PN.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, -1, -1));
 
+        cbxMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PN.add(cbxMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 290, -1));
+
         txtContrasenia.setEditable(false);
         PN.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 290, -1));
-        PN.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1210, 670));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Contraseña:");
+        PN.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Contraseña:");
+        PN.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        Fondo2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PN.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1410, 700));
 
         getContentPane().add(PN, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 690));
 
@@ -710,12 +740,15 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JComboBox<String> cbxCriterio1;
+    private javax.swing.JComboBox<String> cbxMatricula;
     private javax.swing.JCheckBox cbxMetodo;
     private javax.swing.JComboBox<String> cbxMetodo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
