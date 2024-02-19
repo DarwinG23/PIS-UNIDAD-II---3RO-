@@ -1,1 +1,1 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"materias.modelo.Materia","nombre":" Base de datos","paralelo":" A","ciclo":" 3","id_Materia":" 1","id":1,"fecha":"16\/02\/2024"}},"last":{"@reference":"..\/header"},"length":1}}
+{"lista.DynamicList":{"header":{"info":{"@class":"materias.modelo.Materia","nombre":" Estructura","paralelo":" A","ciclo":" 3","id":1,"fecha":"2024-02-02 04:52:44.605 UTC"}},"last":{"@reference":"..\/header"},"length":1}}

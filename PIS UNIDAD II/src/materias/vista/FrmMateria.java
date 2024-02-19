@@ -87,7 +87,7 @@ public class FrmMateria extends javax.swing.JFrame {
     }
 
     private Boolean Validar() {
-        return (!!txtCiclo.getText().trim().isEmpty()
+        return (!txtCiclo.getText().trim().isEmpty()
                 && !txtNameMateria.getText().trim().isEmpty()
                 && !txtParalelo.getText().trim().isEmpty());
     }
