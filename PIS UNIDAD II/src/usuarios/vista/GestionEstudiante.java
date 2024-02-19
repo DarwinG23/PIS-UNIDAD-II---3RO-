@@ -16,6 +16,7 @@ import matricula.vista.GuardarMalla;
 import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
 import usuarios.controlador.daoUsuario.EstudianteControlDao;
+import usuarios.controlador.util.Util;
 import usuarios.modelo.Docente;
 import usuarios.modelo.Usuario;
 import vista.modelo.ModeloTablaEstudiante;
@@ -26,9 +27,10 @@ import vista.modelo.ModeloTablaEstudiante;
  */
 public class GestionEstudiante extends javax.swing.JFrame {
 
-    ModeloTablaEstudiante mta = new ModeloTablaEstudiante();
-    EstudianteControlDao estudianteControl = new EstudianteControlDao();
+    private ModeloTablaEstudiante mta = new ModeloTablaEstudiante();
+    private EstudianteControlDao estudianteControl = new EstudianteControlDao();
     private Docente docente;
+    private Util util = new Util();
 
     /**
      * Creates new form GestionEstudiante
@@ -104,28 +106,33 @@ public class GestionEstudiante extends javax.swing.JFrame {
         if (Validar()) {
 
             Usuario uc = new Usuario();
-            uc.setCedula(txtCedula.getText());
-            uc.setNombre(txtNombre.getText());
-            uc.setApellido(txtApellido.getText());
-            uc.setEdad(txtEdad.getText());
-            uc.setCorreo(txtCorreo.getText());
+            if (util.validadorDeCedula(txtCedula.getText())) {
+                uc.setCedula(txtCedula.getText());
+                uc.setNombre(txtNombre.getText());
+                uc.setApellido(txtApellido.getText());
+                uc.setEdad(txtEdad.getText());
+                uc.setCorreo(txtCorreo.getText());
 
-            estudianteControl.getEstudiante().setDatosUsuario(uc);
-            estudianteControl.getEstudiante().getDatosUsuario().setEdad(txtEdad.getText());
+                estudianteControl.getEstudiante().setDatosUsuario(uc);
+                estudianteControl.getEstudiante().getDatosUsuario().setEdad(txtEdad.getText());
 //            estudianteControl.getEstudiante().setPromedioAcademico(txtPeriodo.getText());
-            estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
+                estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
 //            char[] contrase = jTextField1.getPassword();
 //            String contrasena = new String(contrase);
-            estudianteControl.getEstudiante().setContraseniaUsuario(txtContrasenia.getText());
+                estudianteControl.getEstudiante().setContraseniaUsuario(txtContrasenia.getText());
 
-            if (estudianteControl.Persist()) {
-                JOptionPane.showMessageDialog(null, "Datos guardados con exito");
-                estudianteControl.setEstudiante(null);
-                CargarTabla();
-                Limpiar();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                if (estudianteControl.Persist()) {
+                    JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+                    estudianteControl.setEstudiante(null);
+                    CargarTabla();
+                    Limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                }
+            }else{
+               JOptionPane.showMessageDialog(null, "La cedula no es valida ");
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos ");
 
