@@ -157,7 +157,6 @@ public class CalificarTarea extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -228,7 +227,7 @@ public class CalificarTarea extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        panel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 240, -1));
+        panel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 240, -1));
 
         btnSeleccionar1.setText("SELECCIONAR");
         btnSeleccionar1.addActionListener(new java.awt.event.ActionListener() {
@@ -236,9 +235,10 @@ public class CalificarTarea extends javax.swing.JFrame {
                 btnSeleccionar1ActionPerformed(evt);
             }
         });
-        panel1.add(btnSeleccionar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 240, -1));
+        panel1.add(btnSeleccionar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 240, -1));
 
-        jMenu1.setText("File");
+        jMenu1.setText("OPCIONES DOCENTE");
+        jMenu1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jMenuItem1.setText("Inicio");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -249,9 +249,6 @@ public class CalificarTarea extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -340,7 +337,6 @@ public class CalificarTarea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;

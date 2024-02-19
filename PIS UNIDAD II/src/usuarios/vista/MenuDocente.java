@@ -154,7 +154,7 @@ public class MenuDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        TareaDocente td=new TareaDocente();
+        TareaDocente td=new TareaDocente(this.docente);
         this.dispose();
         td.setVisible(true);
 
