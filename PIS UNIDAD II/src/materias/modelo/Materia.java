@@ -16,9 +16,9 @@ public class Materia {
     private String ciclo;
     private String id_Materia;
     private Integer id;
-    private String fecha;
+    private Date fecha;
 
-    public Materia(String nombre, String paralelo, String ciclo, String id_Materia, Integer id,String fecha) {
+    public Materia(String nombre, String paralelo, String ciclo, String id_Materia, Integer id,Date fecha) {
         this.nombre = null;
         this.paralelo = null;
         this.ciclo = null;
@@ -70,11 +70,11 @@ public class Materia {
         this.id = id;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     

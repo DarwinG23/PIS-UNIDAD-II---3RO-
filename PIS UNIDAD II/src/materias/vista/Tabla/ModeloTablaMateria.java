@@ -4,6 +4,7 @@
  */
 package materias.vista.Tabla;
 
+import java.text.SimpleDateFormat;
 import javax.swing.table.AbstractTableModel;
 import lista.DynamicList;
 import materias.modelo.Materia;
@@ -35,19 +36,20 @@ public class ModeloTablaMateria  extends AbstractTableModel {
     @Override
     public int getColumnCount() {
        // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-       return 5;
+       return 4;
     }
     @Override
     public String getValueAt(int i,int i1){
         // i=fila 1=columna
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
         try {
             Materia p = materias .getInfo(i);
+            String fechaInicio=formatoFecha.format(p.getFecha());
         switch(i1){
             case 0: return (p !=null) ? p.getNombre():" ";   //modelos ternarios
-            case 1: return (p !=null) ? p.getId_Materia():" ";
-            case 2: return (p !=null) ? p.getCiclo():" ";
-            case 3: return (p !=null) ? p.getParalelo():" ";
-            case 4: return (p !=null) ? p.getFecha():" ";
+            case 1: return (p !=null) ? p.getCiclo():" ";
+            case 2: return (p !=null) ? p.getParalelo():" ";
+            case 3: return (p !=null) ? fechaInicio:" ";
             default:
                 return null;
         }
@@ -61,12 +63,10 @@ public class ModeloTablaMateria  extends AbstractTableModel {
             case 0:
                 return "Nombre";
             case 1:
-                return "Id Materia";
-            case 2:
                 return "Ciclo";
-            case 3:
+            case 2:
                 return "Paralelo";
-            case 4:
+            case 3:
                 return "Fecha creacion";    
             default:
                 return null;
