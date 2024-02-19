@@ -1,1 +1,1 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"tareas.modelo.ReporteTarea","id":1,"Nota":0,"Retroalimentacion":"No se peude abrir enlace "}},"last":{"@reference":"..\/header"},"length":1}}
+{"lista.DynamicList":{"header":{"info":{"@class":"tareas.modelo.ReporteTarea","id":1,"Nota":0,"Retroalimentacion":"No se peude abrir enlace "},"next":{"info":{"@class":"tareas.modelo.ReporteTarea","id":2,"Nota":0,"Retroalimentacion":" Enlace no se abre"}}},"last":{"@reference":"..\/header\/next"},"length":2}}
