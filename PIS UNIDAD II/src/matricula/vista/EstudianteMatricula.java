@@ -235,6 +235,11 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jMenu2.add(btnIncio);
 
         jMenuItem2.setText("Salir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -248,6 +253,10 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         new Menu(this.estudiante).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
 
     /**

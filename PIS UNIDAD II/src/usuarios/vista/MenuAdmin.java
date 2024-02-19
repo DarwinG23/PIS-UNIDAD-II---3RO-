@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import lista.DynamicList;
+import materias.vista.Materia;
 import matricula.vista.EstudianteMatricula;
 import matricula.vista.GuardarCarrera;
 import matricula.vista.GuardarCiclo;
@@ -82,6 +83,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnAdmPeriodo = new javax.swing.JMenuItem();
         btnAdmEstudiante = new javax.swing.JMenuItem();
         btnAdmDocente = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -203,6 +205,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
         jMenu1.add(btnAdmDocente);
 
+        jMenuItem1.setText("Materias");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -258,7 +268,8 @@ public class MenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        // TODO add your handling code here:
+        new MenuAdmin().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
     private void btnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculaActionPerformed
@@ -284,6 +295,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         new GestionDocente(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdmDocenteActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new Materia().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +353,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private org.edisoncor.gui.panel.PanelImage pnlUsuario;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
