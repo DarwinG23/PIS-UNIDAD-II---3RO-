@@ -7,6 +7,7 @@ package tareas.vista;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.net.URI;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import tareas.controlador.controladorTarea.administrarTarea1;
@@ -33,6 +34,8 @@ public class CalificarTarea extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Limpiar();
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
 
     public CalificarTarea(Docente docente) throws HeadlessException {
@@ -40,6 +43,8 @@ public class CalificarTarea extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Limpiar();
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
     
     
@@ -138,34 +143,35 @@ public class CalificarTarea extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel1 = new org.edisoncor.gui.panel.Panel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlGris = new org.edisoncor.gui.panel.PanelImage();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMostrar = new javax.swing.JTable();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        txtComentario = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtNota = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        txtEstudiante = new javax.swing.JTextField();
-        txtLink = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnSeleccionar4 = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
-        btnSeleccionar1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        pnlAzul = new org.edisoncor.gui.panel.PanelImage();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtLink = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtEstudiante = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtNota = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtComentario = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("CALIFICACIÓN DE TAREAS");
-        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        pnlGris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -180,46 +186,30 @@ public class CalificarTarea extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMostrar);
 
-        panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 130));
+        pnlGris.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 460, 170));
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Link de la tarea:");
-        panel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Comentario:");
-        panel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+        pnlGris.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 450, 170));
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Nota:");
-        panel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
-        panel1.add(txtComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 280, 80));
-
-        txtNombre.setEnabled(false);
-        panel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 280, -1));
-        panel1.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 280, -1));
-
-        jLabel13.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Estudiante:");
-        panel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Nombre de la tarea:");
-        panel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
-        panel1.add(txtEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 280, -1));
-
-        txtLink.setEnabled(false);
-        txtLink.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtLinkMouseClicked(evt);
+        btnSeleccionar4.setText("MODIFICAR");
+        btnSeleccionar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionar4ActionPerformed(evt);
             }
         });
-        panel1.add(txtLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 280, -1));
+        pnlGris.add(btnSeleccionar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 240, -1));
 
         btnSeleccionar.setText("GUARDAR");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,15 +217,67 @@ public class CalificarTarea extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        panel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 240, -1));
+        pnlGris.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 240, -1));
 
-        btnSeleccionar1.setText("SELECCIONAR");
-        btnSeleccionar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionar1ActionPerformed(evt);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("NOTAS TAREAS");
+        pnlGris.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("TAREAS ENVIADAS");
+        pnlGris.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, -1));
+
+        getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 480, 533));
+
+        pnlAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("CALIFICACIÓN DE TAREAS");
+        pnlAzul.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Nombre de la tarea:");
+        pnlAzul.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        txtNombre.setEnabled(false);
+        pnlAzul.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 300, -1));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Link de la tarea:");
+        pnlAzul.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+
+        txtLink.setEnabled(false);
+        txtLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtLinkMouseClicked(evt);
             }
         });
-        panel1.add(btnSeleccionar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 240, -1));
+        pnlAzul.add(txtLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 290, -1));
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Estudiante:");
+        pnlAzul.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        pnlAzul.add(txtEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 290, -1));
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Nota:");
+        pnlAzul.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
+        pnlAzul.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 280, -1));
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Comentario:");
+        pnlAzul.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+        pnlAzul.add(txtComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 280, 80));
+
+        getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 533));
 
         jMenu1.setText("OPCIONES DOCENTE");
         jMenu1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -252,23 +294,8 @@ public class CalificarTarea extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSeleccionar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionar1ActionPerformed
-        cargarVista();  
-    }//GEN-LAST:event_btnSeleccionar1ActionPerformed
 
     private void txtLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLinkMouseClicked
          if (evt.getClickCount() >= 2) {
@@ -291,6 +318,10 @@ public class CalificarTarea extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnSeleccionar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeleccionar4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,18 +360,23 @@ public class CalificarTarea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JButton btnSeleccionar1;
+    private javax.swing.JButton btnSeleccionar4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.edisoncor.gui.panel.Panel panel1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private org.edisoncor.gui.panel.PanelImage pnlAzul;
+    private org.edisoncor.gui.panel.PanelImage pnlGris;
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTextField txtComentario;
     private javax.swing.JTextField txtEstudiante;
