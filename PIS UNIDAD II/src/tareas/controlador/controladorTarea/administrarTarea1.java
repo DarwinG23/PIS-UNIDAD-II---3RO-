@@ -140,25 +140,23 @@ public class administrarTarea1 extends DaoImplement<tarea> {
         return lista;
     }
 
-
     private String obtenerValorCriterio(tarea tarea, String criterio) {
-        String nota= String.valueOf(tarea.getNota());
         String id_tarea=String.valueOf(tarea.getId_tarea());
         String id_estado=String.valueOf(tarea.getId_estado());
+        String FechaInicio=String.valueOf(tarea.getFecha_Inicio());
+        String FechaFinal=String.valueOf(tarea.getFecha_Final());
         switch (criterio) {
-            case "tituloTarea":
-                return tarea.getTituloTarea();
-            case "fechaInicio":
-                return tarea.getFechaInicio();
-            case "fechaFinal":
-                return tarea.getFechaFinal();
-            case "id_tarea":
+            case "Id_TipoTarea":
                 return id_tarea;
+            case "Titulo_Tarea":
+                return tarea.getTituloTarea();
+            case "Fecha_Inicio":
+                return FechaInicio;
+            case "Fecha_Final":
+                return FechaFinal;
             case "Descripcion":
                 return tarea.getDescripcion();
-            case "nota":
-                return nota;
-            case "id_estado":
+            case "Id_EstadoTarea":
                 return id_estado;
             default:
                 throw new IllegalArgumentException("Criterio no válido");
