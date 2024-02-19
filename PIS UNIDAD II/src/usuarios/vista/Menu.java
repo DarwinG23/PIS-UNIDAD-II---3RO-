@@ -96,7 +96,7 @@ public class Menu extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 204, 204));
         txtNombre.setText("NOMBRE APELLIDO");
-        Fondo3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 120, 30));
+        Fondo3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 270, 30));
 
         getContentPane().add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 580));
 
@@ -111,7 +111,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(btnMatricula);
 
-        jMenuItem3.setText(" Tarea");
+        jMenuItem3.setText("Tarea");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -119,7 +119,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
-        jMenuItem5.setText("Reporte Califiacion");
+        jMenuItem5.setText("Calificaciones");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -157,14 +157,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        EntregaTarea et=new EntregaTarea();
+        EntregaTarea et=new EntregaTarea(this.estudiante);
         this.dispose();
         et.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        ReporteNotas rp=new ReporteNotas();
+        ReporteNotas rp=new ReporteNotas(this.estudiante);
         this.dispose();
         rp.setVisible(true);
 

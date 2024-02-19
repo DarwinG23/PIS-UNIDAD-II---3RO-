@@ -51,6 +51,7 @@ public class ReporteNotas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Limpiar();
         Limpiar1();
+        this.estudiante = estudiante;
     }
    
    
@@ -296,7 +297,7 @@ public class ReporteNotas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMateriaActionPerformed
 
     private void btnIncio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncio1ActionPerformed
-        new Menu().setVisible(true);
+        new Menu(this.estudiante).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncio1ActionPerformed
 
@@ -310,13 +311,13 @@ public class ReporteNotas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMatricula1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        EntregaTarea et=new EntregaTarea();
+        EntregaTarea et=new EntregaTarea(this.estudiante);
         this.dispose();
         et.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        ReporteNotas rp=new ReporteNotas();
+        ReporteNotas rp=new ReporteNotas(this.estudiante);
         this.dispose();
         rp.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
