@@ -130,7 +130,6 @@ public class GestionEstudiante extends javax.swing.JFrame {
             //Persona uc = new Persona();
             if (util.validadorDeCedula(txtCedula.getText())) {
                 Matricula matricula = matricular();
-                System.out.println("matricula final: " + matricula);
                 if (matricula == null) {
                     JOptionPane.showMessageDialog(null, "No hay matriculas disponible");
                 } else {
@@ -173,39 +172,26 @@ public class GestionEstudiante extends javax.swing.JFrame {
         DynamicList<Matricula> list = new DynamicList<>();
         Matricula matriculaDisponible = new Matricula();
         Date fecha = new Date();
-        System.out.println(cbxModalidad.getSelectedItem());
 
         for (int i = 0; i < mc.getListMatricula().getLength(); i++) {
             matriculaActual = mc.getListMatricula().getInfo(i);
-            System.out.println("primer for: " + matriculaActual);
-            System.out.println("id carrera: " + matriculaActual.getId_Carrera());
-            System.out.println("estado carrera: " + matriculaActual.getEstado());
-            System.out.println("Modalidad carrera: " + matriculaActual.getModalidad());
-
-            System.out.println("id cbxCarrera: " + cbxCarrera.getSelectedIndex());
-            System.out.println("modalida cbxModalidad: " + cbxModalidad.getSelectedItem() + 1);
-
             if (matriculaActual.getId_Carrera() == cbxCarrera.getSelectedIndex() + 1 && matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getModalidad() == cbxModalidad.getSelectedItem()) {
                 list.add(mc.getListMatricula().getInfo(i));
-                System.out.println("se agrego: " + mc.getListMatricula().getInfo(i));
 
             }
         }
 
         Matricula aux = new Matricula();
-        System.out.println(list.getLength());
         for (int i = 0; i < list.getLength(); i++) {
             matriculaDisponible = list.getInfo(i);
-            System.out.println("segundo for: " + fecha);
             for (int j = 0; j < list.getLength(); j++) {
                 aux = list.getInfo(j);
-                System.out.println("tercer for: " + aux.getFechaEmision());
                 if (matriculaDisponible.getFechaEmision().compareTo(aux.getFechaEmision()) < 0) {
                     matriculaDisponible = aux;
-                    System.out.println("se actualizo: " + matriculaDisponible);
                 }
             }
         }
+        matriculaDisponible.setEstado(Estado.MATRICULADO);
         return matriculaDisponible;
     }
 

@@ -19,7 +19,6 @@ import matricula.vista.tabla.ModeloTablaMatricula;
 import usuarios.modelo.Estudiante;
 import usuarios.vista.Menu;
 
-
 /**
  *
  * @author darwi
@@ -41,18 +40,25 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     }
 
     private void cargarTabla() throws EmptyException {
+        System.out.println("1");
         DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
-
+        System.out.println("2");
+        matriculasFiltradas = estudiante.getMatriculas();
+        
         for (int i = 0; i < matriculaControl.getListMatricula().getLength(); i++) {
             Matricula matriculaActual = matriculaControl.getListMatricula().getInfo(i);
 
-            if (matriculaActual.getEstado() == Estado.DISPONIBLE) {
+            if (matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getId_Carrera() == estudiante.getMatriculas().getInfo(0).getId_Carrera()) {
                 matriculasFiltradas.add(matriculaActual);
             }
         }
-        mtm.setMatriculas(matriculasFiltradas);
+
+        System.out.println(estudiante.getNombre());
+        System.out.println(estudiante.getMatriculas());
+        mtm.setMatriculas(estudiante.getMatriculas());
         tbMatricula.setModel(mtm);
         tbMatricula.updateUI();
+        System.out.println("3");
     }
 
     public void guardar(Integer filaSeleccionada, Cursa cursa) {
@@ -102,14 +108,15 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
     }
-    
+
     public EstudianteMatricula(Estudiante usuario) throws EmptyException {
         initComponents();
+        this.estudiante = usuario;
         cargarTabla();
         this.setLocationRelativeTo(null);
         pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
-        this.estudiante = usuario;
+
     }
 
     /**
@@ -131,12 +138,13 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         tbMatricula = new javax.swing.JTable();
         pnlLogo = new org.edisoncor.gui.panel.PanelImage();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbMateria = new javax.swing.JTable();
+        tbMatriculasDisponibles = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         btnIncio = new javax.swing.JMenuItem();
@@ -190,7 +198,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         pnlFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 600, 110));
         pnlFondo.add(pnlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 320, 100));
 
-        tbMateria.setModel(new javax.swing.table.DefaultTableModel(
+        tbMatriculasDisponibles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -201,14 +209,14 @@ public class EstudianteMatricula extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tbMateria);
+        jScrollPane2.setViewportView(tbMatriculasDisponibles);
 
         pnlFondo.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 600, 110));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Matriculas");
-        pnlFondo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jLabel17.setText("Matriculas Disponibles");
+        pnlFondo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, -1, -1));
 
         jButton3.setText("Buscar");
         pnlFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
@@ -221,6 +229,11 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
         jButton6.setText("Matricularse");
         pnlFondo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Tus Matriculas");
+        pnlFondo.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
 
         getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 580));
 
@@ -257,7 +270,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-    
 
     /**
      * @param args the command line arguments
@@ -312,6 +324,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -319,7 +332,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private org.edisoncor.gui.panel.PanelImage pnlFondo;
     private org.edisoncor.gui.panel.PanelImage pnlLogo;
-    private javax.swing.JTable tbMateria;
     private javax.swing.JTable tbMatricula;
+    private javax.swing.JTable tbMatriculasDisponibles;
     // End of variables declaration//GEN-END:variables
 }

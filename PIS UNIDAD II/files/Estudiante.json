@@ -7,7 +7,7 @@
                 "apellido": "Granda",
                 "edad": 21,
                 "cedula": 1106006123,
-                "correo": "darwingranda@gmail.com",
+                "correo": "darwingranda2011@gmail.com",
                 "idEstudiante": 1,
                 "CorreoUsuario": "darwin.granda@unl.edu.ec",
                 "ContraseniaUsuario": 1106006123,
@@ -19,7 +19,7 @@
                                 "@class": "sql-date",
                                 "$": "2024-02-18"
                             },
-                            "estado": "DISPONIBLE",
+                            "estado": "MATRICULADO",
                             "id": 1,
                             "id_Carrera": 1,
                             "modalidad": "PRESENCIAL",
