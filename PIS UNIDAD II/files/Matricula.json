@@ -1,1 +1,57 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"matricula.modelo.Matricula","fechaEmision":{"@class":"sql-date","$":"2024-02-18"},"estado":"DISPONIBLE","id":1,"id_Carrera":1,"modalidad":"PRESENCIAL","cursas":{"header":{"info":{"@class":"matricula.modelo.Cursa","id_materia":1}},"last":{"@reference":"..\/header"},"length":1}},"next":{"info":{"@class":"matricula.modelo.Matricula","fechaEmision":{"@class":"sql-date","$":"2024-02-18"},"estado":"DISPONIBLE","id":2,"id_Carrera":1,"modalidad":"VIRTUAL","cursas":{"header":{"info":{"@class":"matricula.modelo.Cursa"}},"last":{"@reference":"..\/header"},"length":1}}}},"last":{"@reference":"..\/header\/next"},"length":2}}
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "matricula.modelo.Matricula",
+                "fechaEmision": {
+                    "@class": "sql-date",
+                    "$": "2024-02-18"
+                },
+                "estado": "DISPONIBLE",
+                "id": 1,
+                "id_Carrera": 1,
+                "modalidad": "PRESENCIAL",
+                "cursas": {
+                    "header": {
+                        "info": {
+                            "@class": "matricula.modelo.Cursa",
+                            "id_materia": 1
+                        }
+                    },
+                    "last": {
+                        "@reference": "..\/header"
+                    },
+                    "length": 1
+                }
+            },
+            "next": {
+                "info": {
+                    "@class": "matricula.modelo.Matricula",
+                    "fechaEmision": {
+                        "@class": "sql-date",
+                        "$": "2024-02-18"
+                    },
+                    "estado": "DISPONIBLE",
+                    "id": 2,
+                    "id_Carrera": 1,
+                    "modalidad": "VIRTUAL",
+                    "cursas": {
+                        "header": {
+                            "info": {
+                                "@class": "matricula.modelo.Cursa"
+                            }
+                        },
+                        "last": {
+                            "@reference": "..\/header"
+                        },
+                        "length": 1
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next"
+        },
+        "length": 2
+    }
+}

@@ -66,6 +66,9 @@ public class Estudiante extends Persona{
     }
 
     public DynamicList<Matricula> getMatriculas() {
+        if(matriculas == null){
+           matriculas = new DynamicList<>();
+        }
         return matriculas;
     }
 
