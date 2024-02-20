@@ -15,7 +15,7 @@ import usuarios.modelo.Docente;
  * @author Alexander
  */
 public class DocenteControlDao extends DaoImplement<Docente> {
-      private DynamicList<Docente> docente;
+    private DynamicList<Docente> docente;
     private Docente docente1;
     
      public DocenteControlDao() {

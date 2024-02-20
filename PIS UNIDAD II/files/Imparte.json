@@ -1,0 +1,27 @@
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "usuarios.modelo.Imparte",
+                "Id_Imparte": 1,
+                "Id_Docente": {
+                    "nombre": "Alexander",
+                    "apellido": "Sanchez",
+                    "edad": 19,
+                    "cedula": 1104753890,
+                    "correo": "alexandersanchez2004@unl.edu.ec",
+                    "IdDocente": 2,
+                    "tituloProfesional": "Ing.Computación",
+                    "aniosExperiencia": 6,
+                    "CorreoUsuario": "alexander.sanchez@unl.edu.ec",
+                    "ContraseniaUsuario": 1104753890,
+                    "RolDocente": "Docente"
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header"
+        },
+        "length": 1
+    }
+}
