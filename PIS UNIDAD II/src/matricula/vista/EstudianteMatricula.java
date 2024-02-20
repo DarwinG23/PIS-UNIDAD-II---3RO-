@@ -26,39 +26,50 @@ import usuarios.vista.Menu;
 public class EstudianteMatricula extends javax.swing.JFrame {
 
     private ModeloTablaMatricula mtm = new ModeloTablaMatricula();
+    private ModeloTablaMatricula mtmd = new ModeloTablaMatricula();
     private MatriculaControl matriculaControl = new MatriculaControl();
     private CursaControl cursaControl = new CursaControl();
     private Estudiante estudiante;
 
-    public void cargarFacultades(DynamicList carreras) {
-        mtm.setMatriculas(carreras);
-        initComponents();
-    }
+
 
     public Boolean verificar() {
         return true;
     }
 
     private void cargarTabla() throws EmptyException {
-        System.out.println("1");
-        DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
-        System.out.println("2");
-        matriculasFiltradas = estudiante.getMatriculas();
-        
-        for (int i = 0; i < matriculaControl.getListMatricula().getLength(); i++) {
-            Matricula matriculaActual = matriculaControl.getListMatricula().getInfo(i);
 
-            if (matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getId_Carrera() == estudiante.getMatriculas().getInfo(0).getId_Carrera()) {
+        DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
+        System.out.println("******************");
+        System.out.println(estudiante.getMatriculas());
+        int id = estudiante.getMatriculas().getInfo(0).getId_Carrera();
+        System.out.println("idddddd:" + id);
+        Matricula matriculaActual;
+        System.out.println("leng: " + matriculaControl.getListMatricula());
+        for (int i = 0; i < matriculaControl.getListMatricula().getLength(); i++) {
+            System.out.println("i: " + i );
+            System.out.println("for");
+            matriculaActual = matriculaControl.getListMatricula().getInfo(i);
+            System.out.println( "matricula acutal id carrera: " + matriculaActual.getId_Carrera());
+            System.out.println( "matricula acutal estado: " + matriculaActual.getEstado());
+            System.out.println( "matricula  id carrera : " + estudiante.getMatriculas().getInfo(0).getId_Carrera());
+            System.out.println( "matricula  estado : " + Estado.DISPONIBLE);
+            
+
+            if (matriculaActual.getEstado() == Estado.DISPONIBLE  && matriculaActual.getId_Carrera() == id) {
                 matriculasFiltradas.add(matriculaActual);
+                System.out.println("if");
             }
         }
-
-        System.out.println(estudiante.getNombre());
-        System.out.println(estudiante.getMatriculas());
+        System.out.println("hola");
         mtm.setMatriculas(estudiante.getMatriculas());
+        mtmd.setMatriculas(matriculasFiltradas);
+        
+        tbMatriculasDisponibles.setModel(mtmd);
         tbMatricula.setModel(mtm);
+        
         tbMatricula.updateUI();
-        System.out.println("3");
+        tbMatriculasDisponibles.updateUI();
     }
 
     public void guardar(Integer filaSeleccionada, Cursa cursa) {
@@ -116,6 +127,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
+        System.out.println(estudiante.getNombre());
 
     }
 
@@ -127,7 +139,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlFondo = new org.edisoncor.gui.panel.PanelImage();
-        jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
@@ -154,11 +165,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Materias");
-        pnlFondo.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,7 +222,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Matriculas Disponibles");
-        pnlFondo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, -1, -1));
+        pnlFondo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, -1, -1));
 
         jButton3.setText("Buscar");
         pnlFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
@@ -321,7 +327,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
