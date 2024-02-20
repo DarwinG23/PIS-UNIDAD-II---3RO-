@@ -29,7 +29,7 @@ public class ModeloTablaMatricula extends AbstractTableModel {
 
     @Override
     public int getColumnCount() { //Agregar columnas
-        return 5;
+        return 4;
     }
 
     @Override
@@ -46,10 +46,8 @@ public class ModeloTablaMatricula extends AbstractTableModel {
                 case 1:
                     return (c != null) ? c.getEstado() : " ";
                 case 2:
-                    return (c != null) ? c.getCursas().getLength() : " ";
-                case 3:
                     return (c != null) ? c.getFechaEmision() : " ";
-                case 4:
+                case 3:
                     return (c != null) ? c.getModalidad() : " ";
                 default:
                     return null;
@@ -69,10 +67,8 @@ public class ModeloTablaMatricula extends AbstractTableModel {
             case 1:
                 return "ESTADO";
             case 2:
-                return "NRO CURSA";
-            case 3:
                 return "EMITIDO";
-            case 4:
+            case 3:
                 return "MODALIDAD";
             default:
                 return null;

@@ -12,8 +12,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import lista.DynamicList;
+import materias.modelo.Materia;
+import matricula.controlador.CicloControl;
+import matricula.controlador.CursaControl;
+import matricula.controlador.MallaControl;
 import matricula.controlador.MatriculaControl;
+import matricula.modelo.Ciclo;
+import matricula.modelo.Cursa;
 import matricula.modelo.Estado;
+import matricula.modelo.Malla;
 import matricula.modelo.Matricula;
 import matricula.vista.EstudianteMatricula;
 import matricula.vista.GuardarCarrera;
@@ -25,6 +32,7 @@ import matricula.vista.GuardarPeriodoAcademico;
 import matricula.vista.util.UtilVistaCarrera;
 import matricula.vista.util.UtilVistaMatricula;
 import matricula.vista.util.UtilVistaModalidad;
+import tareas.controlador.administrarTarea;
 import usuarios.controlador.daoUsuario.EstudianteControlDao;
 import usuarios.controlador.util.Util;
 import usuarios.modelo.Docente;
@@ -41,7 +49,12 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private EstudianteControlDao estudianteControl = new EstudianteControlDao();
     private Docente docente;
     private Util util = new Util();
+
     private MatriculaControl mc = new MatriculaControl();
+    private CursaControl cc = new CursaControl();
+    private administrarTarea at = new administrarTarea();
+    private CicloControl cicloC = new CicloControl();
+    private MallaControl mallaC = new MallaControl();
 
     /**
      * Creates new form GestionEstudiante
@@ -148,10 +161,15 @@ public class GestionEstudiante extends javax.swing.JFrame {
                     estudianteControl.getEstudiante().setContraseniaUsuario(txtContrasenia.getText());
 
                     if (estudianteControl.Persist()) {
-                        JOptionPane.showMessageDialog(null, "Datos guardados con exito");
-                        estudianteControl.setEstudiante(null);
-                        CargarTabla();
-                        Limpiar();
+                        DynamicList<Cursa> cursas = obtenerMaterias();
+                        if (agregarCursas(cursas)) {
+                            estudianteControl.setEstudiante(null);
+                            CargarTabla();
+                            Limpiar();
+                            JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+
+                        }
+
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo guardar");
                     }
@@ -165,6 +183,75 @@ public class GestionEstudiante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Falta llenar campos ");
 
         }
+    }
+
+    private Boolean agregarCursas(DynamicList<Cursa> cursas) throws EmptyException {
+        Integer id = estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength()-1).getIdEstudiante();
+        Matricula matricula = estudianteControl.getListaEstudiante().getInfo(id-1).getMatriculas().getInfo(0);
+        matricula.setCursas(cursas);
+        DynamicList<Matricula> matriculas = new DynamicList<>();
+        matriculas.add(matricula);
+
+        estudianteControl.getEstudiante().setCedula(estudianteControl.getListaEstudiante().getInfo(id-1).getCedula());
+        estudianteControl.getEstudiante().setNombre(estudianteControl.getListaEstudiante().getInfo(id-1).getNombre());
+        estudianteControl.getEstudiante().setApellido(estudianteControl.getListaEstudiante().getInfo(id-1).getApellido());
+        estudianteControl.getEstudiante().setEdad(estudianteControl.getListaEstudiante().getInfo(id-1).getEdad());
+        estudianteControl.getEstudiante().setCorreo(estudianteControl.getListaEstudiante().getInfo(id-1).getCorreo());
+
+        estudianteControl.getEstudiante().setCorreoUsuario(estudianteControl.getListaEstudiante().getInfo(id-1).getCorreoUsuario());
+        estudianteControl.getEstudiante().setContraseniaUsuario(estudianteControl.getListaEstudiante().getInfo(id-1).getContraseniaUsuario());
+        estudianteControl.getEstudiante().setMatriculas(matriculas);
+        
+        if (estudianteControl.marge(estudianteControl.getEstudiante(), id-1)) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    private DynamicList<Cursa> obtenerMaterias() throws EmptyException {
+        Ciclo cicloActual = new Ciclo();
+        Malla mallaActual = new Malla();
+        Integer id_malla = 0;
+
+        for (int i = 0; i < mallaC.getListMalla().getLength(); i++) {
+            mallaActual = mallaC.getListMalla().getInfo(i);
+            if (mallaActual.getId_Carrera() == cbxCarrera.getSelectedIndex() + 1) {
+                id_malla = mallaActual.getId_Carrera();
+                System.out.println("break id malla: " + id_malla);
+                break;
+            }
+        }
+
+        DynamicList<Cursa> cursas = new DynamicList<>();
+
+        for (int i = 0; i < cicloC.getListCiclo().getLength(); i++) {
+            cicloActual = cicloC.getListCiclo().getInfo(i);
+            int id_malla_CicloActual = cicloActual.getId_Malla();
+            if (id_malla_CicloActual == id_malla && cicloActual.getNumCiclo() == 1) {
+                break;
+            }
+        }
+
+        for (int k = 0; k < cicloActual.getMaterias().getLength(); k++) {
+            Cursa cs = crearCursa(k, cicloActual.getMaterias().getInfo(k).getId());
+            cursas.add(cs);
+        }
+        return cursas;
+
+    }
+
+    private Cursa crearCursa(Integer id, Integer id_Materia) throws EmptyException {
+        Cursa cursa = new Cursa();
+        cursa.setId(id+1);
+        cursa.setId_matricula(1);
+        cursa.setId_materia(id_Materia);
+        cursa.setParalelo("A");
+        cursa.setId_docente(0);
+        cursa.setId_estudiante(estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength()-1).getIdEstudiante());
+        return cursa;
+
     }
 
     private Matricula matricular() throws EmptyException {
@@ -192,6 +279,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
             }
         }
         matriculaDisponible.setEstado(Estado.MATRICULADO);
+
         return matriculaDisponible;
     }
 

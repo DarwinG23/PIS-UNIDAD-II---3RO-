@@ -7,7 +7,7 @@
                 "apellido": "Granda",
                 "edad": 21,
                 "cedula": 1106006123,
-                "correo": "darwingranda2011@gmail.com",
+                "correo": "darwingranda@gmail.com",
                 "idEstudiante": 1,
                 "CorreoUsuario": "darwin.granda@unl.edu.ec",
                 "ContraseniaUsuario": 1106006123,
@@ -27,13 +27,29 @@
                                 "header": {
                                     "info": {
                                         "@class": "matricula.modelo.Cursa",
-                                        "id_materia": 1
+                                        "id": 1,
+                                        "id_estudiante": 1,
+                                        "id_matricula": 1,
+                                        "id_materia": 3,
+                                        "paralelo": "A",
+                                        "id_docente": 0
+                                    },
+                                    "next": {
+                                        "info": {
+                                            "@class": "matricula.modelo.Cursa",
+                                            "id": 2,
+                                            "id_estudiante": 1,
+                                            "id_matricula": 1,
+                                            "id_materia": 4,
+                                            "paralelo": "A",
+                                            "id_docente": 0
+                                        }
                                     }
                                 },
                                 "last": {
-                                    "@reference": "..\/header"
+                                    "@reference": "..\/header\/next"
                                 },
-                                "length": 1
+                                "length": 2
                             }
                         }
                     },

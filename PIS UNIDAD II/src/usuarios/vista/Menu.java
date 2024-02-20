@@ -292,7 +292,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnEstMatriculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstMatriculasActionPerformed
         try {
-            System.out.println(estudiante.getNombre());
+            //System.out.println(estudiante.getNombre());
             new EstudianteMatricula(this.estudiante).setVisible(true);
             this.dispose();
         } catch (EmptyException ex) {
