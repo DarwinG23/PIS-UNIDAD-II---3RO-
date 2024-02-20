@@ -60,7 +60,7 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.estudiante = usuario;
         txtNombre.setText(estudiante.getNombre().toUpperCase() + " " + estudiante.getApellido().toUpperCase());
-        
+
         btnAdmMenu.setEnabled(false);
         btnAdmMenu.setVisible(false);
         btnDoCreaTarea.setEnabled(false);
@@ -75,16 +75,22 @@ public class Menu extends javax.swing.JFrame {
         Fondo3.setIcon(new ImageIcon("fotos/MenuInicio.jpg"));
         this.setLocationRelativeTo(null);
         this.docente = usuario;
-        txtNombre.setText(estudiante.getNombre().toUpperCase() + " " + estudiante.getApellido().toUpperCase());
-        btnAdmMenu.setEnabled(false);
-        btnAdmMenu.setVisible(false);
-
-        btnEstMatriculas.setEnabled(false);
-        btnEstNota.setEnabled(false);
-        btnMenu.setEnabled(false);
-        btnEstMatriculas.setVisible(false);
-        btnEstNota.setVisible(false);
-        btnMenu.setVisible(false);
+        txtNombre.setText(docente.getNombre().toUpperCase() + " " + docente.getApellido().toUpperCase());
+        if (usuario.getRolDocente().equalsIgnoreCase("Docente")) {
+            btnAdmMenu.setEnabled(false);
+            btnAdmMenu.setVisible(false);
+            btnEstMatriculas.setEnabled(false);
+            btnEstNota.setEnabled(false);
+            btnEstMatriculas.setVisible(false);
+            btnEstNota.setVisible(false);
+        }else{
+            btnEstMatriculas.setEnabled(false);
+            btnEstNota.setEnabled(false);
+            btnEstMatriculas.setVisible(false);
+            btnEstNota.setVisible(false);
+        
+        }
+        
 //        asignarNombre();
     }
 

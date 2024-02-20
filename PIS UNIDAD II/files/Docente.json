@@ -1,1 +1,40 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"usuarios.modelo.Docente","nombre":"Abel","apellido":"Mora","edad":19,"cedula":1105532335,"correo":"abelmora2004@gmail.com","IdDocente":1,"tituloProfesional":"Ing.Sistemas","aniosExperiencia":10,"CorreoUsuario":"abel.mora@unl.edu.ec","ContraseniaUsuario":1105532335,"RolDocente":"Personal Administrativo"},"next":{"info":{"@class":"usuarios.modelo.Docente","nombre":"Alexander","apellido":"Sanchez","edad":19,"cedula":1104753890,"correo":"alexandersanchez2004@unl.edu.ec","IdDocente":2,"tituloProfesional":"Ing.Computación","aniosExperiencia":6,"CorreoUsuario":"alexander.sanchez@unl.edu.ec","ContraseniaUsuario":1104753890,"RolDocente":"Docente"}}},"last":{"@reference":"..\/header\/next"},"length":2}}
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "usuarios.modelo.Docente",
+                "nombre": "Abel",
+                "apellido": "Mora",
+                "edad": 19,
+                "cedula": 1105532335,
+                "correo": "abelmora2004@gmail.com",
+                "IdDocente": 1,
+                "tituloProfesional": "Ing.Sistemas",
+                "aniosExperiencia": 10,
+                "CorreoUsuario": "abel.mora@unl.edu.ec",
+                "ContraseniaUsuario": 1105532335,
+                "RolDocente": "Personal Administrativo"
+            },
+            "next": {
+                "info": {
+                    "@class": "usuarios.modelo.Docente",
+                    "nombre": "Alexander",
+                    "apellido": "Sanchez",
+                    "edad": 19,
+                    "cedula": 1104753890,
+                    "correo": "alexandersanchez2004@unl.edu.ec",
+                    "IdDocente": 2,
+                    "tituloProfesional": "Ing.Computación",
+                    "aniosExperiencia": 6,
+                    "CorreoUsuario": "alexander.sanchez@unl.edu.ec",
+                    "ContraseniaUsuario": 1104753890,
+                    "RolDocente": "Docente"
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next"
+        },
+        "length": 2
+    }
+}
