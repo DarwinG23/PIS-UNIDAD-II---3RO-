@@ -34,7 +34,8 @@ public class TareaDocente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Limpiar();
-
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
 
     public TareaDocente(Docente docente) throws HeadlessException {
@@ -42,7 +43,8 @@ public class TareaDocente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Limpiar();
-
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
     
 
@@ -195,39 +197,39 @@ public class TareaDocente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel2 = new org.edisoncor.gui.panel.Panel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblMostrar = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
+        pnlGris = new org.edisoncor.gui.panel.PanelImage();
+        jLabel14 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
         cbxOrden = new javax.swing.JCheckBox();
+        jLabel11 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMostrar = new javax.swing.JTable();
         btnOrdenar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        pnlAzul = new org.edisoncor.gui.panel.PanelImage();
+        jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        cbxMateria = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cbxTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtFechaInicio = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        txtFechaFinal = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         cbxEstado = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        cbxEstudiante = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        cbxMateria = new javax.swing.JComboBox<>();
-        txtFechaFinal = new com.toedter.calendar.JDateChooser();
-        txtFechaInicio = new com.toedter.calendar.JDateChooser();
-        cbxEstudiante = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -238,13 +240,40 @@ public class TareaDocente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panel2.setColorSecundario(new java.awt.Color(255, 255, 255));
-        panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlGris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("BUSCAR TAREAS");
-        panel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 270, 40));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("BUSCAR TAREAS");
+        pnlGris.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 270, 40));
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("ORDENAR DATOS:");
+        pnlGris.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, -1));
+
+        cbxCriterio.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id_TipoTarea", "Id_EstadoTarea", "Titulo_Tarea", "Fecha_Inicio", "Fecha_Final", "Descripcion", " " }));
+        cbxCriterio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCriterioActionPerformed(evt);
+            }
+        });
+        pnlGris.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        cbxOrden.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        cbxOrden.setForeground(new java.awt.Color(255, 102, 102));
+        cbxOrden.setText("Descendente");
+        pnlGris.add(cbxOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 140, -1));
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("BUSCAR DATOS:");
+        pnlGris.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+
+        txtBuscar.setBackground(new java.awt.Color(204, 204, 255));
+        txtBuscar.setForeground(new java.awt.Color(153, 153, 255));
+        pnlGris.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 140, 30));
 
         tblMostrar.setBackground(new java.awt.Color(204, 255, 204));
         tblMostrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -259,45 +288,7 @@ public class TareaDocente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMostrar);
 
-        panel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 620, 300));
-
-        jLabel11.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("BUSCAR DATOS:");
-        panel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
-
-        txtBuscar.setBackground(new java.awt.Color(204, 204, 255));
-        txtBuscar.setForeground(new java.awt.Color(153, 153, 255));
-        panel2.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 220, 30));
-
-        jLabel12.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("ORDENAR DATOS:");
-        panel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
-
-        cbxCriterio.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
-        cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id_TipoTarea", "Id_EstadoTarea", "Titulo_Tarea", "Fecha_Inicio", "Fecha_Final", "Descripcion", " " }));
-        cbxCriterio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxCriterioActionPerformed(evt);
-            }
-        });
-        panel2.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("BUSCAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 190, -1));
-
-        cbxOrden.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
-        cbxOrden.setForeground(new java.awt.Color(255, 102, 102));
-        cbxOrden.setText("Descendente");
-        panel2.add(cbxOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 120, 190, -1));
+        pnlGris.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 490, 300));
 
         btnOrdenar.setBackground(new java.awt.Color(0, 0, 0));
         btnOrdenar.setForeground(new java.awt.Color(255, 255, 255));
@@ -307,50 +298,99 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnOrdenarActionPerformed(evt);
             }
         });
-        panel2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 170, -1));
+        pnlGris.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 190, -1));
 
-        getContentPane().add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 650, 580));
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("BUSCAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnlGris.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 190, -1));
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setForeground(new java.awt.Color(0, 51, 153));
-        jPanel1.setPreferredSize(new java.awt.Dimension(650, 580));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 610, 620));
+
+        pnlAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("ENVIO DE TAREAS");
+        pnlAzul.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("MATERIA:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 130, -1));
+        pnlAzul.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 130, -1));
+
+        pnlAzul.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 340, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("TÍTULO TAREA:");
+        pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         txtTitulo.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 300, 30));
+        pnlAzul.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 340, 30));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("TIPO TAREA:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        pnlAzul.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         cbxTipo.setBackground(new java.awt.Color(204, 204, 255));
         cbxTipo.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         cbxTipo.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 300, 40));
+        pnlAzul.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 340, 40));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("DESCRIPCIÓN TAREA");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 200, 50));
+        pnlAzul.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 200, 50));
 
         txtDescripcion.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 310, 40));
+        pnlAzul.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 310, 40));
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("FECHA INICIO:");
+        pnlAzul.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        txtFechaInicio.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                txtFechaInicioMouseWheelMoved(evt);
+            }
+        });
+        pnlAzul.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 300, -1));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("FECHA FINAL:");
+        pnlAzul.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+
+        txtFechaFinal.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                txtFechaFinalMouseWheelMoved(evt);
+            }
+        });
+        pnlAzul.add(txtFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 300, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("ESTADO TAREA:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+        pnlAzul.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
 
         cbxEstado.setBackground(new java.awt.Color(204, 204, 255));
         cbxEstado.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 310, 40));
+        pnlAzul.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 310, 40));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("ESTUDIANTE");
+        pnlAzul.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, -1, -1));
+
+        pnlAzul.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 300, -1));
 
         btnGuardar.setBackground(new java.awt.Color(0, 0, 0));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -360,12 +400,12 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 190, 60));
+        pnlAzul.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 190, 60));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("¿DESEA CAMBIAR ALGUN DATO?");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, -1, -1));
+        pnlAzul.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, -1, -1));
 
         btnSeleccionar.setBackground(new java.awt.Color(0, 0, 0));
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
@@ -375,7 +415,7 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, -1, 40));
+        pnlAzul.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 560, -1, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 0, 0));
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -385,52 +425,9 @@ public class TareaDocente extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, -1, 40));
+        pnlAzul.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 560, 200, 40));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("FECHA INICIO:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("FECHA FINAL:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("ESTUDIANTE");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
-
-        jPanel1.add(cbxMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 300, -1));
-
-        txtFechaFinal.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                txtFechaFinalMouseWheelMoved(evt);
-            }
-        });
-        jPanel1.add(txtFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 300, -1));
-
-        txtFechaInicio.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                txtFechaInicioMouseWheelMoved(evt);
-            }
-        });
-        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 300, -1));
-
-        jPanel1.add(cbxEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 300, -1));
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("TÍTULO TAREA:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("ENVIO DE TAREAS");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 300, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, -1));
+        getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 620));
 
         jMenu3.setText("OPCIONES DOCENTE");
         jMenu3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -517,7 +514,7 @@ public class TareaDocente extends javax.swing.JFrame {
             tareaControl.getTarea1().setDescripcion(txtDescripcion.getText());
             tareaControl.getTarea1().setId_tarea(utilVistaTipoTarea.ObtenerTipoTarea(cbxTipo));
             tareaControl.getTarea1().setId_estado(utilVistaEstadoTarea.ObtenerEstadoTarea(cbxEstado));
-             tareaControl.getTarea1().setMateria(utilVistaEstadoTarea.ObtenerMateria(cbxMateria));
+            tareaControl.getTarea1().setMateria(utilVistaEstadoTarea.ObtenerMateria(cbxMateria));
             tareaControl.getTarea1().setEstudiante(utilVistaEstadoTarea.ObtenerEstudiante(cbxEstudiante));
             tareaControl.getTarea1().setTituloTarea(txtTitulo.getText());
             tareaControl.getTarea1().setFecha_Inicio(txtFechaInicio.getDate());
@@ -594,11 +591,11 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbxOrden;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -613,9 +610,9 @@ public class TareaDocente extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.edisoncor.gui.panel.Panel panel2;
+    private org.edisoncor.gui.panel.PanelImage pnlAzul;
+    private org.edisoncor.gui.panel.PanelImage pnlGris;
     private javax.swing.JTable tblMostrar;
     private javax.swing.JTextField txtBuscar;
     public static javax.swing.JTextField txtDescripcion;
