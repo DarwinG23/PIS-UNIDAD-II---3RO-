@@ -196,10 +196,7 @@ public class LoginPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        //        Guardar();
-//        Menu A = new Menu();
-//        A.setVisible(true);
-//        this.dispose();
+
         VerificarEstudiante();
     }//GEN-LAST:event_btnIniciarActionPerformed
 

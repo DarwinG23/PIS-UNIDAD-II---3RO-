@@ -51,7 +51,6 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         Fondo3.setIcon(new ImageIcon("fotos/MenuInicio.jpg"));
         this.setLocationRelativeTo(null);
-        pnlUsuario.setIcon(new ImageIcon("fotos/usuario.png"));
 //        asignarNombre();
     }
 
@@ -61,7 +60,7 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.estudiante = usuario;
         txtNombre.setText(estudiante.getNombre().toUpperCase() + " " + estudiante.getApellido().toUpperCase());
-        pnlUsuario.setIcon(new ImageIcon("fotos/usuario.png"));
+        
         btnAdmMenu.setEnabled(false);
         btnAdmMenu.setVisible(false);
         btnDoCreaTarea.setEnabled(false);
@@ -77,16 +76,15 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.docente = usuario;
         txtNombre.setText(estudiante.getNombre().toUpperCase() + " " + estudiante.getApellido().toUpperCase());
-        pnlUsuario.setIcon(new ImageIcon("fotos/usuario.png"));
         btnAdmMenu.setEnabled(false);
         btnAdmMenu.setVisible(false);
 
         btnEstMatriculas.setEnabled(false);
         btnEstNota.setEnabled(false);
-        btnEstTarea.setEnabled(false);
+        btnMenu.setEnabled(false);
         btnEstMatriculas.setVisible(false);
         btnEstNota.setVisible(false);
-        btnEstTarea.setVisible(false);
+        btnMenu.setVisible(false);
 //        asignarNombre();
     }
 
@@ -98,108 +96,107 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         Fondo3 = new org.edisoncor.gui.panel.PanelImage();
-        pnlUsuario = new org.edisoncor.gui.panel.PanelImage();
         txtNombre = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        btnEstTarea = new javax.swing.JMenu();
+        btnMenu = new javax.swing.JMenu();
         btnEstMatriculas = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         btnEstNota = new javax.swing.JMenuItem();
-        btnSalir = new javax.swing.JMenuItem();
         btnDoCreaTarea = new javax.swing.JMenuItem();
         btnDocCalifTarea = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         btnAdmMenu = new javax.swing.JMenu();
         btnAdmCarrera = new javax.swing.JMenuItem();
         btnAdmMalla = new javax.swing.JMenuItem();
         btnAdmCiclo = new javax.swing.JMenuItem();
         btnAdmCursa = new javax.swing.JMenuItem();
         btnAdmMatricula = new javax.swing.JMenuItem();
+        btnAdmMateria = new javax.swing.JMenuItem();
         btnAdmPeriodo = new javax.swing.JMenuItem();
         btnAdmEstudiante = new javax.swing.JMenuItem();
         btnAdmDocente = new javax.swing.JMenuItem();
-        btnAdmMateria = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Fondo3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout pnlUsuarioLayout = new javax.swing.GroupLayout(pnlUsuario);
-        pnlUsuario.setLayout(pnlUsuarioLayout);
-        pnlUsuarioLayout.setHorizontalGroup(
-            pnlUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-        pnlUsuarioLayout.setVerticalGroup(
-            pnlUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        Fondo3.add(pnlUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 50, 50));
-
         txtNombre.setBackground(new java.awt.Color(153, 153, 255));
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(0, 204, 204));
+        txtNombre.setForeground(new java.awt.Color(255, 102, 51));
         txtNombre.setText("NOMBRE APELLIDO");
-        Fondo3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 350, 30));
+        Fondo3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, 270, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/usuario.png"))); // NOI18N
+        Fondo3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 60, 60));
 
         getContentPane().add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 580));
 
-        btnEstTarea.setText("Menu");
-        btnEstTarea.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/casa.png"))); // NOI18N
+        btnMenu.setText("Inicio");
+        btnMenu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
+        btnEstMatriculas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/credencial.png"))); // NOI18N
         btnEstMatriculas.setText("Matriculas");
         btnEstMatriculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEstMatriculasActionPerformed(evt);
             }
         });
-        btnEstTarea.add(btnEstMatriculas);
+        btnMenu.add(btnEstMatriculas);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/carpeta.png"))); // NOI18N
         jMenuItem3.setText("Tarea");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        btnEstTarea.add(jMenuItem3);
+        btnMenu.add(jMenuItem3);
 
+        btnEstNota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/estrella.png"))); // NOI18N
         btnEstNota.setText("Calificaciones");
         btnEstNota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEstNotaActionPerformed(evt);
             }
         });
-        btnEstTarea.add(btnEstNota);
+        btnMenu.add(btnEstNota);
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        btnEstTarea.add(btnSalir);
-
+        btnDoCreaTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/documento.png"))); // NOI18N
         btnDoCreaTarea.setText("Crear Tarea");
         btnDoCreaTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDoCreaTareaActionPerformed(evt);
             }
         });
-        btnEstTarea.add(btnDoCreaTarea);
+        btnMenu.add(btnDoCreaTarea);
 
+        btnDocCalifTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/notas.png"))); // NOI18N
         btnDocCalifTarea.setText("Calificar Tarea");
         btnDocCalifTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDocCalifTareaActionPerformed(evt);
             }
         });
-        btnEstTarea.add(btnDocCalifTarea);
+        btnMenu.add(btnDocCalifTarea);
 
-        jMenuBar1.add(btnEstTarea);
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/puerta.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        btnMenu.add(btnSalir);
 
+        jMenuBar1.add(btnMenu);
+
+        btnAdmMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/herramientas.png"))); // NOI18N
         btnAdmMenu.setText("Administración");
 
+        btnAdmCarrera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/carrera.png"))); // NOI18N
         btnAdmCarrera.setText("Carrera");
         btnAdmCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +205,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmCarrera);
 
+        btnAdmMalla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/malla.png"))); // NOI18N
         btnAdmMalla.setText("Malla");
         btnAdmMalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +214,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmMalla);
 
+        btnAdmCiclo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ciclo.png"))); // NOI18N
         btnAdmCiclo.setText("Ciclo");
         btnAdmCiclo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +223,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmCiclo);
 
+        btnAdmCursa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cursa.png"))); // NOI18N
         btnAdmCursa.setText("Cursa");
         btnAdmCursa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +232,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmCursa);
 
+        btnAdmMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/matricula.png"))); // NOI18N
         btnAdmMatricula.setText("Matricula");
         btnAdmMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +241,16 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmMatricula);
 
+        btnAdmMateria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/materias.png"))); // NOI18N
+        btnAdmMateria.setText("Materias");
+        btnAdmMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmMateriaActionPerformed(evt);
+            }
+        });
+        btnAdmMenu.add(btnAdmMateria);
+
+        btnAdmPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/periodo.png"))); // NOI18N
         btnAdmPeriodo.setText("Periodo Académico");
         btnAdmPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +259,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmPeriodo);
 
+        btnAdmEstudiante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/estudiante.png"))); // NOI18N
         btnAdmEstudiante.setText("Registro Estudiante");
         btnAdmEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,6 +268,7 @@ public class Menu extends javax.swing.JFrame {
         });
         btnAdmMenu.add(btnAdmEstudiante);
 
+        btnAdmDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/docente.png"))); // NOI18N
         btnAdmDocente.setText("Registro Docente");
         btnAdmDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,14 +276,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         btnAdmMenu.add(btnAdmDocente);
-
-        btnAdmMateria.setText("Materias");
-        btnAdmMateria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdmMateriaActionPerformed(evt);
-            }
-        });
-        btnAdmMenu.add(btnAdmMateria);
 
         jMenuBar1.add(btnAdmMenu);
 
@@ -432,11 +437,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnDocCalifTarea;
     private javax.swing.JMenuItem btnEstMatriculas;
     private javax.swing.JMenuItem btnEstNota;
-    private javax.swing.JMenu btnEstTarea;
+    private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnSalir;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private org.edisoncor.gui.panel.PanelImage pnlUsuario;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }
