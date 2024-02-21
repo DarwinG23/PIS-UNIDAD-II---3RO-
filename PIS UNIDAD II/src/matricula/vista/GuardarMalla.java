@@ -22,7 +22,7 @@ import matricula.vista.util.UtilVistaMalla;
 import usuarios.modelo.Docente;
 import usuarios.vista.LoginPrincipal;
 import usuarios.vista.Menu;
-import usuarios.vista.MenuAdmin;
+import usuarios.vista.Menu;
 
 /**
  *
@@ -494,7 +494,7 @@ public class GuardarMalla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new MenuAdmin(this.docente).setVisible(true);
+        new Menu(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 

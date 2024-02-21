@@ -23,7 +23,7 @@ import usuarios.modelo.Estudiante;
 import usuarios.vista.GestionDocente;
 import usuarios.vista.GestionEstudiante;
 import usuarios.vista.Menu;
-import usuarios.vista.MenuAdmin;
+import usuarios.vista.Menu;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import usuarios.vista.LoginPrincipal;
@@ -449,7 +449,7 @@ public class FrmMateria extends javax.swing.JFrame {
         try {
             new GuardarCarrera(this.docente).setVisible(true);
         } catch (EmptyException ex) {
-            Logger.getLogger(MenuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
 
         }
         this.dispose();
@@ -503,7 +503,7 @@ public class FrmMateria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmDocenteActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new MenuAdmin(this.docente).setVisible(true);
+        new Menu(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 

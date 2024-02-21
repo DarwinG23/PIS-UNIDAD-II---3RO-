@@ -1,1 +1,48 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"materias.modelo.Materia","nombre":" Base de datos","paralelo":" A","ciclo":3,"id":1,"fecha":"2024-02-01 13:37:23.404 UTC"},"next":{"info":{"@class":"materias.modelo.Materia","nombre":" Arquitectura","paralelo":" B","ciclo":6,"id":2,"fecha":"2024-03-03 13:37:23.404 UTC"}}},"last":{"@reference":"..\/header\/next"},"length":2}}
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "materias.modelo.Materia",
+                "nombre": " Base de datos",
+                "paralelo": " A",
+                "ciclo": 3,
+                "id": 1,
+                "fecha": "2024-02-01 13:37:23.404 UTC"
+            },
+            "next": {
+                "info": {
+                    "@class": "materias.modelo.Materia",
+                    "nombre": " Arquitectura",
+                    "paralelo": " B",
+                    "ciclo": 6,
+                    "id": 2,
+                    "fecha": "2024-03-03 13:37:23.404 UTC"
+                },
+                "next": {
+                    "info": {
+                        "@class": "materias.modelo.Materia",
+                        "nombre": " Electricidad",
+                        "paralelo": " A",
+                        "ciclo": 1,
+                        "id": 3,
+                        "fecha": "2024-02-01 19:43:45.444 UTC"
+                    },
+                    "next": {
+                        "info": {
+                            "@class": "materias.modelo.Materia",
+                            "nombre": " Teoria de Programación",
+                            "paralelo": " A",
+                            "ciclo": 1,
+                            "id": 4,
+                            "fecha": "2024-02-01 19:43:45.444 UTC"
+                        }
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next\/next\/next"
+        },
+        "length": 4
+    }
+}

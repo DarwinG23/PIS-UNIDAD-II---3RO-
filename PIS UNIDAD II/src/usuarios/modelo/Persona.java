@@ -8,16 +8,16 @@ package usuarios.modelo;
  *
  * @author Alexander
  */
-public class Usuario {
+public class Persona {
     
-    String nombre;
-    String apellido;
-    String edad;
-    private Integer id;
-    String cedula;
-    String correo;
+    protected  String nombre;
+    protected String apellido;
+    protected  String edad;
+    protected  Integer id;
+    protected String cedula;
+    protected  String correo;
 
-    public Usuario(String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
+    public Persona(String nombre, String apellido, String edad, Integer id, String cedula, String correo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -26,9 +26,9 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public Usuario() {
-        this.nombre = null;
-        this.apellido = null;
+    public Persona() {
+//        this.nombre = null;
+//        this.apellido = null;
         this.edad = null;
         this.id = null;
         this.cedula = null;

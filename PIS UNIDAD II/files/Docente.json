@@ -3,60 +3,38 @@
         "header": {
             "info": {
                 "@class": "usuarios.modelo.Docente",
+                "nombre": "Abel",
+                "apellido": "Mora",
+                "edad": 19,
+                "cedula": 1105532335,
+                "correo": "abelmora2004@gmail.com",
                 "IdDocente": 1,
-                "DatosUsuarioDocente": {
-                    "nombre": "Jose",
-                    "apellido": "Luis",
-                    "edad": 23,
-                    "cedula": 123,
-                    "correo": "jose18@gmail.com"
-                },
-                "tituloProfesional": "Licenciado en computacion",
-                "aniosExperiencia": 3,
-                "CorreoUsuario": "jose.luis@unl.edu.ec",
-                "ContraseniaUsuario": 123,
-                "RolDocente": "Docente"
+                "tituloProfesional": "Ing.Sistemas",
+                "aniosExperiencia": 10,
+                "CorreoUsuario": "abel.mora@unl.edu.ec",
+                "ContraseniaUsuario": 1105532335,
+                "RolDocente": "Personal Administrativo"
             },
             "next": {
                 "info": {
                     "@class": "usuarios.modelo.Docente",
+                    "nombre": "Alexander",
+                    "apellido": "Sanchez",
+                    "edad": 19,
+                    "cedula": 1104753890,
+                    "correo": "alexandersanchez2004@unl.edu.ec",
                     "IdDocente": 2,
-                    "DatosUsuarioDocente": {
-                        "nombre": "darwin",
-                        "apellido": "granda",
-                        "edad": 21,
-                        "cedula": 1106006123,
-                        "correo": "darwingranda2001@gmail.com"
-                    },
-                    "tituloProfesional": "Ing.Sistemas",
-                    "aniosExperiencia": 5,
-                    "CorreoUsuario": "darwin.granda@unl.edu.ec",
-                    "ContraseniaUsuario": 1106006123,
-                    "RolDocente": "Personal Administrativo"
-                },
-                "next": {
-                    "info": {
-                        "@class": "usuarios.modelo.Docente",
-                        "IdDocente": 3,
-                        "DatosUsuarioDocente": {
-                            "nombre": "Rene",
-                            "apellido": "Guaman",
-                            "edad": 32,
-                            "cedula": 1105532335,
-                            "correo": "rene2004@gmail.com"
-                        },
-                        "tituloProfesional": "Licenciado",
-                        "aniosExperiencia": 10,
-                        "CorreoUsuario": "rene.guaman@unl.edu.ec",
-                        "ContraseniaUsuario": 1105532335,
-                        "RolDocente": "Docente"
-                    }
+                    "tituloProfesional": "Ing.Computación",
+                    "aniosExperiencia": 6,
+                    "CorreoUsuario": "alexander.sanchez@unl.edu.ec",
+                    "ContraseniaUsuario": 1104753890,
+                    "RolDocente": "Docente"
                 }
             }
         },
         "last": {
-            "@reference": "..\/header\/next\/next"
+            "@reference": "..\/header\/next"
         },
-        "length": 3
+        "length": 2
     }
 }

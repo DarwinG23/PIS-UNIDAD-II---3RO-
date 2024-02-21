@@ -21,7 +21,7 @@ import matricula.vista.GuardarPeriodoAcademico;
 import usuarios.controlador.daoUsuario.DocenteControlDao;
 import usuarios.controlador.util.Util;
 import usuarios.modelo.Docente;
-import usuarios.modelo.Usuario;
+import usuarios.modelo.Persona;
 import vista.modelo.ModeloTablaDocente;
 
 /**
@@ -108,14 +108,19 @@ public class GestionDocente extends javax.swing.JFrame {
         if (Validar()) {
             if (util.validadorDeCedula(txtCedula.getText())) {
 
-                Usuario uc = new Usuario();
-                uc.setCedula(txtCedula.getText());
-                uc.setNombre(txtNombre.getText());
-                uc.setApellido(txtApellido.getText());
-                uc.setEdad(txtEdad.getText());
-                uc.setCorreo(txtCorreo.getText());
+               // Persona uc = new Persona();
+//                uc.setCedula(txtCedula.getText());
+//                uc.setNombre(txtNombre.getText());
+//                uc.setApellido(txtApellido.getText());
+//                uc.setEdad(txtEdad.getText());
+//                uc.setCorreo(txtCorreo.getText());
 
-                docenteControl.getDocente1().setDatosUsuarioDocente(uc);
+                //docenteControl.getDocente1().setDatosUsuarioDocente(uc);
+                docenteControl.getDocente1().setCedula(txtCedula.getText());
+                docenteControl.getDocente1().setNombre(txtNombre.getText());
+                docenteControl.getDocente1().setApellido(txtApellido.getText());
+                docenteControl.getDocente1().setEdad(txtEdad.getText());
+                docenteControl.getDocente1().setCorreo(txtCorreo.getText());
 
                 docenteControl.getDocente1().setTituloProfesional(txtTituloProfesional.getText());
                 docenteControl.getDocente1().setAniosExperiencia(txtAniosExperiencia.getText());
@@ -133,8 +138,8 @@ public class GestionDocente extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar");
                 }
-            }else{
-                 JOptionPane.showMessageDialog(null, "Cedula no valida");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cedula no valida");
             }
 
         } else {
@@ -151,11 +156,11 @@ public class GestionDocente extends javax.swing.JFrame {
         } else {
             try {
                 docenteControl.setDocente1(mta.getDocente().getInfo(fila));
-                txtNombre.setText(docenteControl.getDocente1().getDatosUsuarioDocente().getNombre());
-                txtApellido.setText(docenteControl.getDocente1().getDatosUsuarioDocente().getApellido());
-                txtEdad.setText(docenteControl.getDocente1().getDatosUsuarioDocente().getEdad());
-                txtCedula.setText(docenteControl.getDocente1().getDatosUsuarioDocente().getCedula());
-                txtCorreo.setText(docenteControl.getDocente1().getDatosUsuarioDocente().getCorreo());
+                txtNombre.setText(docenteControl.getDocente1().getNombre());
+                txtApellido.setText(docenteControl.getDocente1().getApellido());
+                txtEdad.setText(docenteControl.getDocente1().getEdad());
+                txtCedula.setText(docenteControl.getDocente1().getCedula());
+                txtCorreo.setText(docenteControl.getDocente1().getCorreo());
                 txtAniosExperiencia.setText(docenteControl.getDocente1().getAniosExperiencia());
                 txtTituloProfesional.setText(docenteControl.getDocente1().getTituloProfesional());
                 txtUsuario.setText(docenteControl.getDocente1().getCorreoUsuario());
@@ -566,14 +571,19 @@ public class GestionDocente extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (Validar()) {
-            Usuario uc = new Usuario();
-            uc.setCedula(txtCedula.getText());
-            uc.setNombre(txtNombre.getText());
-            uc.setApellido(txtApellido.getText());
-            uc.setEdad(txtEdad.getText());
-            uc.setCorreo(txtCorreo.getText());
+//            Persona uc = new Persona();
+//            uc.setCedula(txtCedula.getText());
+//            uc.setNombre(txtNombre.getText());
+//            uc.setApellido(txtApellido.getText());
+//            uc.setEdad(txtEdad.getText());
+//            uc.setCorreo(txtCorreo.getText());
 
-            docenteControl.getDocente1().setDatosUsuarioDocente(uc);
+            //docenteControl.getDocente1().setDatosUsuarioDocente(uc);
+            docenteControl.getDocente1().setCedula(txtCedula.getText());
+            docenteControl.getDocente1().setNombre(txtNombre.getText());
+            docenteControl.getDocente1().setApellido(txtApellido.getText());
+            docenteControl.getDocente1().setEdad(txtEdad.getText());
+            docenteControl.getDocente1().setCorreo(txtCorreo.getText());
 
             docenteControl.getDocente1().setAniosExperiencia(txtAniosExperiencia.getText());
             docenteControl.getDocente1().setTituloProfesional(txtTituloProfesional.getText());
@@ -672,7 +682,7 @@ public class GestionDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdmPeriodoActionPerformed
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
-        new MenuAdmin(this.docente).setVisible(true);
+        new Menu(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 

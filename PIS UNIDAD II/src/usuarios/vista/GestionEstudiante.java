@@ -5,9 +5,23 @@
 package usuarios.vista;
 
 import exeption.EmptyException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import lista.DynamicList;
+import materias.modelo.Materia;
+import matricula.controlador.CicloControl;
+import matricula.controlador.CursaControl;
+import matricula.controlador.MallaControl;
+import matricula.controlador.MatriculaControl;
+import matricula.modelo.Ciclo;
+import matricula.modelo.Cursa;
+import matricula.modelo.Estado;
+import matricula.modelo.Malla;
+import matricula.modelo.Matricula;
 import matricula.vista.EstudianteMatricula;
 import matricula.vista.GuardarCarrera;
 import matricula.vista.GuardarCiclo;
@@ -17,10 +31,12 @@ import matricula.vista.GuardarMatricula;
 import matricula.vista.GuardarPeriodoAcademico;
 import matricula.vista.util.UtilVistaCarrera;
 import matricula.vista.util.UtilVistaMatricula;
+import matricula.vista.util.UtilVistaModalidad;
+import tareas.controlador.administrarTarea;
 import usuarios.controlador.daoUsuario.EstudianteControlDao;
 import usuarios.controlador.util.Util;
 import usuarios.modelo.Docente;
-import usuarios.modelo.Usuario;
+import usuarios.modelo.Persona;
 import vista.modelo.ModeloTablaEstudiante;
 
 /**
@@ -34,19 +50,27 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private Docente docente;
     private Util util = new Util();
 
+    private MatriculaControl mc = new MatriculaControl();
+    private CursaControl cc = new CursaControl();
+    private administrarTarea at = new administrarTarea();
+    private CicloControl cicloC = new CicloControl();
+    private MallaControl mallaC = new MallaControl();
+
     /**
      * Creates new form GestionEstudiante
      */
-    public GestionEstudiante() {
+    public GestionEstudiante() throws EmptyException {
         initComponents();
         this.setLocationRelativeTo(null);
         Fondo2.setIcon(new ImageIcon("fotos/Azul.png"));
         Limpiar();
         try {
-            UtilVistaCarrera.cargarcomboCarrera(cbxMatricula);
+            UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
+            UtilVistaModalidad.cargarComboModalidad(cbxModalidad);
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, "Necesita crear matriculas para registrar un estudiante");
         }
+        //System.out.println(estudianteControl.getListaEstudiante().getInfo(0).getMatriculas());
     }
 
     public GestionEstudiante(Docente usuario) {
@@ -55,9 +79,8 @@ public class GestionEstudiante extends javax.swing.JFrame {
         Fondo2.setIcon(new ImageIcon("fotos/Azul.png"));
         Limpiar();
         this.docente = usuario;
-        System.out.println(docente.getDatosUsuarioDocente().getNombre());
         try {
-            UtilVistaCarrera.cargarcomboCarrera(cbxMatricula);
+            UtilVistaCarrera.cargarcomboCarrera(cbxCarrera);
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, "Necesita crear matriculas para registrar un estudiante");
         }
@@ -114,41 +137,150 @@ public class GestionEstudiante extends javax.swing.JFrame {
         return correo;
     }
 
-    private void Guardar() {
+    private void Guardar() throws EmptyException {
         if (Validar()) {
 
-            Usuario uc = new Usuario();
+            //Persona uc = new Persona();
             if (util.validadorDeCedula(txtCedula.getText())) {
-                uc.setCedula(txtCedula.getText());
-                uc.setNombre(txtNombre.getText());
-                uc.setApellido(txtApellido.getText());
-                uc.setEdad(txtEdad.getText());
-                uc.setCorreo(txtCorreo.getText());
-
-                estudianteControl.getEstudiante().setDatosUsuario(uc);
-                estudianteControl.getEstudiante().getDatosUsuario().setEdad(txtEdad.getText());
-//            estudianteControl.getEstudiante().setPromedioAcademico(txtPeriodo.getText());
-                estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
-//            char[] contrase = jTextField1.getPassword();
-//            String contrasena = new String(contrase);
-                estudianteControl.getEstudiante().setContraseniaUsuario(txtContrasenia.getText());
-
-                if (estudianteControl.Persist()) {
-                    JOptionPane.showMessageDialog(null, "Datos guardados con exito");
-                    estudianteControl.setEstudiante(null);
-                    CargarTabla();
-                    Limpiar();
+                Matricula matricula = matricular();
+                if (matricula == null) {
+                    JOptionPane.showMessageDialog(null, "No hay matriculas disponible");
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar");
+
+                    estudianteControl.getEstudiante().setCedula(txtCedula.getText());
+                    estudianteControl.getEstudiante().setNombre(txtNombre.getText());
+                    estudianteControl.getEstudiante().setApellido(txtApellido.getText());
+                    estudianteControl.getEstudiante().setEdad(txtEdad.getText());
+                    estudianteControl.getEstudiante().setCorreo(txtCorreo.getText());
+
+                    estudianteControl.getEstudiante().getMatriculas().add(matricula);
+                    estudianteControl.getEstudiante().setMatriculas(estudianteControl.getEstudiante().getMatriculas());
+
+                    estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
+
+                    estudianteControl.getEstudiante().setContraseniaUsuario(txtContrasenia.getText());
+
+                    if (estudianteControl.Persist()) {
+                        DynamicList<Cursa> cursas = obtenerMaterias();
+                        if (agregarCursas(cursas)) {
+                            estudianteControl.setEstudiante(null);
+                            CargarTabla();
+                            Limpiar();
+                            JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                    }
+
                 }
-            }else{
-               JOptionPane.showMessageDialog(null, "La cedula no es valida ");
+            } else {
+                JOptionPane.showMessageDialog(null, "La cedula no es valida ");
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos ");
 
         }
+    }
+
+    private Boolean agregarCursas(DynamicList<Cursa> cursas) throws EmptyException {
+        Integer id = estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength() - 1).getIdEstudiante();
+        Matricula matricula = estudianteControl.getListaEstudiante().getInfo(id - 1).getMatriculas().getInfo(0);
+        matricula.setCursas(cursas);
+        DynamicList<Matricula> matriculas = new DynamicList<>();
+        matriculas.add(matricula);
+
+        estudianteControl.getEstudiante().setCedula(estudianteControl.getListaEstudiante().getInfo(id - 1).getCedula());
+        estudianteControl.getEstudiante().setNombre(estudianteControl.getListaEstudiante().getInfo(id - 1).getNombre());
+        estudianteControl.getEstudiante().setApellido(estudianteControl.getListaEstudiante().getInfo(id - 1).getApellido());
+        estudianteControl.getEstudiante().setEdad(estudianteControl.getListaEstudiante().getInfo(id - 1).getEdad());
+        estudianteControl.getEstudiante().setCorreo(estudianteControl.getListaEstudiante().getInfo(id - 1).getCorreo());
+
+        estudianteControl.getEstudiante().setCorreoUsuario(estudianteControl.getListaEstudiante().getInfo(id - 1).getCorreoUsuario());
+        estudianteControl.getEstudiante().setContraseniaUsuario(estudianteControl.getListaEstudiante().getInfo(id - 1).getContraseniaUsuario());
+        estudianteControl.getEstudiante().setMatriculas(matriculas);
+
+        if (estudianteControl.marge(estudianteControl.getEstudiante(), id - 1)) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    private DynamicList<Cursa> obtenerMaterias() throws EmptyException {
+        Ciclo cicloActual = new Ciclo();
+        Malla mallaActual = new Malla();
+        Integer id_malla = 0;
+
+        for (int i = 0; i < mallaC.getListMalla().getLength(); i++) {
+            mallaActual = mallaC.getListMalla().getInfo(i);
+            if (mallaActual.getId_Carrera() == cbxCarrera.getSelectedIndex() + 1) {
+                id_malla = mallaActual.getId_Carrera();
+                System.out.println("break id malla: " + id_malla);
+                break;
+            }
+        }
+
+        DynamicList<Cursa> cursas = new DynamicList<>();
+
+        for (int i = 0; i < cicloC.getListCiclo().getLength(); i++) {
+            cicloActual = cicloC.getListCiclo().getInfo(i);
+            int id_malla_CicloActual = cicloActual.getId_Malla();
+            if (id_malla_CicloActual == id_malla && cicloActual.getNumCiclo() == 1) {
+                break;
+            }
+        }
+
+        for (int k = 0; k < cicloActual.getMaterias().getLength(); k++) {
+            Cursa cs = crearCursa(k, cicloActual.getMaterias().getInfo(k).getId());
+            cursas.add(cs);
+        }
+        return cursas;
+
+    }
+
+    private Cursa crearCursa(Integer id, Integer id_Materia) throws EmptyException {
+        Cursa cursa = new Cursa();
+        cursa.setId(id + 1);
+        cursa.setId_matricula(1);
+        cursa.setId_materia(id_Materia);
+        cursa.setParalelo("A");
+        cursa.setId_docente(0);
+        cursa.setId_estudiante(estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength() - 1).getIdEstudiante());
+        return cursa;
+
+    }
+
+    private Matricula matricular() throws EmptyException {
+        Matricula matriculaActual = new Matricula();
+        DynamicList<Matricula> list = new DynamicList<>();
+        Matricula matriculaDisponible = new Matricula();
+        Date fecha = new Date();
+
+        for (int i = 0; i < mc.getListMatricula().getLength(); i++) {
+            matriculaActual = mc.getListMatricula().getInfo(i);
+            if (matriculaActual.getId_Carrera() == cbxCarrera.getSelectedIndex() + 1 && matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getModalidad() == cbxModalidad.getSelectedItem()) {
+                list.add(mc.getListMatricula().getInfo(i));
+
+            }
+        }
+
+        Matricula aux = new Matricula();
+        for (int i = 0; i < list.getLength(); i++) {
+            matriculaDisponible = list.getInfo(i);
+            for (int j = 0; j < list.getLength(); j++) {
+                aux = list.getInfo(j);
+                if (matriculaDisponible.getFechaEmision().compareTo(aux.getFechaEmision()) < 0) {
+                    matriculaDisponible = aux;
+                }
+            }
+        }
+        matriculaDisponible.setEstado(Estado.MATRICULADO);
+        matriculaDisponible.setId(1);
+        return matriculaDisponible;
     }
 
     private void cargarVista() {
@@ -158,11 +290,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
         } else {
             try {
                 estudianteControl.setEstudiante(mta.getEstudianteTabla().getInfo(fila));
-                txtNombre.setText(estudianteControl.getEstudiante().getDatosUsuario().getNombre());
-                txtApellido.setText(estudianteControl.getEstudiante().getDatosUsuario().getApellido());
-                txtEdad.setText(estudianteControl.getEstudiante().getDatosUsuario().getEdad());
-                txtCedula.setText(estudianteControl.getEstudiante().getDatosUsuario().getCedula());
-                txtCorreo.setText(estudianteControl.getEstudiante().getDatosUsuario().getCorreo());
+                txtNombre.setText(estudianteControl.getEstudiante().getNombre());
+                txtApellido.setText(estudianteControl.getEstudiante().getApellido());
+                txtEdad.setText(estudianteControl.getEstudiante().getEdad());
+                txtCedula.setText(estudianteControl.getEstudiante().getCedula());
+                txtCorreo.setText(estudianteControl.getEstudiante().getCorreo());
 //                txtPeriodo.setText(estudianteControl.getEstudiante().getPromedioAcademico());
                 txtUsuario.setText(estudianteControl.getEstudiante().getCorreoUsuario());
                 txtContrasenia.setText(estudianteControl.getEstudiante().getContraseniaUsuario());
@@ -232,19 +364,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
         txtApellido = new javax.swing.JTextField();
         txtEdad = new javax.swing.JTextField();
         txtCedula = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMostrar = new javax.swing.JTable();
-        btnGuardar = new javax.swing.JButton();
-        btnSeleccionar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
-        cbxMetodo = new javax.swing.JCheckBox();
-        btnOrdenar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        cbxCriterio1 = new javax.swing.JComboBox<>();
         cbxMetodo1 = new javax.swing.JComboBox<>();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -252,11 +376,22 @@ public class GestionEstudiante extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        cbxMatricula = new javax.swing.JComboBox<>();
+        cbxCarrera = new javax.swing.JComboBox<>();
         txtContrasenia = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        btnMatriculas = new javax.swing.JButton();
         Fondo2 = new org.edisoncor.gui.panel.PanelImage();
+        cbxCriterio1 = new javax.swing.JComboBox<>();
+        btnOrdenar = new javax.swing.JButton();
+        cbxMetodo = new javax.swing.JCheckBox();
+        btnSeleccionar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cbxModalidad = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         btnIncio = new javax.swing.JMenuItem();
@@ -329,11 +464,6 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         PN.add(txtEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 90, -1));
         PN.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 290, -1));
-
-        jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Matricula:");
-        PN.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
         PN.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 290, -1));
 
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
@@ -356,66 +486,13 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
         PN.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, 610, 460));
 
-        btnGuardar.setBackground(new java.awt.Color(0, 0, 51));
-        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("GUARDAR DATOS");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        PN.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
-
-        btnSeleccionar.setBackground(new java.awt.Color(0, 0, 51));
-        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeleccionar.setText("SELECCIONAR DATOS");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
-            }
-        });
-        PN.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 160, -1));
-
-        btnModificar.setBackground(new java.awt.Color(0, 0, 51));
-        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificar.setText("MODIFICAR DATOS");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-        PN.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, 160, -1));
-
-        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Ordenar:");
-        PN.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 100, -1));
-
         cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
         PN.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 260, -1));
-
-        cbxMetodo.setBackground(new java.awt.Color(255, 255, 255));
-        cbxMetodo.setForeground(new java.awt.Color(255, 255, 255));
-        cbxMetodo.setText("DESCENDENTE");
-        PN.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, -1, -1));
-
-        btnOrdenar.setBackground(new java.awt.Color(0, 0, 51));
-        btnOrdenar.setForeground(new java.awt.Color(255, 255, 255));
-        btnOrdenar.setText("ORDENAR");
-        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenarActionPerformed(evt);
-            }
-        });
-        PN.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 120, -1));
 
         jLabel9.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Buscar:");
         PN.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, -1));
-
-        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
-        PN.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 160, -1));
 
         cbxMetodo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Busqueda_Lineal", "Busqueda_Binaria" }));
         PN.add(cbxMetodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 150, -1));
@@ -452,8 +529,8 @@ public class GestionEstudiante extends javax.swing.JFrame {
         });
         PN.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, -1, -1));
 
-        cbxMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        PN.add(cbxMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 290, -1));
+        cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PN.add(cbxCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 290, -1));
 
         txtContrasenia.setEditable(false);
         PN.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 290, -1));
@@ -468,8 +545,83 @@ public class GestionEstudiante extends javax.swing.JFrame {
         jLabel13.setText("Contraseña:");
         PN.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
+        btnMatriculas.setText("Matriculas");
+        btnMatriculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatriculasActionPerformed(evt);
+            }
+        });
+        PN.add(btnMatriculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 120, 30));
+
         Fondo2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
+        Fondo2.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 160, -1));
+
+        btnOrdenar.setBackground(new java.awt.Color(0, 0, 51));
+        btnOrdenar.setForeground(new java.awt.Color(255, 255, 255));
+        btnOrdenar.setText("ORDENAR");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenarActionPerformed(evt);
+            }
+        });
+        Fondo2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, 120, -1));
+
+        cbxMetodo.setBackground(new java.awt.Color(255, 255, 255));
+        cbxMetodo.setForeground(new java.awt.Color(255, 255, 255));
+        cbxMetodo.setText("DESCENDENTE");
+        Fondo2.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 450, -1, -1));
+
+        btnSeleccionar.setBackground(new java.awt.Color(0, 0, 51));
+        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionar.setText("SELECCIONAR DATOS");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+        Fondo2.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 160, -1));
+
+        btnModificar.setBackground(new java.awt.Color(0, 0, 51));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("MODIFICAR DATOS");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        Fondo2.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, 160, -1));
+
+        btnGuardar.setBackground(new java.awt.Color(0, 0, 51));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("GUARDAR DATOS");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        Fondo2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Modalidad:");
+        Fondo2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
+
+        cbxModalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Fondo2.add(cbxModalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 290, -1));
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Ordenar:");
+        Fondo2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 100, -1));
+
         PN.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1410, 700));
+
+        jLabel14.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Matricula:");
+        PN.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
 
         getContentPane().add(PN, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 690));
 
@@ -551,7 +703,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Guardar();
+        try {
+            Guardar();
+        } catch (EmptyException ex) {
+            JOptionPane.showConfirmDialog(null, "No se pudo guardar");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
@@ -561,14 +717,20 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
         if (Validar()) {
-            Usuario uc = new Usuario();
-            uc.setCedula(txtCedula.getText());
-            uc.setNombre(txtNombre.getText());
-            uc.setApellido(txtApellido.getText());
-            uc.setEdad(txtEdad.getText());
-            uc.setCorreo(txtCorreo.getText());
+//            Persona uc = new Persona();
+//            uc.setCedula(txtCedula.getText());
+//            uc.setNombre(txtNombre.getText());
+//            uc.setApellido(txtApellido.getText());
+//            uc.setEdad(txtEdad.getText());
+//            uc.setCorreo(txtCorreo.getText());
 
-            estudianteControl.getEstudiante().setDatosUsuario(uc);
+            estudianteControl.getEstudiante().setCedula(txtCedula.getText());
+            estudianteControl.getEstudiante().setNombre(txtNombre.getText());
+            estudianteControl.getEstudiante().setApellido(txtApellido.getText());
+            estudianteControl.getEstudiante().setEdad(txtEdad.getText());
+            estudianteControl.getEstudiante().setCorreo(txtCorreo.getText());
+
+            // estudianteControl.getEstudiante().setDatosUsuario(uc);
 //            estudianteControl.getEstudiante().setPromedioAcademico(txtPeriodo.getText());
             estudianteControl.getEstudiante().setCorreoUsuario(txtUsuario.getText());
 //            char[] contrase = txtContrasenia.getPassword();
@@ -663,7 +825,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
     private void btnIncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncioActionPerformed
 
-        new MenuAdmin(this.docente).setVisible(true);
+        new Menu(this.docente).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIncioActionPerformed
 
@@ -671,6 +833,20 @@ public class GestionEstudiante extends javax.swing.JFrame {
         new LoginPrincipal().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnMatriculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculasActionPerformed
+        int filaSeleccionada = tblMostrar.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                new FrmMatriculasEstudiante(this.docente, filaSeleccionada).setVisible(true);
+            } catch (EmptyException ex) {
+                JOptionPane.showConfirmDialog(null, "Error al intentar ver las matriculas");
+            }
+            this.dispose();
+        } else {
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado un estudiante de la tabla", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_btnMatriculasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -702,7 +878,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionEstudiante().setVisible(true);
+                try {
+                    new GestionEstudiante().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(GestionEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -719,21 +899,24 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JMenuItem btnIncio;
+    private javax.swing.JButton btnMatriculas;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JComboBox<String> cbxCarrera;
     private javax.swing.JComboBox<String> cbxCriterio;
     private javax.swing.JComboBox<String> cbxCriterio1;
-    private javax.swing.JComboBox<String> cbxMatricula;
     private javax.swing.JCheckBox cbxMetodo;
     private javax.swing.JComboBox<String> cbxMetodo1;
+    private javax.swing.JComboBox<String> cbxModalidad;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

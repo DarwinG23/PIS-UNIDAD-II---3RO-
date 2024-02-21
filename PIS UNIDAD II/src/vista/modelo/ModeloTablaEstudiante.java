@@ -46,15 +46,15 @@ import usuarios.modelo.Estudiante;
 
             switch (Columna) {
                 case 0:
-                    return (p != null) ? p.getDatosUsuario().getNombre(): "";
+                    return (p != null) ? p.getNombre(): "";
                 case 1:
-                    return (p != null) ? p.getDatosUsuario().getApellido(): "";
+                    return (p != null) ? p.getApellido(): "";
                 case 2:
-                    return (p != null) ? p.getDatosUsuario().getEdad(): "";
+                    return (p != null) ? p.getEdad(): "";
                 case 3:
-                    return (p != null) ? p.getDatosUsuario().getCedula(): "";
+                    return (p != null) ? p.getCedula(): "";
                 case 4:
-                    return (p != null) ? p.getDatosUsuario().getCorreo(): "";
+                    return (p != null) ? p.getCorreo(): "";
                 case 5:
                     return (p != null) ? p.getCorreoUsuario(): "";
                 default:

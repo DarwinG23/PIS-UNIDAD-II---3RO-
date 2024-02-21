@@ -9,6 +9,7 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +44,8 @@ public class ReporteNotas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Limpiar();
         Limpiar1();
+                pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
 
     public ReporteNotas(Estudiante estudiante) throws HeadlessException {
@@ -52,6 +55,8 @@ public class ReporteNotas extends javax.swing.JFrame {
         Limpiar();
         Limpiar1();
         this.estudiante = estudiante;
+        pnlAzul.setIcon(new ImageIcon("fotos/Azul.png"));
+        pnlGris.setIcon(new ImageIcon("fotos/Celeste.jpg"));
     }
    
    
@@ -122,22 +127,23 @@ public class ReporteNotas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel1 = new org.edisoncor.gui.panel.Panel();
+        pnlAzul = new org.edisoncor.gui.panel.PanelImage();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txtTitulo = new javax.swing.JTextField();
         txtMateria = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtRetroaliemntacion = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblMostrarDatos = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
+        txtTitulo = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtNota = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        txtRetroaliemntacion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        pnlGris = new org.edisoncor.gui.panel.PanelImage();
+        jScrollPane3 = new javax.swing.JScrollPane();
         tblMostrarDatos1 = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMostrarDatos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         btnIncio1 = new javax.swing.JMenuItem();
@@ -149,26 +155,17 @@ public class ReporteNotas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("REPORTE DE NOTAS");
-        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+        pnlAzul.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Materia:");
-        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Descripción:");
-        panel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
-
-        txtTitulo.setBackground(new java.awt.Color(255, 255, 204));
-        txtTitulo.setEnabled(false);
-        panel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 450, -1));
+        pnlAzul.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         txtMateria.setBackground(new java.awt.Color(255, 255, 204));
         txtMateria.setEnabled(false);
@@ -177,16 +174,64 @@ public class ReporteNotas extends javax.swing.JFrame {
                 txtMateriaActionPerformed(evt);
             }
         });
-        panel1.add(txtMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 450, -1));
+        pnlAzul.add(txtMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 290, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Título  Tarea:");
-        panel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        pnlAzul.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        txtTitulo.setBackground(new java.awt.Color(255, 255, 204));
+        txtTitulo.setEnabled(false);
+        pnlAzul.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 290, -1));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Descripción:");
+        pnlAzul.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+
+        txtDescripcion.setBackground(new java.awt.Color(255, 255, 204));
+        txtDescripcion.setEnabled(false);
+        pnlAzul.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 300, 40));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Nota:");
+        pnlAzul.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        txtNota.setBackground(new java.awt.Color(255, 255, 204));
+        txtNota.setEnabled(false);
+        pnlAzul.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 300, -1));
 
         txtRetroaliemntacion.setBackground(new java.awt.Color(255, 255, 204));
         txtRetroaliemntacion.setEnabled(false);
-        panel1.add(txtRetroaliemntacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 450, -1));
+        pnlAzul.add(txtRetroaliemntacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 300, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Retroalimentación:");
+        pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+
+        getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
+
+        pnlGris.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblMostrarDatos1.setBackground(new java.awt.Color(255, 255, 255));
+        tblMostrarDatos1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tblMostrarDatos1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane3.setViewportView(tblMostrarDatos1);
+
+        pnlGris.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 370, 200));
 
         tblMostrarDatos.setBackground(new java.awt.Color(255, 255, 255));
         tblMostrarDatos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -203,44 +248,9 @@ public class ReporteNotas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMostrarDatos);
 
-        panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, 330, 160));
+        pnlGris.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 370, 230));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Retroalimentación:");
-        panel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
-
-        txtDescripcion.setBackground(new java.awt.Color(255, 255, 204));
-        txtDescripcion.setEnabled(false);
-        panel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 174, 450, 40));
-
-        jLabel10.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Nota:");
-        panel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
-
-        txtNota.setBackground(new java.awt.Color(255, 255, 204));
-        txtNota.setEnabled(false);
-        panel1.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 450, -1));
-
-        tblMostrarDatos1.setBackground(new java.awt.Color(255, 255, 255));
-        tblMostrarDatos1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        tblMostrarDatos1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
-        jScrollPane2.setViewportView(tblMostrarDatos1);
-
-        panel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 290, 160));
-
-        getContentPane().add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 550));
+        getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 440, 550));
 
         jMenu3.setText("Menu");
         jMenu3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -372,7 +382,7 @@ public class ReporteNotas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu3;
@@ -380,8 +390,9 @@ public class ReporteNotas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private org.edisoncor.gui.panel.Panel panel1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private org.edisoncor.gui.panel.PanelImage pnlAzul;
+    private org.edisoncor.gui.panel.PanelImage pnlGris;
     private javax.swing.JTable tblMostrarDatos;
     private javax.swing.JTable tblMostrarDatos1;
     public static javax.swing.JTextField txtDescripcion;

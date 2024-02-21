@@ -93,10 +93,10 @@ public class LoginPrincipal extends javax.swing.JFrame {
                 credencialesCorrectas = true;
                 String rol = docente.getRolDocente();
                 if (rol.equals("Docente")) {
-                    new MenuDocente(docente).setVisible(true);
+                    new Menu(docente).setVisible(true);
                     this.dispose();
                 } else if (rol.equals("Personal Administrativo")) {         
-                    new MenuAdmin(docente).setVisible(true);
+                    new Menu(docente).setVisible(true);
                     this.dispose();
                 }
                 dispose();
@@ -196,10 +196,7 @@ public class LoginPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        //        Guardar();
-//        Menu A = new Menu();
-//        A.setVisible(true);
-//        this.dispose();
+
         VerificarEstudiante();
     }//GEN-LAST:event_btnIniciarActionPerformed
 
