@@ -62,5 +62,5 @@ public class Imparte {
     @Override
     public String toString() {
         return Id_Docente.getNombre()+Id_Contrato.getSalario();
-    
+    }
 }
