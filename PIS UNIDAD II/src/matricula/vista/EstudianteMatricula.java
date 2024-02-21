@@ -52,7 +52,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private void cargarTabla() throws EmptyException {
 
         DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
-        
+
         int id = estudiante.getMatriculas().getInfo(0).getId_Carrera();
         Modalidad md = estudiante.getMatriculas().getInfo(0).getModalidad();
 
@@ -64,19 +64,17 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
             if (matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getId_Carrera() == id && matriculaActual.getModalidad() == md) {
                 matriculasFiltradas.add(matriculaActual);
-                System.out.println("if");
             }
         }
         Date fecha;
         Matricula aux = new Matricula();
         Matricula matriculaDisponible = new Matricula();
         for (int i = 0; i < matriculasFiltradas.getLength(); i++) {
-            System.out.println("for");
+
             matriculaDisponible = matriculasFiltradas.getInfo(i);
-            System.out.println(matriculaDisponible.getFechaEmision());
             for (int j = 0; j < matriculasFiltradas.getLength(); j++) {
                 aux = matriculasFiltradas.getInfo(j);
-                System.out.println(aux.getFechaEmision());
+
                 if (matriculaDisponible.getFechaEmision().compareTo(aux.getFechaEmision()) < 0) {
                     matriculaDisponible = aux;
 
@@ -138,7 +136,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
     public EstudianteMatricula() throws EmptyException {
         initComponents();
-        cargarTabla();
+        //cargarTabla();
         this.setLocationRelativeTo(null);
         pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
@@ -178,33 +176,49 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private Matricula agregarMaterias(int idMateria, Matricula matricula) throws EmptyException {
         Materia materiActual = new Materia();
         System.out.println("agregarMaterias");
+        System.out.println("idMateria: " + idMateria);
+        System.out.println("matricula: " + matricula.getId());
         for (int i = 0; i < materiaControl.getMateria().getLength(); i++) {
+            System.out.println("Inicio for");
             materiActual = materiaControl.getMateria().getInfo(i);
+            System.out.println("idMA:" + materiActual.getId());
+
             if (idMateria == materiActual.getId()) {
+                System.out.println("se termina el bucle");
                 break;
             }
         }
+
+        System.out.println("idMAf:" + materiActual.getId());
+
         //obtengo el ciclo en el que esta
         Ciclo cicloActual = new Ciclo();
         int idMateraActual = Integer.parseInt(materiActual.getCiclo());
+
         for (int i = 0; i < cc.getListCiclo().getLength(); i++) {
+            System.out.println("foooor");
             cicloActual = cc.getListCiclo().getInfo(i);
             int id_CicloActual = cicloActual.getId();
+            System.out.println("cicloActula: " + id_CicloActual);
+            System.out.println("idMateriaActula: " + idMateraActual);
             if (id_CicloActual == idMateraActual) {
+                System.out.println("se encontro el ciclo actual");
                 break;
             }
         }
 
-        cicloActual = cc.getListCiclo().getInfo(cicloActual.getId().intValue() + 1);
-
+        cicloActual = cc.getListCiclo().getInfo(cicloActual.getId().intValue());
+        System.out.println("cicloActula+1: " + cicloActual.getId());
         DynamicList<Cursa> cursas = new DynamicList<>();
 
         for (int i = 0; i < cicloActual.getMaterias().getLength(); i++) {
             Cursa cs = crearCursa(i, cicloActual.getMaterias().getInfo(i).getId(), estudiante.getMatriculas().getLength() + 1);
+            System.out.println("cs: " + cs.getId());
             cursas.add(cs);
         }
 
         matricula.setCursas(cursas);
+        System.out.println("matricula en agregar cursas: " + matricula.getCursas());
 
         return matricula;
 
@@ -228,17 +242,25 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         System.out.println("agregarCursas");
 
         for (int i = 0; i < estudiante.getMatriculas().getLength(); i++) {
+            System.out.println("entreamos al for");
             matriculaActual = estudiante.getMatriculas().getInfo(i);
+            System.out.println("mA: " + matriculaActual.getId());
             for (int j = 0; j < estudiante.getMatriculas().getLength(); j++) {
                 aux = estudiante.getMatriculas().getInfo(j);
+                System.out.println("aux: " + aux.getId());
                 if (matriculaActual.getFechaEmision().compareTo(aux.getFechaEmision()) < 0) {
                     matriculaActual = aux;
+                    System.out.println("si entramos");
                 }
             }
         }
+        System.out.println("matriculaActula: " + matriculaActual.getId());
+        System.out.println("matriculaActula: " + matriculaActual.getEstado());
 
         if (matriculaActual.getEstado() != Estado.MATRICULADO) {
+            System.out.println("hola aqui");
             int id_materia = matriculaActual.getCursas().getInfo(0).getId_materia();
+            System.out.println("hola aqui");
             matricula = agregarMaterias(id_materia, matricula);
 
         } else {
@@ -246,21 +268,72 @@ public class EstudianteMatricula extends javax.swing.JFrame {
             return null;
 
         }
+        System.out.println("matricula en agregar cursas: " + matricula);
 
         return matricula;
     }
 
+    private DynamicList<Matricula> obtenerMatriculasDisponibles() throws EmptyException {
+        DynamicList<Matricula> disponibles = new DynamicList<>();
+
+        DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
+
+        int id = estudiante.getMatriculas().getInfo(0).getId_Carrera();
+        Modalidad md = estudiante.getMatriculas().getInfo(0).getModalidad();
+
+        Matricula matriculaActual;
+
+        for (int i = 0; i < matriculaControl.getListMatricula().getLength(); i++) {
+
+            matriculaActual = matriculaControl.getListMatricula().getInfo(i);
+
+            if (matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getId_Carrera() == id && matriculaActual.getModalidad() == md) {
+                matriculasFiltradas.add(matriculaActual);
+                System.out.println("if");
+            }
+        }
+
+        Date fecha;
+        Matricula aux = new Matricula();
+        Matricula matriculaDisponible = new Matricula();
+        for (int i = 0; i < matriculasFiltradas.getLength(); i++) {
+            System.out.println("for");
+            matriculaDisponible = matriculasFiltradas.getInfo(i);
+            System.out.println(matriculaDisponible.getFechaEmision());
+            for (int j = 0; j < matriculasFiltradas.getLength(); j++) {
+                aux = matriculasFiltradas.getInfo(j);
+                System.out.println(aux.getFechaEmision());
+                if (matriculaDisponible.getFechaEmision().compareTo(aux.getFechaEmision()) < 0) {
+                    matriculaDisponible = aux;
+                    System.out.println("matricula dispo: " + matriculaDisponible.getId());
+
+                    System.out.println("fecha: en if");
+
+                }
+            }
+        }
+
+        disponibles.add(matriculaDisponible);
+        System.out.println("disponiblesssss: " + disponibles);
+
+        return disponibles;
+
+    }
+
     private void matricular(int fila) throws EmptyException {
-        System.out.println("hola");
-        int id = matriculasDisponibles.getInfo(fila).getId();
+        System.out.println("sddasdasd");
+        DynamicList<Matricula> disponibles = obtenerMatriculasDisponibles();
+        System.out.println("matriculas disponibles :" + disponibles);
+        int id = disponibles.getInfo(fila).getId();
 
         System.out.println("id: " + id);
 
         Matricula matricula = matriculaControl.getListMatricula().getInfo(id - 1);
         System.out.println("matricula1: " + matricula.getId());
         matricula = agregarCursas(matricula);
-        if (matricula != null) {
-            System.out.println("matricula: " + matricula.getCursas());
+        System.out.println("matricula cursas: " + matricula.getCursas());
+        if (matricula != null && matricula.getCursas() != null) {
+            System.out.println("estamos");
             estudianteControl.getEstudiante().setApellido(estudiante.getApellido());
             estudianteControl.getEstudiante().setNombre(estudiante.getNombre());
             estudianteControl.getEstudiante().setCedula(estudiante.getCedula());
@@ -271,9 +344,15 @@ public class EstudianteMatricula extends javax.swing.JFrame {
             estudianteControl.getEstudiante().setIdEstudiante(estudiante.getIdEstudiante());
             DynamicList<Matricula> matriculas = estudiante.getMatriculas();
             matricula.setEstado(Estado.MATRICULADO);
+            matricula.setId(estudiante.getMatriculas().getLength() + 1);
             matriculas.add(matricula);
             estudianteControl.getEstudiante().setMatriculas(matriculas);
-            if (estudianteControl.marge(estudianteControl.getEstudiante(), estudiante.getIdEstudiante())) {
+            System.out.println(estudiante.getIdEstudiante());
+            if (estudianteControl.marge(estudianteControl.getEstudiante(), estudiante.getIdEstudiante() - 1)) {
+                DynamicList<Matricula> list = new DynamicList<>();
+                mtmd.setMatriculas(list);
+                tbMatriculasDisponibles.setModel(mtmd);
+                tbMatriculasDisponibles.updateUI();
                 JOptionPane.showConfirmDialog(null, "Matriculado con exito");
 
             }
@@ -303,7 +382,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnMatricularse = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbMaterias = new javax.swing.JTable();
@@ -392,13 +471,13 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jButton4.setText("Ordenar");
         pnlFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
-        jButton6.setText("Matricularse");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnMatricularse.setText("Matricularse");
+        btnMatricularse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnMatricularseActionPerformed(evt);
             }
         });
-        pnlFondo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 540, -1, -1));
+        pnlFondo.add(btnMatricularse, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 540, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -482,15 +561,18 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tbMatriculasDisponiblesMouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnMatricularseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatricularseActionPerformed
         int filaSeleccionada = tbMatriculasDisponibles.getSelectedRow();
-        System.out.println("fila" + filaSeleccionada);
+        System.out.println("sssssssssss");
+        System.out.println("fila: " + filaSeleccionada);
         if (filaSeleccionada != -1) {
             try {
                 System.out.println("30");
                 matricular(filaSeleccionada);
                 System.out.println("40");
-                cargarTabla();
+                mtm.setMatriculas(estudiante.getMatriculas());
+                tbMatricula.setModel(mtm);
+                tbMatricula.updateUI();
                 System.out.println("50");
 
             } catch (EmptyException ex) {
@@ -499,7 +581,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         } else {
             JOptionPane.showConfirmDialog(null, "No ha seleccionado una matricula de la tabla matriculas disponibles", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnMatricularseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -542,12 +624,12 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnIncio;
+    private javax.swing.JButton btnMatricularse;
     private javax.swing.JComboBox<String> cbxEstudiante;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;

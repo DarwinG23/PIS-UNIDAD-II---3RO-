@@ -62,23 +62,20 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
 
     private DynamicList<Matricula> actulizarMatriculas(DynamicList<Matricula> matriculas, int idMatricula) throws EmptyException {
         System.out.println("actualizarMatricula");
+        idMatricula++;
         System.out.println("IdMatricula: " + idMatricula);
         Matricula matriculaActual = new Matricula();
         DynamicList<Matricula> nuevaList = new DynamicList<>();
         for (int i = 0; i < matriculas.getLength(); i++) {
             matriculaActual = matriculas.getInfo(i);
-            if(matriculaActual.getId() == idMatricula){
+            if (matriculaActual.getId() == idMatricula) { //sospecha
                 System.out.println("matriculaActual id: " + matriculaActual.getId());
                 System.out.println("break");
-               break;
+                break;
             }
         }
-        System.out.println("matriculaActula id: " + matriculaActual.getId() );
-        
-        matriculas.extract(matriculaActual.getId()-1);
-        System.out.println("alsdlasdasd");
-        System.out.println("matriculas extrac: " + matriculaActual);
-        switch(cbxEstado.getSelectedIndex()){
+
+        switch (cbxEstado.getSelectedIndex()) {
             case 0:
                 System.out.println("caso aporbed");
                 matriculaActual.setEstado(Estado.APROBADO);
@@ -98,19 +95,41 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
                 break;
             case 5:
                 matriculaActual.setEstado(Estado.NO_DISPONIBLE);
-                break;       
+                break;
         }
-        matriculas.add(matriculaActual);
-        return matriculas;
+
+        System.out.println("matriculaActula id: " + matriculaActual.getId());
+        System.out.println("*************");
+        System.out.println(matriculas.getLength());
+        DynamicList<Matricula> list = new DynamicList<>();
+        Matricula m = new Matricula();
+        for (int i = 0; i < matriculas.getLength(); i++) {
+            m = matriculas.getInfo(i);
+            if (m.getId() == matriculaActual.getId()) {
+                System.out.println("if");
+                list.add(matriculaActual);
+            } else {
+                System.out.println("else");
+                list.add(m);
+            }
+        }
+        //matriculas.extract(matriculaActual.getId());
+        System.out.println("id-1: " + matriculaActual.getId());
+        System.out.println("alsdlasdasd");
+        System.out.println("matriculas extrac: " + matriculaActual);
+
+        //matriculas.add(matriculaActual);
+        return list;
     }
 
     private void modificar(int idMatricula) throws EmptyException {
+        System.out.println("$$$$$$$$$$$$$$$$4");
         System.out.println("modificar");
-        System.out.println("id: "+ id);
-        System.out.println("jajaasdasja");
-        System.out.println("matriculas del estud: " + estudianteControl.getListaEstudiante().getInfo(id).getMatriculas());
+        System.out.println("id: " + id);
+        System.out.println("matriculas del estududiante: " + estudianteControl.getListaEstudiante().getInfo(id).getMatriculas());
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         DynamicList<Matricula> matriculas = actulizarMatriculas(estudianteControl.getListaEstudiante().getInfo(id).getMatriculas(), idMatricula);
-        System.out.println("matriculas: " + matriculas);
+        System.out.println("matriculas  " + matriculas);
         estudianteControl.getEstudiante().setApellido(estudianteControl.getListaEstudiante().getInfo(id).getApellido());
         estudianteControl.getEstudiante().setNombre(estudianteControl.getListaEstudiante().getInfo(id).getNombre());
         estudianteControl.getEstudiante().setCedula(estudianteControl.getListaEstudiante().getInfo(id).getCedula());
@@ -137,12 +156,11 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlFondo = new org.edisoncor.gui.panel.PanelImage();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMatricula = new javax.swing.JTable();
         cbxEstado = new javax.swing.JComboBox<>();
         btnCambiar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         btnIncio = new javax.swing.JMenuItem();
@@ -161,22 +179,6 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        pnlFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 580, 150, 30));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        pnlFondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 580, 160, 30));
 
         tbMatricula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,6 +205,12 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
             }
         });
         pnlFondo.add(btnCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 580, 160, 30));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ESTADO MATRICULAS");
+        pnlFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 403, 24));
 
         getContentPane().add(pnlFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 1090, 660));
 
@@ -373,7 +381,7 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
         System.out.println("holaaaaaaaaaaa");
         System.out.println("fila: " + filaSeleccionada);
         if (filaSeleccionada != -1) {
-            
+
             try {
                 System.out.println("holas");
                 modificar(filaSeleccionada);
@@ -384,47 +392,10 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(null, "Ocurrio un problema");
             }
 
-            
         } else {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna matricula de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-    }                                     
+        }
     }//GEN-LAST:event_btnCambiarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         int filaSeleccionada = tbMatricula.getSelectedRow();
-        System.out.println("fila: " + filaSeleccionada);
-        if (filaSeleccionada != -1) {
-            
-            try {
-                modificar(filaSeleccionada);
-                cargarTabla();
-            } catch (EmptyException ex) {
-                JOptionPane.showConfirmDialog(null, "Ocurrio un problema");
-            }
-
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna matricula de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-    }   
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         int filaSeleccionada = tbMatricula.getSelectedRow();
-        System.out.println("fila: " + filaSeleccionada);
-        if (filaSeleccionada != -1) {
-            
-            try {
-                modificar(filaSeleccionada);
-                cargarTabla();
-            } catch (EmptyException ex) {
-                JOptionPane.showConfirmDialog(null, "Ocurrio un problema");
-            }
-
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna matricula de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-    }   
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -474,8 +445,7 @@ public class FrmMatriculasEstudiante extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnIncio;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JComboBox<String> cbxEstado;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
