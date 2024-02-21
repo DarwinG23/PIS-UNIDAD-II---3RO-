@@ -186,23 +186,23 @@ public class GestionEstudiante extends javax.swing.JFrame {
     }
 
     private Boolean agregarCursas(DynamicList<Cursa> cursas) throws EmptyException {
-        Integer id = estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength()-1).getIdEstudiante();
-        Matricula matricula = estudianteControl.getListaEstudiante().getInfo(id-1).getMatriculas().getInfo(0);
+        Integer id = estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength() - 1).getIdEstudiante();
+        Matricula matricula = estudianteControl.getListaEstudiante().getInfo(id - 1).getMatriculas().getInfo(0);
         matricula.setCursas(cursas);
         DynamicList<Matricula> matriculas = new DynamicList<>();
         matriculas.add(matricula);
 
-        estudianteControl.getEstudiante().setCedula(estudianteControl.getListaEstudiante().getInfo(id-1).getCedula());
-        estudianteControl.getEstudiante().setNombre(estudianteControl.getListaEstudiante().getInfo(id-1).getNombre());
-        estudianteControl.getEstudiante().setApellido(estudianteControl.getListaEstudiante().getInfo(id-1).getApellido());
-        estudianteControl.getEstudiante().setEdad(estudianteControl.getListaEstudiante().getInfo(id-1).getEdad());
-        estudianteControl.getEstudiante().setCorreo(estudianteControl.getListaEstudiante().getInfo(id-1).getCorreo());
+        estudianteControl.getEstudiante().setCedula(estudianteControl.getListaEstudiante().getInfo(id - 1).getCedula());
+        estudianteControl.getEstudiante().setNombre(estudianteControl.getListaEstudiante().getInfo(id - 1).getNombre());
+        estudianteControl.getEstudiante().setApellido(estudianteControl.getListaEstudiante().getInfo(id - 1).getApellido());
+        estudianteControl.getEstudiante().setEdad(estudianteControl.getListaEstudiante().getInfo(id - 1).getEdad());
+        estudianteControl.getEstudiante().setCorreo(estudianteControl.getListaEstudiante().getInfo(id - 1).getCorreo());
 
-        estudianteControl.getEstudiante().setCorreoUsuario(estudianteControl.getListaEstudiante().getInfo(id-1).getCorreoUsuario());
-        estudianteControl.getEstudiante().setContraseniaUsuario(estudianteControl.getListaEstudiante().getInfo(id-1).getContraseniaUsuario());
+        estudianteControl.getEstudiante().setCorreoUsuario(estudianteControl.getListaEstudiante().getInfo(id - 1).getCorreoUsuario());
+        estudianteControl.getEstudiante().setContraseniaUsuario(estudianteControl.getListaEstudiante().getInfo(id - 1).getContraseniaUsuario());
         estudianteControl.getEstudiante().setMatriculas(matriculas);
-        
-        if (estudianteControl.marge(estudianteControl.getEstudiante(), id-1)) {
+
+        if (estudianteControl.marge(estudianteControl.getEstudiante(), id - 1)) {
             return true;
 
         } else {
@@ -244,12 +244,12 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
     private Cursa crearCursa(Integer id, Integer id_Materia) throws EmptyException {
         Cursa cursa = new Cursa();
-        cursa.setId(id+1);
+        cursa.setId(id + 1);
         cursa.setId_matricula(1);
         cursa.setId_materia(id_Materia);
         cursa.setParalelo("A");
         cursa.setId_docente(0);
-        cursa.setId_estudiante(estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength()-1).getIdEstudiante());
+        cursa.setId_estudiante(estudianteControl.getListaEstudiante().getInfo(estudianteControl.getListaEstudiante().getLength() - 1).getIdEstudiante());
         return cursa;
 
     }
@@ -279,7 +279,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
             }
         }
         matriculaDisponible.setEstado(Estado.MATRICULADO);
-
+        matriculaDisponible.setId(1);
         return matriculaDisponible;
     }
 
@@ -367,7 +367,6 @@ public class GestionEstudiante extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMostrar = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
         cbxCriterio = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         cbxMetodo1 = new javax.swing.JComboBox<>();
@@ -381,6 +380,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         txtContrasenia = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        btnMatriculas = new javax.swing.JButton();
         Fondo2 = new org.edisoncor.gui.panel.PanelImage();
         cbxCriterio1 = new javax.swing.JComboBox<>();
         btnOrdenar = new javax.swing.JButton();
@@ -390,6 +390,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cbxModalidad = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -485,11 +486,6 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
         PN.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, 610, 460));
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Ordenar:");
-        PN.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 100, -1));
-
         cbxCriterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
         PN.add(cbxCriterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 260, -1));
 
@@ -549,10 +545,18 @@ public class GestionEstudiante extends javax.swing.JFrame {
         jLabel13.setText("Contraseña:");
         PN.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
+        btnMatriculas.setText("Matriculas");
+        btnMatriculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatriculasActionPerformed(evt);
+            }
+        });
+        PN.add(btnMatriculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 120, 30));
+
         Fondo2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbxCriterio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "apellido", "cedula", "edad", "correo", "promedioAcademico" }));
-        Fondo2.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, 160, -1));
+        Fondo2.add(cbxCriterio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 160, -1));
 
         btnOrdenar.setBackground(new java.awt.Color(0, 0, 51));
         btnOrdenar.setForeground(new java.awt.Color(255, 255, 255));
@@ -562,12 +566,12 @@ public class GestionEstudiante extends javax.swing.JFrame {
                 btnOrdenarActionPerformed(evt);
             }
         });
-        Fondo2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 120, -1));
+        Fondo2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, 120, -1));
 
         cbxMetodo.setBackground(new java.awt.Color(255, 255, 255));
         cbxMetodo.setForeground(new java.awt.Color(255, 255, 255));
         cbxMetodo.setText("DESCENDENTE");
-        Fondo2.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, -1, -1));
+        Fondo2.add(cbxMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 450, -1, -1));
 
         btnSeleccionar.setBackground(new java.awt.Color(0, 0, 51));
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
@@ -606,6 +610,11 @@ public class GestionEstudiante extends javax.swing.JFrame {
 
         cbxModalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Fondo2.add(cbxModalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 290, -1));
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Ordenar:");
+        Fondo2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 100, -1));
 
         PN.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1410, 700));
 
@@ -825,6 +834,20 @@ public class GestionEstudiante extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnMatriculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatriculasActionPerformed
+        int filaSeleccionada = tblMostrar.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            try {
+                new FrmMatriculasEstudiante(this.docente, filaSeleccionada).setVisible(true);
+            } catch (EmptyException ex) {
+                JOptionPane.showConfirmDialog(null, "Error al intentar ver las matriculas");
+            }
+            this.dispose();
+        } else {
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado un estudiante de la tabla", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_btnMatriculasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -876,6 +899,7 @@ public class GestionEstudiante extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JMenuItem btnIncio;
+    private javax.swing.JButton btnMatriculas;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JMenuItem btnSalir;
