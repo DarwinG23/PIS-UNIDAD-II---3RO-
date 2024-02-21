@@ -50,4 +50,5 @@ public class utilVistaEstadoTarea {
     public static Estudiante ObtenerEstudiante(JComboBox cbx){
         return (Estudiante)cbx.getSelectedItem();
     }
+    
 }

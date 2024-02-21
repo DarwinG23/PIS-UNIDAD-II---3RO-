@@ -27,8 +27,8 @@ public class Persona {
     }
 
     public Persona() {
-        this.nombre = null;
-        this.apellido = null;
+//        this.nombre = null;
+//        this.apellido = null;
         this.edad = null;
         this.id = null;
         this.cedula = null;

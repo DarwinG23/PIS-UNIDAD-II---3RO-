@@ -11,7 +11,7 @@ package usuarios.modelo;
 public class Docente extends Persona{
 
     private Integer IdDocente;
-    //private Persona DatosUsuarioDocente;
+//    private Persona DatosUsuarioDocente;
     private String tituloProfesional;
     private String aniosExperiencia;
     private String CorreoUsuario;
@@ -21,7 +21,6 @@ public class Docente extends Persona{
     public Docente() {
         
     }
-
     public Integer getIdDocente() {
         return IdDocente;
     }
@@ -125,7 +124,9 @@ public class Docente extends Persona{
 
     @Override
     public String toString() {
-        return "Docente{" + "tituloProfesional=" + tituloProfesional + ", aniosExperiencia=" + aniosExperiencia + '}';
+        return nombre; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
+
 
 }
