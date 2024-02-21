@@ -15,13 +15,16 @@ import materias.controlador.MateriaControl;
 import materias.controlador.MateriasControl.ControlMateria;
 import materias.modelo.Materia;
 import materias.vista.Tabla.ModeloTablaMateria;
+import matricula.controlador.CicloControl;
 import matricula.controlador.CursaControl;
 import matricula.controlador.MatriculaControl;
+import matricula.modelo.Ciclo;
 import matricula.modelo.Cursa;
 import matricula.modelo.Estado;
 import matricula.modelo.Matricula;
 import matricula.modelo.Modalidad;
 import matricula.vista.tabla.ModeloTablaMatricula;
+import usuarios.controlador.daoUsuario.EstudianteControlDao;
 import usuarios.modelo.Estudiante;
 import usuarios.vista.Menu;
 
@@ -38,6 +41,9 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private Estudiante estudiante;
     private ModeloTablaMateria mtt = new ModeloTablaMateria();
     private ControlMateria materiaControl = new ControlMateria();
+    private DynamicList<Matricula> matriculasDisponibles = new DynamicList<>();
+    private CicloControl cc = new CicloControl();
+    private EstudianteControlDao estudianteControl = new EstudianteControlDao();
 
     public Boolean verificar() {
         return true;
@@ -46,7 +52,7 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private void cargarTabla() throws EmptyException {
 
         DynamicList<Matricula> matriculasFiltradas = new DynamicList<>();
-;
+        
         int id = estudiante.getMatriculas().getInfo(0).getId_Carrera();
         Modalidad md = estudiante.getMatriculas().getInfo(0).getModalidad();
 
@@ -56,14 +62,12 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
             matriculaActual = matriculaControl.getListMatricula().getInfo(i);
 
-
             if (matriculaActual.getEstado() == Estado.DISPONIBLE && matriculaActual.getId_Carrera() == id && matriculaActual.getModalidad() == md) {
                 matriculasFiltradas.add(matriculaActual);
                 System.out.println("if");
             }
         }
         Date fecha;
-        DynamicList<Matricula> matriculasDisponibles = new DynamicList<>();
         Matricula aux = new Matricula();
         Matricula matriculaDisponible = new Matricula();
         for (int i = 0; i < matriculasFiltradas.getLength(); i++) {
@@ -147,17 +151,15 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         pnlFondo.setIcon(new ImageIcon("fotos/Azul.png"));
         pnlLogo.setIcon(new ImageIcon("fotos/unlLogo.png"));
-        System.out.println(estudiante.getNombre());
 
     }
 
     private DynamicList<Materia> obtenerMaterias(int fila) throws EmptyException {
         DynamicList<Materia> materias = new DynamicList<>();
         DynamicList<Cursa> cursas = estudiante.getMatriculas().getInfo(fila).getCursas();
-        System.out.println("cursas ppp: " + cursas);
         Materia materiaActual = new Materia();
         Cursa cursaActual = new Cursa();
-        
+
         for (int i = 0; i < materiaControl.getMateria().getLength(); i++) {
             materiaActual = materiaControl.getMateria().getInfo(i);
             int idMateria = materiaActual.getId();
@@ -167,11 +169,116 @@ public class EstudianteMatricula extends javax.swing.JFrame {
                 System.out.println("cursa: " + cursaActual.getId_materia());
                 if (idMateria == cursaActual.getId_materia()) {
                     materias.add(materiaActual);
-                    System.out.println("si");
                 }
             }
         }
         return materias;
+    }
+
+    private Matricula agregarMaterias(int idMateria, Matricula matricula) throws EmptyException {
+        Materia materiActual = new Materia();
+        System.out.println("agregarMaterias");
+        for (int i = 0; i < materiaControl.getMateria().getLength(); i++) {
+            materiActual = materiaControl.getMateria().getInfo(i);
+            if (idMateria == materiActual.getId()) {
+                break;
+            }
+        }
+        //obtengo el ciclo en el que esta
+        Ciclo cicloActual = new Ciclo();
+        int idMateraActual = Integer.parseInt(materiActual.getCiclo());
+        for (int i = 0; i < cc.getListCiclo().getLength(); i++) {
+            cicloActual = cc.getListCiclo().getInfo(i);
+            int id_CicloActual = cicloActual.getId();
+            if (id_CicloActual == idMateraActual) {
+                break;
+            }
+        }
+
+        cicloActual = cc.getListCiclo().getInfo(cicloActual.getId().intValue() + 1);
+
+        DynamicList<Cursa> cursas = new DynamicList<>();
+
+        for (int i = 0; i < cicloActual.getMaterias().getLength(); i++) {
+            Cursa cs = crearCursa(i, cicloActual.getMaterias().getInfo(i).getId(), estudiante.getMatriculas().getLength() + 1);
+            cursas.add(cs);
+        }
+
+        matricula.setCursas(cursas);
+
+        return matricula;
+
+    }
+
+    private Cursa crearCursa(Integer id, Integer id_Materia, Integer idMatricula) throws EmptyException {
+        Cursa cursa = new Cursa();
+        cursa.setId(id + 1);
+        cursa.setId_matricula(idMatricula);
+        cursa.setId_materia(id_Materia);
+        cursa.setParalelo("A");
+        cursa.setId_docente(0);
+        cursa.setId_estudiante(estudiante.getIdEstudiante());
+        return cursa;
+    }
+
+    private Matricula agregarCursas(Matricula matricula) throws EmptyException {
+        Matricula matriculaActual = new Matricula();
+        Matricula aux = new Matricula();
+
+        System.out.println("agregarCursas");
+
+        for (int i = 0; i < estudiante.getMatriculas().getLength(); i++) {
+            matriculaActual = estudiante.getMatriculas().getInfo(i);
+            for (int j = 0; j < estudiante.getMatriculas().getLength(); j++) {
+                aux = estudiante.getMatriculas().getInfo(j);
+                if (matriculaActual.getFechaEmision().compareTo(aux.getFechaEmision()) < 0) {
+                    matriculaActual = aux;
+                }
+            }
+        }
+
+        if (matriculaActual.getEstado() != Estado.MATRICULADO) {
+            int id_materia = matriculaActual.getCursas().getInfo(0).getId_materia();
+            matricula = agregarMaterias(id_materia, matricula);
+
+        } else {
+            JOptionPane.showConfirmDialog(null, "Usted ya está matriculado");
+            return null;
+
+        }
+
+        return matricula;
+    }
+
+    private void matricular(int fila) throws EmptyException {
+        System.out.println("hola");
+        int id = matriculasDisponibles.getInfo(fila).getId();
+
+        System.out.println("id: " + id);
+
+        Matricula matricula = matriculaControl.getListMatricula().getInfo(id - 1);
+        System.out.println("matricula1: " + matricula.getId());
+        matricula = agregarCursas(matricula);
+        if (matricula != null) {
+            System.out.println("matricula: " + matricula.getCursas());
+            estudianteControl.getEstudiante().setApellido(estudiante.getApellido());
+            estudianteControl.getEstudiante().setNombre(estudiante.getNombre());
+            estudianteControl.getEstudiante().setCedula(estudiante.getCedula());
+            estudianteControl.getEstudiante().setContraseniaUsuario(estudiante.getContraseniaUsuario());
+            estudianteControl.getEstudiante().setCorreo(estudiante.getCorreo());
+            estudianteControl.getEstudiante().setCorreoUsuario(estudiante.getCorreoUsuario());
+            estudianteControl.getEstudiante().setEdad(estudiante.getEdad());
+            estudianteControl.getEstudiante().setIdEstudiante(estudiante.getIdEstudiante());
+            DynamicList<Matricula> matriculas = estudiante.getMatriculas();
+            matricula.setEstado(Estado.MATRICULADO);
+            matriculas.add(matricula);
+            estudianteControl.getEstudiante().setMatriculas(matriculas);
+            if (estudianteControl.marge(estudianteControl.getEstudiante(), estudiante.getIdEstudiante())) {
+                JOptionPane.showConfirmDialog(null, "Matriculado con exito");
+
+            }
+        }
+
     }
 
     /**
@@ -196,7 +303,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -266,6 +372,11 @@ public class EstudianteMatricula extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbMatriculasDisponibles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbMatriculasDisponiblesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbMatriculasDisponibles);
 
         pnlFondo.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 600, 110));
@@ -281,11 +392,13 @@ public class EstudianteMatricula extends javax.swing.JFrame {
         jButton4.setText("Ordenar");
         pnlFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
-        jButton5.setText("Ver Materias");
-        pnlFondo.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, -1));
-
         jButton6.setText("Matricularse");
-        pnlFondo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        pnlFondo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 540, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -350,12 +463,9 @@ public class EstudianteMatricula extends javax.swing.JFrame {
 
     private void tbMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMatriculaMouseClicked
         int filaSeleccionada = tbMatricula.rowAtPoint(evt.getPoint());
-        System.out.println("hola");
         if (filaSeleccionada != -1) {
             try {
-                System.out.println("try");
                 DynamicList<Materia> materias = obtenerMaterias(filaSeleccionada);
-                System.out.println("materias jeje: " + materias);
                 mtt.setMaterias(materias);
                 tbMaterias.setModel(mtt);
                 tbMaterias.updateUI();
@@ -367,6 +477,29 @@ public class EstudianteMatricula extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, "No ha seleccionado una matricula de la tabla tus matriculas", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
     }//GEN-LAST:event_tbMatriculaMouseClicked
     }
+    private void tbMatriculasDisponiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMatriculasDisponiblesMouseClicked
+
+
+    }//GEN-LAST:event_tbMatriculasDisponiblesMouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int filaSeleccionada = tbMatriculasDisponibles.getSelectedRow();
+        System.out.println("fila" + filaSeleccionada);
+        if (filaSeleccionada != -1) {
+            try {
+                System.out.println("30");
+                matricular(filaSeleccionada);
+                System.out.println("40");
+                cargarTabla();
+                System.out.println("50");
+
+            } catch (EmptyException ex) {
+                JOptionPane.showConfirmDialog(null, "Ocurrio un problema");
+            }
+        } else {
+            JOptionPane.showConfirmDialog(null, "No ha seleccionado una matricula de la tabla matriculas disponibles", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -414,7 +547,6 @@ public class EstudianteMatricula extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
