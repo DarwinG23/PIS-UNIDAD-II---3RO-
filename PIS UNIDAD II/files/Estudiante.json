@@ -1,1 +1,136 @@
-{"lista.DynamicList":{"header":{"info":{"@class":"usuarios.modelo.Estudiante","nombre":"Darwin","apellido":"Granda","edad":21,"cedula":1106006123,"correo":"darwingranda@unl.edu.ec","idEstudiante":1,"CorreoUsuario":"darwin.granda@unl.edu.ec","ContraseniaUsuario":1106006123,"matriculas":{"header":{"info":{"@class":"matricula.modelo.Matricula","fechaEmision":{"@class":"sql-date","$":"2024-02-20"},"estado":"APROBADO","id":1,"id_Carrera":1,"modalidad":"PRESENCIAL","cursas":{"header":{"info":{"@class":"matricula.modelo.Cursa","id":1,"id_estudiante":1,"id_matricula":1,"id_materia":3,"paralelo":"A","id_docente":0},"next":{"info":{"@class":"matricula.modelo.Cursa","id":2,"id_estudiante":1,"id_matricula":1,"id_materia":4,"paralelo":"A","id_docente":0}}},"last":{"@reference":"..\/header\/next"},"length":2}},"next":{"info":{"@class":"matricula.modelo.Matricula","fechaEmision":{"@class":"sql-date","$":"2024-02-20"},"estado":"APROBADO","id":2,"id_Carrera":1,"modalidad":"PRESENCIAL","cursas":{"header":{"info":{"@class":"matricula.modelo.Cursa","id":1,"id_estudiante":1,"id_matricula":2,"id_materia":6,"paralelo":"A","id_docente":0},"next":{"info":{"@class":"matricula.modelo.Cursa","id":2,"id_estudiante":1,"id_matricula":2,"id_materia":7,"paralelo":"A","id_docente":0},"next":{"info":{"@class":"matricula.modelo.Cursa","id":3,"id_estudiante":1,"id_matricula":2,"id_materia":5,"paralelo":"A","id_docente":0}}}},"last":{"@reference":"..\/header\/next\/next"},"length":3}},"next":{"info":{"@class":"matricula.modelo.Matricula","fechaEmision":{"@class":"sql-date","$":"2024-02-20"},"estado":"MATRICULADO","id":3,"id_Carrera":1,"modalidad":"PRESENCIAL","cursas":{"length":0}}}}},"last":{"@reference":"..\/header\/next\/next"},"length":3}}},"last":{"@reference":"..\/header"},"length":1}}
+{
+    "lista.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "usuarios.modelo.Estudiante",
+                "nombre": "Darwin",
+                "apellido": "Granda",
+                "edad": 21,
+                "cedula": 1106006123,
+                "correo": "darwingranda@unl.edu.ec",
+                "idEstudiante": 1,
+                "CorreoUsuario": "darwin.granda@unl.edu.ec",
+                "ContraseniaUsuario": 1106006123,
+                "matriculas": {
+                    "header": {
+                        "info": {
+                            "@class": "matricula.modelo.Matricula",
+                            "fechaEmision": {
+                                "@class": "sql-date",
+                                "$": "2024-02-20"
+                            },
+                            "estado": "APROBADO",
+                            "id": 1,
+                            "id_Carrera": 1,
+                            "modalidad": "PRESENCIAL",
+                            "cursas": {
+                                "header": {
+                                    "info": {
+                                        "@class": "matricula.modelo.Cursa",
+                                        "id": 1,
+                                        "id_estudiante": 1,
+                                        "id_matricula": 1,
+                                        "id_materia": 3,
+                                        "paralelo": "A",
+                                        "id_docente": 0
+                                    },
+                                    "next": {
+                                        "info": {
+                                            "@class": "matricula.modelo.Cursa",
+                                            "id": 2,
+                                            "id_estudiante": 1,
+                                            "id_matricula": 1,
+                                            "id_materia": 4,
+                                            "paralelo": "A",
+                                            "id_docente": 0
+                                        }
+                                    }
+                                },
+                                "last": {
+                                    "@reference": "..\/header\/next"
+                                },
+                                "length": 2
+                            }
+                        },
+                        "next": {
+                            "info": {
+                                "@class": "matricula.modelo.Matricula",
+                                "fechaEmision": {
+                                    "@class": "sql-date",
+                                    "$": "2024-02-20"
+                                },
+                                "estado": "APROBADO",
+                                "id": 2,
+                                "id_Carrera": 1,
+                                "modalidad": "PRESENCIAL",
+                                "cursas": {
+                                    "header": {
+                                        "info": {
+                                            "@class": "matricula.modelo.Cursa",
+                                            "id": 1,
+                                            "id_estudiante": 1,
+                                            "id_matricula": 2,
+                                            "id_materia": 6,
+                                            "paralelo": "A",
+                                            "id_docente": 0
+                                        },
+                                        "next": {
+                                            "info": {
+                                                "@class": "matricula.modelo.Cursa",
+                                                "id": 2,
+                                                "id_estudiante": 1,
+                                                "id_matricula": 2,
+                                                "id_materia": 7,
+                                                "paralelo": "A",
+                                                "id_docente": 0
+                                            },
+                                            "next": {
+                                                "info": {
+                                                    "@class": "matricula.modelo.Cursa",
+                                                    "id": 3,
+                                                    "id_estudiante": 1,
+                                                    "id_matricula": 2,
+                                                    "id_materia": 5,
+                                                    "paralelo": "A",
+                                                    "id_docente": 0
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "last": {
+                                        "@reference": "..\/header\/next\/next"
+                                    },
+                                    "length": 3
+                                }
+                            },
+                            "next": {
+                                "info": {
+                                    "@class": "matricula.modelo.Matricula",
+                                    "fechaEmision": {
+                                        "@class": "sql-date",
+                                        "$": "2024-02-20"
+                                    },
+                                    "estado": "MATRICULADO",
+                                    "id": 3,
+                                    "id_Carrera": 1,
+                                    "modalidad": "PRESENCIAL",
+                                    "cursas": {
+                                        "length": 0
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "last": {
+                        "@reference": "..\/header\/next\/next"
+                    },
+                    "length": 3
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header"
+        },
+        "length": 1
+    }
+}
