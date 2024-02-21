@@ -118,6 +118,7 @@ public class ReporteNotas extends javax.swing.JFrame {
         }
     }
     
+    
 
    
     /**
@@ -139,6 +140,7 @@ public class ReporteNotas extends javax.swing.JFrame {
         txtNota = new javax.swing.JTextField();
         txtRetroaliemntacion = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         pnlGris = new org.edisoncor.gui.panel.PanelImage();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMostrarDatos1 = new javax.swing.JTable();
@@ -211,6 +213,14 @@ public class ReporteNotas extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Retroalimentación:");
         pnlAzul.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+
+        jButton1.setText("SELECCIONAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnlAzul.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 230, -1));
 
         getContentPane().add(pnlAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
 
@@ -337,6 +347,10 @@ public class ReporteNotas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -379,6 +393,7 @@ public class ReporteNotas extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnIncio1;
     private javax.swing.JMenuItem btnMatricula1;
     private javax.swing.JMenuItem btnSalir1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

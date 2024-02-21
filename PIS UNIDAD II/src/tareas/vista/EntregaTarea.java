@@ -196,11 +196,21 @@ public class EntregaTarea extends javax.swing.JFrame {
         });
         pnlGris.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 150, -1));
 
-        btnEliminar.setText("ELIMINAR");
-        pnlGris.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 490, 150, -1));
+        btnEliminar.setText("GUARDAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        pnlGris.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 490, 150, -1));
 
         btnModificar.setText("MODIFICAR");
-        pnlGris.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 150, -1));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        pnlGris.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -354,6 +364,25 @@ public class EntregaTarea extends javax.swing.JFrame {
         new LoginPrincipal().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalir1ActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+
+        detalleTarea.getTareaEstudiante1().setNombreArchivo(txtNombreTarea.getText());
+        detalleTarea.getTareaEstudiante1().setLink(txtLink.getText());
+        if (detalleTarea.marge(detalleTarea.getTareaEstudiante1(), tblMostrarDatos.getSelectedRow())) {
+                JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+                detalleTarea.setTareaEstudiante1(null);
+                Limpiar();
+                publicar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+            }
+    
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        GuardarTarea();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -152,6 +152,7 @@ public class CalificarTarea extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        btnSeleccionar1 = new javax.swing.JButton();
         pnlAzul = new org.edisoncor.gui.panel.PanelImage();
         jLabel4 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -228,6 +229,14 @@ public class CalificarTarea extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("TAREAS ENVIADAS");
         pnlGris.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, -1, -1));
+
+        btnSeleccionar1.setText("SELECCIONAR");
+        btnSeleccionar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionar1ActionPerformed(evt);
+            }
+        });
+        pnlGris.add(btnSeleccionar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         getContentPane().add(pnlGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 480, 533));
 
@@ -323,6 +332,10 @@ public class CalificarTarea extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSeleccionar4ActionPerformed
 
+    private void btnSeleccionar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionar1ActionPerformed
+       cargarVista();
+    }//GEN-LAST:event_btnSeleccionar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -360,6 +373,7 @@ public class CalificarTarea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton btnSeleccionar1;
     private javax.swing.JButton btnSeleccionar4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
